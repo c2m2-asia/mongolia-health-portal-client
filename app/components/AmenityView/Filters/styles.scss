@@ -1,0 +1,30 @@
+.filterItem {
+  width: 100%;
+}
+
+.filterContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filterContainer > div {
+  flex: 0 50%;
+  box-sizing: border-box;
+}
+
+.parent-pop {
+  width: 50rem;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 0;
+}
+
+.popdiv {
+  flex: 0 33%;
+  box-sizing: border-box;
+}
+
+// .simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+//     background-color: #252525;
+// }

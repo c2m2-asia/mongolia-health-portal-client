@@ -1,0 +1,22 @@
+{
+  "app.containers.HomePage.header": "",
+  "app.containers.HomePage.browse": "үзэх",
+  "app.containers.HomePage.title": "монголын эрүүл мэндийн портал",
+  "app.components.NavBar.projectTitle": "Монголын эрүүл мэндийн портал",
+  "app.containers.NotFoundPage.header": "энэ нь олдоогүй хуудасны контейнер юм",
+  "app.components.Languagetesting.header": "энэ нь олдоогүй хуудасны контейнер юм",
+  "app.components.Map.filtersDescription": "Эрүүл мэндийн үйлчилгээнд шүүлтүүр хэрэглэхийн тулд тухайн шүүлтүүрээс шүүлтүүрийг сонгоно уу. Хэрэглэх товчийг дарахад л шүүлтүүрийг ашиглах болно.",
+  "app.components.Map.dialogHeader": "Шүүлтүүрийг ашиглах",
+  "app.components.Map.apply": "хэрэглэх",
+  "app.components.Map.cancel": "цуцлах",
+  "app.components.Filters.browseHospitals": "Эмнэлгүүдийг үзэх",
+  "app.components.Filters.browsePharmacies": "Эмийн санг үзэх",
+  "app.components.Filters.hospitalsFound": "эмнэлгүүд олдсон",
+  "app.components.Filters.pharmaciesFound": "эмийн сан олдсон",
+  "app.components.Filters.type": "Төрөл",
+  "app.components.Filters.wheelchairAccess": "Тэргэнцрийн тэргэнцрийг үзэх",
+  "app.components.Filters.categories": "Ангилалууд",
+  "app.components.Filters.operatedBy": "Ажилладаг",
+  "app.components.Filters.operatingHours": "Ажиллах цаг",
+  "app.components.ServiceDetailView.reviews": "Тойм"
+}
