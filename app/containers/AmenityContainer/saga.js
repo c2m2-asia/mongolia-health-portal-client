@@ -15,6 +15,9 @@ import {
   DOWNLOAD_DATA,
   DOWNLOAD_DATA_SUCCESS,
   DOWNLOAD_DATA_FAILURE,
+  FETCH_LOCATION,
+  FETCH_LOCATION_SUCCESS,
+  FETCH_LOCATION_FAILURE,
 } from './constants';
 import Api from './api';
 import { getPoiReviewsAction } from './actions';
@@ -116,10 +119,30 @@ function* downloadData(action) {
   }
 }
 
+function* fetchLocation() {
+  try {
+    const response = yield call(Api.fetchLocation);
+    if (response.status !== 200) {
+      yield put({
+        type: FETCH_LOCATION_FAILURE,
+        errorMessage: response.message,
+      });
+    } else {
+      yield put({
+        type: FETCH_LOCATION_SUCCESS,
+        payload: response.data,
+      });
+    }
+  } catch (error) {
+    yield put({ type: FETCH_LOCATION_FAILURE, errorMessage: error });
+  }
+}
+
 export default function* amenityContainerSaga() {
   yield takeLatest(GET_AMENITY_DETAIL, getAmenityDetail);
   yield takeLatest(FETCH_TAGS, fetchTags);
   yield takeLatest(GET_POI_REVIEWS, getPoiReviews);
   yield takeLatest(ADD_REVIEW, addReview);
   yield takeLatest(DOWNLOAD_DATA, downloadData);
+  yield takeLatest(FETCH_LOCATION, fetchLocation);
 }

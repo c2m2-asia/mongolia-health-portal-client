@@ -18,5 +18,6 @@
   "app.components.Filters.categories": "Ангилалууд",
   "app.components.Filters.operatedBy": "Ажилладаг",
   "app.components.Filters.operatingHours": "Ажиллах цаг",
-  "app.components.ServiceDetailView.reviews": "Тойм"
+  "app.components.ServiceDetailView.reviews": "Тойм",
+  "app.components.ResourcesView.resources":"нөөц"
 }

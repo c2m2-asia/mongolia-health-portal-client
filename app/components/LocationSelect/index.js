@@ -10,16 +10,13 @@ import clsx from 'clsx';
 
 // import styled from 'styled-components';
 import { uid } from 'react-uid';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+// import { FormattedMessage } from 'react-intl';
+// import messages from './messages';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { location } from './meta';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -39,6 +36,8 @@ function LocationSelect({
   filterState,
   getAmenityDetail,
   setBoundary,
+  location,
+  locale,
 }) {
   const classes = useStyles();
   const [province, setProvince] = React.useState('Ulaanbaatar');
@@ -115,7 +114,7 @@ function LocationSelect({
           {location[location.findIndex(x => x.id === province)].divisions.map(
             district => (
               <MenuItem key={uid(district)} value={district.id}>
-                {district.label}
+                {district.label[locale]}
               </MenuItem>
             ),
           )}
@@ -135,7 +134,7 @@ function LocationSelect({
               getIndex()
             ].divisions.map(khoroo => (
               <MenuItem key={uid(khoroo)} value={khoroo.id}>
-                {khoroo.label}
+                {khoroo.label[locale] || khoroo.label}
               </MenuItem>
             ))}
         </Select>
@@ -146,6 +145,11 @@ function LocationSelect({
 
 LocationSelect.propTypes = {
   getAmenityDetail: PropTypes.func,
+  amenityType: PropTypes.string,
+  filterState: PropTypes.array,
+  setBoundary: PropTypes.func,
+  location: PropTypes.array,
+  locale: PropTypes.string,
 };
 
 export default memo(LocationSelect);

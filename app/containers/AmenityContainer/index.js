@@ -15,7 +15,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import AmenityView from 'components/AmenityView';
 import makeSelectAmenityContainer from './selectors';
-import {makeSelectLocale} from '../LanguageProvider/selectors';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -25,6 +25,7 @@ import {
   getPoiReviewsAction,
   addReviewAction,
   downloadDataAction,
+  fetchLocationAction,
 } from './actions';
 
 export function AmenityContainer({
@@ -37,6 +38,7 @@ export function AmenityContainer({
   downloadData,
   fetchTags,
   localeContainer,
+  fetchLocation,
 }) {
   useInjectReducer({ key: 'amenityContainer', reducer });
   useInjectSaga({ key: 'amenityContainer', saga });
@@ -56,6 +58,8 @@ export function AmenityContainer({
       fetchTags={fetchTags}
       tags={amenityContainer.get('tags')}
       locale={localeContainer}
+      fetchLocation={fetchLocation}
+      locations={amenityContainer.get('locations')}
     />
   );
 }
@@ -94,6 +98,9 @@ function mapDispatchToProps(dispatch) {
     },
     downloadData: (amenity, filterState, location) => {
       dispatch(downloadDataAction(amenity, filterState, location));
+    },
+    fetchLocation: () => {
+      dispatch(fetchLocationAction());
     },
   };
 }

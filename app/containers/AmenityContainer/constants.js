@@ -29,3 +29,9 @@ export const DOWNLOAD_DATA_SUCCESS =
   'app/AmenityContainer/DOWNLOAD_DATA_SUCCESS';
 export const DOWNLOAD_DATA_FAILURE =
   'app/AmenityContainer/DOWNLOAD_DATA_FAILURE';
+
+export const FETCH_LOCATION = 'app/AmenityContainer/FETCH_LOCATION';
+export const FETCH_LOCATION_SUCCESS =
+  'app/AmenityContainer/FETCH_LOCATION_SUCCESS';
+export const FETCH_LOCATION_FAILURE =
+  'app/AmenityContainer/FETCH_LOCATION_FAILURE';

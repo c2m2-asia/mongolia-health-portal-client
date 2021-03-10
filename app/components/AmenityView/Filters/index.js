@@ -92,6 +92,8 @@ function Filters({
   amenityType,
   setAmenityType,
   tags,
+  locations,
+  locale,
 }) {
   const classes = useStyles();
   const [tabIndex, setTabIndex] = useState(0);
@@ -158,8 +160,9 @@ function Filters({
       <Grid
         item
         lg={3}
+        md={12}
+        sm={12}
         xs={12}
-        md={3}
         style={{
           paddingRight: '1.5rem',
           height: '100%',
@@ -248,6 +251,8 @@ function Filters({
               amenityType={tabIndex === 1 ? 'pharmacies' : 'healthServices'}
               filterState={filterState}
               setBoundary={setBoundary}
+              location={locations}
+              locale={locale}
             />
           </div>
 

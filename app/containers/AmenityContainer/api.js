@@ -73,12 +73,21 @@ const downloadData = ({ amenity, filterState, location }) =>
     }),
   }).then(parseJSON);
 
+const fetchLocation = () =>
+  fetch(`${BASE_URL}/location`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(parseJSON);
+
 const Api = {
   getAmenityDetail,
   fetchTags,
   getPoiReviews,
   addReview,
   downloadData,
+  fetchLocation,
 };
 
 export default Api;

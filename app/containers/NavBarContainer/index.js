@@ -25,17 +25,14 @@ export function NavBarContainer({ locale, onLocaleToggle }) {
   useInjectReducer({ key: 'navBar}Container', reducer });
   useInjectSaga({ key: 'navBarContainer', saga });
 
-  return (
-    <div>
-      <NavBar locale={locale} onLocaleToggle={onLocaleToggle} />
-    </div>
-  );
+  return <NavBar locale={locale} onLocaleToggle={onLocaleToggle} />;
 }
 
 NavBarContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
   locale: PropTypes.string,
   onLocaleToggle: PropTypes.func,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createSelector(

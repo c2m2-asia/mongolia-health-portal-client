@@ -26,6 +26,7 @@ function* searchPoi(action) {
     yield put({ type: SEARCH_POI_FAILURE, errorMessage: error });
   }
 }
+
 export default function* searchContainerSaga() {
   yield takeLatest(SEARCH_POI, searchPoi);
 }

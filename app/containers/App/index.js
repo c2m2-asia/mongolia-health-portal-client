@@ -24,7 +24,7 @@ import GlobalStyle from '../../global-styles';
 export default function App() {
   return (
     <div>
-      <NavBarContainer />
+      <NavBarContainer/>
       <Switch>
         <Route exact path="/" component={AmenityContainer} />
         <Route exact path="/about" component={HomePage} />

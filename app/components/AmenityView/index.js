@@ -29,6 +29,8 @@ function AmenityView({
   downloadData,
   tags,
   locale,
+  fetchLocation,
+  locations,
 }) {
   const [isShowFilter, setIsShowFilter] = useState(true);
   const [selectedService, setSelectedService] = useState(null);
@@ -39,6 +41,7 @@ function AmenityView({
   useEffect(() => {
     const timer = setTimeout(() => {
       getAmenityDetail('healthServices', [], { city: 'Ulaanbaatar' });
+      fetchLocation();
       fetchTags();
     }, 500);
     return () => clearTimeout(timer);
@@ -140,9 +143,17 @@ function AmenityView({
           location={location}
           setAmenityType={setAmenityType}
           tags={tags}
+          locations={locations}
+          locale={locale}
         />
       )}
-      <Grid item lg={isShowFilter ? 9 : 8} xs={12} md={isShowFilter ? 9 : 8}>
+      <Grid
+        item
+        lg={isShowFilter ? 9 : 8}
+        md={isShowFilter ? 9 : 8}
+        xs={12}
+        sm={12}
+      >
         {amenityDetail && (
           <Map
             loading={loading}
@@ -199,6 +210,7 @@ AmenityView.propTypes = {
   isReviewAdded: PropTypes.bool,
   tags: PropTypes.array,
   locale: PropTypes.string,
+  fetchLocation: PropTypes.func,
 };
 
 export default memo(AmenityView);

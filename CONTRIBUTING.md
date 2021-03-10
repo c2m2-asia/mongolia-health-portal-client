@@ -1,14 +1,10 @@
 # Contributing to react-boilerplate
 
-Love react-boilerplate and want to help? Thanks so much, there's something to do for everybody!
-
-Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
-
 Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue or assessing patches and features.
 
 ## Using the issue tracker
 
-The [issue tracker](https://github.com/react-boilerplate/react-boilerplate/issues) is
+The [issue tracker](https://github.com/c2m2-asia/mongolia-health-portal-client/issues) is
 the preferred channel for [bug reports](#bugs), [features requests](#features)
 and [submitting pull requests](#pull-requests).
 
@@ -87,11 +83,6 @@ project's developers might not want to merge into the project.
 Please adhere to the coding conventions used throughout a project (indentation,
 accurate comments, etc.) and any other requirements (such as test coverage).
 
-Since the `master` branch is what people actually use in production, we have a
-`dev` branch that unstable changes get merged into first. Only when we
-consider that stable we merge it into the `master` branch and release the
-changes for real.
-
 Adhering to the following process is the best way to get your work
 included in the project:
 
@@ -99,45 +90,38 @@ included in the project:
 
     ```bash
     # Clone your fork of the repo into the current directory
-    git clone https://github.com/<your-username>/react-boilerplate.git
+    git clone https://github.com/<your-username>/mongolia-health-portal-client.git
     # Navigate to the newly cloned directory
-    cd react-boilerplate
+    cd mongolia-health-portal-client
     # Assign the original repo to a remote called "upstream"
-    git remote add upstream https://github.com/react-boilerplate/react-boilerplate.git
+    git remote add upstream https://github.com/c2m2-asia/mongolia-health-portal-client.git
     ```
 
-2.  If you cloned a while ago, get the latest changes from upstream:
-
-    ```bash
-    git checkout dev
-    git pull upstream dev
-    ```
-
-3.  Create a new topic branch (off the `dev` branch) to contain your feature, change, or fix:
+2.  Create a new topic branch (off the `main` branch) to contain your feature, change, or fix:
 
     ```bash
     git checkout -b <topic-branch-name>
     ```
 
-4.  Commit your changes in logical chunks. Please adhere to these [git commit message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) or your code is unlikely be merged into the main project. Use Git's [interactive rebase](https://help.github.com/articles/about-git-rebase/) feature to tidy up your commits before making them public.
+3.  Commit your changes in logical chunks. Please adhere to these [git commit message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) or your code is unlikely be merged into the main project. Use Git's [interactive rebase](https://help.github.com/articles/about-git-rebase/) feature to tidy up your commits before making them public.
 
-5.  Locally merge (or rebase) the upstream dev branch into your topic branch:
+4.  Locally merge (or rebase) the upstream dev branch into your topic branch:
 
     ```bash
-    git pull [--rebase] upstream dev
+    git pull [--rebase] upstream main
     ```
 
-6.  Push your topic branch up to your fork:
+5.  Push your topic branch up to your fork:
 
     ```bash
     git push origin <topic-branch-name>
     ```
 
-7.  [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
+6.  [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
     with a clear title and description.
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project
-owners to license your work under the terms of the [MIT License](https://github.com/react-boilerplate/react-boilerplate/blob/master/LICENSE.md).
+owners to license your work under the terms of the [MIT License](https://github.com/c2m2-asia/mongolia-health-portal-client/blob/main/LICENSE.md).
 
 # Collaborating guidelines
 

@@ -17,6 +17,9 @@ import {
   ADD_REVIEW,
   ADD_REVIEW_SUCCESS,
   ADD_REVIEW_FAILURE,
+  FETCH_LOCATION,
+  FETCH_LOCATION_SUCCESS,
+  FETCH_LOCATION_FAILURE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -27,6 +30,7 @@ export const initialState = fromJS({
   reviews: null,
   isReviewAdded: false,
   tags: null,
+  locations: null,
 });
 
 const amenityContainerReducer = (state = initialState, action) => {
@@ -65,6 +69,15 @@ const amenityContainerReducer = (state = initialState, action) => {
     case ADD_REVIEW_FAILURE:
       return state
         .set('isReviewAdded', false)
+        .set('errorMessage', action.errorMessage);
+
+    case FETCH_LOCATION:
+      return state.set('loading', false);
+    case FETCH_LOCATION_SUCCESS:
+      return state.set('loading', true).set('locations', action.payload);
+    case FETCH_LOCATION_FAILURE:
+      return state
+        .set('loading', false)
         .set('errorMessage', action.errorMessage);
     default:
       return state;
