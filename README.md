@@ -38,6 +38,8 @@ This project is a part of the C2M2 project and following are its partners.
 
 <a href="https://www.publiclabmongolia.org/" target="_blank"><img src="https://www.publiclabmongolia.org/wp-content/uploads/2019/11/cropped-logo-design-public-1-100x103.png" height="80" width="80"></a>
 <a href="http://www.kathmandulivinglabs.org/" target="_blank"><img src="https://avatars.githubusercontent.com/u/5390948?s=280&v=4" height="80" width="80"></a>
+<a href="https://www.state.gov/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Seal_of_the_United_States_Department_of_State.svg/1024px-Seal_of_the_United_States_Department_of_State.svg.png" height="80" width="80"></a>
+<a href="https://www.colostate.edu/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Colorado_State_Rams_logo.svg/1200px-Colorado_State_Rams_logo.svg.png" height="80" width="80"></a>
 
 ## License
 

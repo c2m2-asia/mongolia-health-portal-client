@@ -18,44 +18,6 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import 'intro.js/introjs.css';
 
-const steps = [
-  {
-    element: '.selector1',
-    intro: <FormattedMessage {...messages.introFilter} />,
-    position: 'right',
-    tooltipClass: 'myTooltipClass',
-    highlightClass: 'myHighlightClass',
-  },
-  {
-    element: '.selector2',
-    intro: <FormattedMessage {...messages.introAmenity} />,
-  },
-  {
-    element: '.selector3',
-    intro: <FormattedMessage {...messages.introLocation} />,
-  },
-  {
-    element: '.selector4',
-    intro: <FormattedMessage {...messages.introOtherFilters} />,
-  },
-  {
-    element: '.selector5',
-    intro: <FormattedMessage {...messages.introShow} />,
-  },
-  {
-    element: '.selector6',
-    intro: <FormattedMessage {...messages.introMap} />,
-  },
-  {
-    element: '.selector7',
-    intro: <FormattedMessage {...messages.introSearch} />,
-  },
-  {
-    element: '.selector8',
-    intro: <FormattedMessage {...messages.introDownload} />,
-  },
-];
-
 const useStyles = makeStyles(theme => ({
   list: {
     width: 250,
@@ -83,6 +45,68 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
   const [selectedIndex, setSelectedIndex] = React.useState('');
   const [isTourEnabled, setIsTourEnabled] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const steps = [
+    {
+      element: '.selector1',
+      intro:
+        locale === 'en'
+          ? 'This is the filter selection section.'
+          : 'Энэ хэсэгт сонголтоор хайлт хийнэ',
+      position: 'right',
+      tooltipClass: 'myTooltipClass',
+      highlightClass: 'myHighlightClass',
+    },
+    {
+      element: '.selector2',
+      intro:
+        locale === 'en'
+          ? 'You can select either health services or pharmacies.'
+          : 'Эрүүл мэндийн үйлчилгээ эсвэл эмийн сангаар хайж болно',
+    },
+    {
+      element: '.selector3',
+      intro:
+        locale === 'en'
+          ? 'Select the desired location.'
+          : 'Хайлт хийх газраа сонгоно',
+    },
+    {
+      element: '.selector4',
+      intro:
+        locale === 'en'
+          ? 'Select filters related to speciality, wheelchair access, categories, operator type or operating hours. Scroll down to see others filters.'
+          : 'Нарийн мэргэжил, тэргэнцэртэй иргэдэд хүртээмжтэй эсэх, үйлчилгээний төрөл, ажиллах цагаар хайх. Доош гүйлгэж бусад сонголтыг харах',
+    },
+    {
+      element: '.selector5',
+      intro:
+        locale === 'en'
+          ? "Once you've selected the filters, click here to apply the filters you've selected"
+          : 'Шүүлтүүрийг сонгосны дараа энд дарж сонгосон шүүлтүүрээ ашиглана уу',
+    },
+    {
+      element: '.selector6',
+      intro:
+        locale === 'en'
+          ? 'The map shows all the POIs that fall under the applied filters. Click on any location marker to view its detail.'
+          : 'Энэ хэсэгт хайлтын сонголтод тохирсон эрүүл мэндийн үйлчилгээнүүд харагдана. Үйлчилгээн дээр дарж дэлгэрэнгүй мэдээллийг харах.',
+    },
+    {
+      element: '.selector7',
+      intro:
+        locale === 'en'
+          ? 'Type your query here to search for keywords.'
+          : 'Энэ хэсэгт түлхүүр үгээр хайлт хийнэ',
+    },
+    {
+      element: '.selector8',
+      intro:
+        locale === 'en'
+          ? 'Download the data displayed in the map by clicking this download button.'
+          : 'Хайлтаар гарч ирсэн мэдээллийг энэ товчин дээр дарж татаж авна',
+    },
+  ];
 
   const handleLanguageClick = event => {
     setAnchorEl(event.currentTarget);
@@ -217,10 +241,10 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               initialStep={0}
               onExit={() => setIsTourEnabled(false)}
               options={{
-                nextLabel: 'Next',
-                prevLabel: 'Prev',
-                skipLabel: 'Skip',
-                doneLabel: 'Done',
+                nextLabel: locale === 'en' ? 'Next' : 'Дараачийн',
+                prevLabel: locale === 'en' ? 'Previous' : 'Өмнөх',
+                skipLabel: locale === 'en' ? 'Skip' : 'Алгасах',
+                doneLabel: locale === 'en' ? 'Done' : 'Дууссан',
                 scrollToElement: false,
                 showStepNumbers: false,
               }}
