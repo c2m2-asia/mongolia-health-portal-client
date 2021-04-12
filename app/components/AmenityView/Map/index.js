@@ -152,6 +152,9 @@ class Map extends React.Component {
       selectedService,
       getSelectedServiceId,
     } = this;
+    const { locale } = this.props;
+
+    console.log('locale>>>', locale);
 
     const iconOptions = amenity => {
       return L.icon({
@@ -175,14 +178,22 @@ class Map extends React.Component {
       },
 
       onEachFeature(feature, layer) {
+        const clickDesc =
+          locale === 'en'
+            ? '<i>(name unavailable)</i><br/><span class="leaflet-tooltip-text">Click icon for more details</span>'
+            : '<i>(name unavailable)</i><br/><span class="leaflet-tooltip-text">Дэлгэрэнгүй мэдээллийг дүрс дээр дарна уу</span>';
         layer.on('mouseover', () => {
           layer
             .bindTooltip(
               feature.properties.tags.name === undefined
-                ? '<i>(name unavailable)</i><br/><span class="leaflet-tooltip-text">Click icon for more details</span>'
+                ? clickDesc
                 : `${
                     feature.properties.tags.name
-                  }<br/><span class="leaflet-tooltip-text">Click icon for more details</span>`,
+                  }<br/><span class="leaflet-tooltip-text">${
+                    locale === 'en'
+                      ? 'Click icon for more details'
+                      : 'Дэлгэрэнгүй мэдээллийг дүрс дээр дарна уу'
+                  }</span>`,
               { direction: 'top' },
             )
             .openTooltip();
@@ -363,6 +374,7 @@ Map.propTypes = {
   downloadData: PropTypes.func,
   showFilters: PropTypes.func,
   amenityType: PropTypes.string,
+  locale: PropTypes.string,
 };
 
 export default memo(Map);

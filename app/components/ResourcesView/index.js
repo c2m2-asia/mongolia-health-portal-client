@@ -22,16 +22,22 @@ function ResourcesView({ fetchResources, resources }) {
 
   return (
     <div className="container">
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h4" gutterBottom style={{ paddingTop: '6vh' }}>
         <FormattedMessage {...messages.resources} />
       </Typography>
-      {resources &&
-        resources.map(resource => (
-          <div>
-            {resource.title}
-            {resource.description}
-          </div>
-        ))}
+      {
+        // resources &&
+        // resources.map(resource => (
+        //   <div>
+        //     {resource.title}
+        //     {resource.description}
+        //   </div>
+        // ))
+      }
+
+      <div className="text-muted">
+        <FormattedMessage {...messages.resourcesDesc} />
+      </div>
     </div>
   );
 }

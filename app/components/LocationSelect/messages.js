@@ -13,4 +13,20 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the LocationSelect component!',
   },
+  province: {
+    id: `${scope}.province`,
+    defaultMessage: 'Province',
+  },
+  district: {
+    id: `${scope}.district`,
+    defaultMessage: 'District',
+  },
+  khoroo: {
+    id: `${scope}.khoroo`,
+    defaultMessage: 'Khoroo',
+  },
+  all: {
+    id: `${scope}.all`,
+    defaultMessage: 'All',
+  },
 });

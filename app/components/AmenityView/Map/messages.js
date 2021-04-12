@@ -30,4 +30,8 @@ export default defineMessages({
     id: `${scope}.cancel`,
     defaultMessage: 'Cancel',
   },
+  clickIcon: {
+    id: `${scope}.clickIcon`,
+    defaultMessage: 'Click icon for more details',
+  },
 });

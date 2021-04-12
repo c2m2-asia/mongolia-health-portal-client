@@ -52,5 +52,53 @@ export default defineMessages({
   selectLocation: {
     id: `${scope}.selectLocation`,
     defaultMessage: 'Select location',
-  }
+  },
+  close: {
+    id: `${scope}.close`,
+    defaultMessage: 'Close',
+  },
+  showMore: {
+    id: `${scope}.showMore`,
+    defaultMessage: 'Show More',
+  },
+  showLess: {
+    id: `${scope}.showLess`,
+    defaultMessage: 'Show Less',
+  },
+  any: {
+    id: `${scope}.any`,
+    defaultMessage: 'Any',
+  },
+  filtersBeingApplied: {
+    id: `${scope}.filtersBeingApplied`,
+    defaultMessage: 'Filters being applied:',
+  },
+  reset: {
+    id: `${scope}.reset`,
+    defaultMessage: 'Reset',
+  },
+  apply: {
+    id: `${scope}.apply`,
+    defaultMessage: 'Apply',
+  },
+  values: {
+    id: `${scope}.values`,
+    defaultMessage: 'Values',
+  },
+  none: {
+    id: `${scope}.none`,
+    defaultMessage: 'None',
+  },
+  filters: {
+    id: `${scope}.filters`,
+    defaultMessage: 'Filters',
+  },
+  healthServices: {
+    id: `${scope}.healthServices`,
+    defaultMessage: 'Health Services',
+  },
+  pharmacies: {
+    id: `${scope}.pharmacies`,
+    defaultMessage: 'Pharmacies',
+  },
 });

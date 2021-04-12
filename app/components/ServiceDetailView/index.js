@@ -120,7 +120,11 @@ function ServiceDetailView({
     // console.log('yesyeysad');
     history.push({
       pathname: '/edit',
-      state: { amenityData: data, type: serviceDetail.properties.tags.amenity },
+      state: {
+        amenityData: data,
+        type: serviceDetail.properties.tags.amenity,
+        locale,
+      },
     });
   };
 
@@ -180,7 +184,7 @@ function ServiceDetailView({
                 {serviceDetail.properties.tags.name}
               </Typography>
             </div>
-            <Tooltip title="Back to browsing">
+            <Tooltip title={<FormattedMessage {...messages.backToBrowsing} />}>
               <IconButton
                 style={{ padding: '0' }}
                 color="primary"
@@ -206,12 +210,13 @@ function ServiceDetailView({
             />
             <div>&middot;</div>
             <span className="text-muted">
-              {reviews && reviews.data.length} reviews
+              {reviews && reviews.data.length}{' '}
+              <FormattedMessage {...messages.reviews} />
             </span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
             <div className="pb-2 pt-1">
-              <Tooltip title="View in OSM">
+              <Tooltip title={<FormattedMessage {...messages.viewInOSM} />}>
                 <IconButton
                   style={{ padding: '0' }}
                   onClick={() =>
@@ -230,7 +235,9 @@ function ServiceDetailView({
             </div>
             {serviceDetail.properties.tags['contact:facebook'] && (
               <div className="pb-2 pt-1">
-                <Tooltip title="Visit Facebook">
+                <Tooltip
+                  title={<FormattedMessage {...messages.visitFacebook} />}
+                >
                   <IconButton
                     style={{ padding: '0' }}
                     onClick={() =>
@@ -309,7 +316,7 @@ function ServiceDetailView({
                 startIcon={<EditLocationIcon />}
                 onClick={() => onEdit(serviceDetail)}
               >
-                Suggest an edit
+                <FormattedMessage {...messages.suggestAnEdit} />
               </Button>
             </div>
 
@@ -330,7 +337,9 @@ function ServiceDetailView({
                 }}
               >
                 {reviews && reviews.data.length === 0 && (
-                  <span className="text-muted">No reviews found</span>
+                  <span className="text-muted">
+                    <FormattedMessage {...messages.noReviewsFound} />
+                  </span>
                 )}
                 {reviews &&
                   reviews.data.map(review => (
@@ -392,6 +401,7 @@ function ServiceDetailView({
                 id={serviceDetail.properties.id}
                 specialities={specialities}
                 amenityType={amenityType}
+                locale={locale}
               />
             </div>
           </SimpleBarReact>

@@ -17,4 +17,9 @@ export default defineMessages({
     id: `${scope}.resources`,
     defaultMessage: 'Resources',
   },
+  resourcesDesc: {
+    id: `${scope}.resourcesDesc`,
+    defaultMessage:
+      'Nothing to show currently. Keep checking for useful notices/resources on health services',
+  },
 });

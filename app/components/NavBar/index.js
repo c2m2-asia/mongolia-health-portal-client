@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { uid } from 'react-uid';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -18,8 +17,6 @@ import { Steps } from 'intro.js-react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import 'intro.js/introjs.css';
-
-import history from 'utils/history';
 
 const steps = [
   {
@@ -85,10 +82,7 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState('');
   const [isTourEnabled, setIsTourEnabled] = React.useState(false);
-  const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
-  console.log('this...', history);
 
   const handleLanguageClick = event => {
     setAnchorEl(event.currentTarget);
@@ -166,8 +160,6 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
     </div>
   );
 
-  console.log('history>>>>', history);
-
   return (
     <div>
       <AppBar
@@ -182,6 +174,11 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
           </Typography>
 
           <div style={{ display: 'flex', flexDirection: 'row', gap: '0.8rem' }}>
+            <NavLink to="/" style={{ textDecoration: 'none' }}>
+              <Button color="secondary">
+                <FormattedMessage {...messages.home} />
+              </Button>
+            </NavLink>
             <Button
               color="secondary"
               startIcon={<TranslateIcon />}
@@ -212,7 +209,7 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
             </Menu>
 
             <Button color="secondary" onClick={() => setIsTourEnabled(true)}>
-              How to use
+              <FormattedMessage {...messages.howToUse} />
             </Button>
             <Steps
               enabled={isTourEnabled}
@@ -229,10 +226,14 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               }}
             />
             <NavLink to="/resources" style={{ textDecoration: 'none' }}>
-              <Button color="secondary">Resources</Button>
+              <Button color="secondary">
+                <FormattedMessage {...messages.resources} />
+              </Button>
             </NavLink>
-            <NavLink to="/" style={{ textDecoration: 'none' }}>
-              <Button color="secondary">about</Button>
+            <NavLink to="/about" style={{ textDecoration: 'none' }}>
+              <Button color="secondary">
+                <FormattedMessage {...messages.about} />
+              </Button>
             </NavLink>
           </div>
         </Toolbar>

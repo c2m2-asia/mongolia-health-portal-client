@@ -18,6 +18,7 @@ import OsmAuthRedirect from 'components/OsmAuthRedirect';
 import AmenityContainer from 'containers/AmenityContainer';
 import EditContainer from 'containers/EditContainer';
 import EditContentContainer from 'containers/EditContentContainer';
+import ResourcesContainer from 'containers/ResourcesContainer/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
@@ -33,6 +34,7 @@ export default function App() {
         <Route exact path="/osmauthredirect" component={OsmAuthRedirect} />
         <Route exact path="/edit" component={EditContainer} />
         <Route exact path="/edit-content" component={EditContentContainer} />
+        <Route exact path="/resources" component={ResourcesContainer} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

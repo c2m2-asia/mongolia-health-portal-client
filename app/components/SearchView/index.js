@@ -21,7 +21,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Chip from '@material-ui/core/Chip';
 // import styled from 'styled-components';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl, injectIntl, intlShape } from 'react-intl';
 import messages from './messages';
 
 const useStyles = makeStyles(theme => ({
@@ -45,6 +45,7 @@ function SearchView({
   setIsShowFilter,
   selectedServiceSet,
   amenityType,
+  intl,
 }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(null);
@@ -53,6 +54,10 @@ function SearchView({
   useEffect(() => {
     setOptions(searchResults);
   }, [searchResults]);
+
+
+
+  
 
   return (
     <React.Fragment>
@@ -82,7 +87,7 @@ function SearchView({
           <TextField
             {...params}
             className={clsx(classes.root, 'selector7')}
-            placeholder="Search..."
+            placeholder={intl.formatMessage(messages.search)}
             variant="outlined"
             InputProps={{
               ...params.InputProps,
@@ -148,6 +153,7 @@ SearchView.propTypes = {
   searchResults: PropTypes.array,
   onSearchResultSelect: PropTypes.func,
   showFilters: PropTypes.func,
+  intl: intlShape.isRequired,
 };
 
-export default memo(SearchView);
+export default memo(injectIntl(SearchView));

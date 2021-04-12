@@ -14,6 +14,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import cloneDeep from 'lodash.clonedeep';
 import ConfirmationDialog from './Confirmation';
 import OsmAuth from './utils/OAuth';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 
 const auth = new OsmAuth();
 
@@ -218,14 +220,30 @@ class EditForm extends Component {
   }
 
   render() {
-    console.log("this.props.type", this.props.type)
+    console.log('this.props.type', this.props.type);
+    const notLoggedInLocale =
+      this.props.locale === 'en'
+        ? 'You are not logged in to OSM currently.'
+        : 'Та одоогоор OSM-д нэвтрээгүй байна.';
+    const clickHereToLogin =
+      this.props.locale === 'en'
+        ? 'Click here to login'
+        : 'Нэвтрэхийн тулд энд дарна уу';
+        const clickHereToLogout =
+          this.props.locale === 'en'
+            ? 'Click here to logout'
+            : 'Гарах бол энд дарна уу';
+    const loggedInLocale =
+      this.props.locale === 'en'
+        ? 'You are logged in as'
+        : 'Та нэвтэрсэн байна';
     const loggedInStateText =
       this.state.loggedInUser == null
-        ? 'You are not logged in to OSM currently.'
-        : `You are logged in as ${this.state.loggedInUser.display_name}.`;
+        ? notLoggedInLocale
+        : `${loggedInLocale} ${this.state.loggedInUser.display_name}.`;
     const loggedInStateLinkText =
       this.state.loggedInUser == null
-        ? 'Click here to login'
+        ? clickHereToLogin
         : 'Click here to logout';
     const loggedInStateAction =
       this.state.loggedInUser == null ? this.osmLogin : this.osmLogout;
@@ -264,7 +282,8 @@ class EditForm extends Component {
                     />
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-helper-label">
-                        {item.label}
+                        {item.labelLocale[this.props.locale] ||
+                          item.labelLocale['en']}
                       </InputLabel>
                       <Select
                         fullWidth
@@ -275,7 +294,8 @@ class EditForm extends Component {
                       >
                         {item.selectors.map(menuItem => (
                           <MenuItem value={menuItem.osm_value}>
-                            {menuItem.label}
+                            {menuItem.labelLocale[this.props.locale] ||
+                              menuItem.labelLocale['en']}
                           </MenuItem>
                         ))}
                       </Select>
@@ -362,7 +382,7 @@ class EditForm extends Component {
         <div className="pl-2 pr-2 pb-3 pt-3">
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <Button variant="contained" fullWidth>
-              Cancel
+              <FormattedMessage {...messages.cancel} />
             </Button>
           </NavLink>
         </div>
@@ -374,7 +394,7 @@ class EditForm extends Component {
             fullWidth
             onClick={() => this.onBeforeSubmit()}
           >
-            Submit Changes
+            <FormattedMessage {...messages.submitChanges} />
           </Button>
           <ConfirmationDialog
             title="Confirm data submission"

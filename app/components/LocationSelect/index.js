@@ -10,8 +10,8 @@ import clsx from 'clsx';
 
 // import styled from 'styled-components';
 import { uid } from 'react-uid';
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -88,12 +88,14 @@ function LocationSelect({
         variant="outlined"
         className={clsx(classes.formControl, 'selector3')}
       >
-        <InputLabel id="demo-simple-select-outlined-label">Province</InputLabel>
+        <InputLabel id="demo-simple-select-outlined-label">
+          <FormattedMessage {...messages.province} />
+        </InputLabel>
 
         <Select
           value={province}
           onChange={handleProvinceChange}
-          label="Province"
+          label={<FormattedMessage {...messages.province} />}
         >
           {location.map(province => (
             <MenuItem key={uid(province)} value={province.id}>
@@ -103,14 +105,18 @@ function LocationSelect({
         </Select>
       </FormControl>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">District</InputLabel>
+        <InputLabel id="demo-simple-select-outlined-label">
+          <FormattedMessage {...messages.district} />
+        </InputLabel>
         <Select
           disabled={!province}
           value={district}
           onChange={handleDistrictChange}
-          label="District"
+          label={<FormattedMessage {...messages.district} />}
         >
-          <MenuItem value="*">All</MenuItem>
+          <MenuItem value="*">
+            <FormattedMessage {...messages.all} />
+          </MenuItem>
           {location[location.findIndex(x => x.id === province)].divisions.map(
             district => (
               <MenuItem key={uid(district)} value={district.id}>
@@ -121,14 +127,18 @@ function LocationSelect({
         </Select>
       </FormControl>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Khoroo</InputLabel>
+        <InputLabel id="demo-simple-select-outlined-label">
+          <FormattedMessage {...messages.khoroo} />
+        </InputLabel>
         <Select
           disabled={district === '*'}
           value={khoroo}
           onChange={handleKhorooChange}
-          label="Khoroo"
+          label={<FormattedMessage {...messages.khoroo} />}
         >
-          <MenuItem value="*">All</MenuItem>
+          <MenuItem value="*">
+            <FormattedMessage {...messages.all} />
+          </MenuItem>
           {district !== '*' &&
             location[location.findIndex(x => x.id === province)].divisions[
               getIndex()

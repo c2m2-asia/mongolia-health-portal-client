@@ -18,8 +18,6 @@ function EditView({ history, location, fetchTags, tags }) {
     return () => clearTimeout(timer);
   }, []);
 
-  console.log(tags);
-
   return (
     <Grid container>
       {location.state === undefined && <div>No POI found</div>}
@@ -41,6 +39,7 @@ function EditView({ history, location, fetchTags, tags }) {
                     : 'healthService'
                 }
                 tags={tags}
+                locale={location.state.locale}
               />
             )}
           </Grid>

@@ -155,6 +155,8 @@ function Filters({
     return checker;
   };
 
+  console.log('tags???', tags);
+
   return (
     <React.Fragment>
       <Grid
@@ -222,7 +224,7 @@ function Filters({
                   wrapper: classes.wrapper,
                 }}
                 disableRipple
-                label="Health Services"
+                label={<FormattedMessage {...messages.healthServices}/>}
               />
               <Tab
                 classes={{
@@ -230,7 +232,7 @@ function Filters({
                   wrapper: classes.wrapper,
                 }}
                 disableRipple
-                label="Pharmacies"
+                label={<FormattedMessage {...messages.pharmacies}/>}
               />
             </Tabs>
           </div>
@@ -281,7 +283,7 @@ function Filters({
                         gutterBottom
                         style={{ color: '#252525', fontWeight: '600' }}
                       >
-                        {filterTag.label}
+                        {filterTag.labelLocale[locale]}
                       </Typography>
                       {filterTag.type === 'multi-select' && (
                         <div className="filterContainer" key={Math.random()}>
@@ -309,7 +311,10 @@ function Filters({
                                         color="primary"
                                       />
                                     }
-                                    label={menuItem.label}
+                                    label={
+                                      menuItem.labelLocale[locale] ||
+                                      menuItem.labelLocale['en']
+                                    }
                                     value={menuItem.osm_value.toLowerCase()}
                                   />
                                 </div>
@@ -324,7 +329,11 @@ function Filters({
                                 handleClickPopover(event, filterTag.osm_tag)
                               }
                             >
-                              {!showMore ? 'Show More' : 'Show Less'}
+                              {!showMore ? (
+                                <FormattedMessage {...messages.showMore} />
+                              ) : (
+                                <FormattedMessage {...messages.showLess} />
+                              )}
                             </Button>
                           )}
                           <Popover
@@ -364,7 +373,10 @@ function Filters({
                                         color="primary"
                                       />
                                     }
-                                    label={menuItem.label}
+                                    label={
+                                      menuItem.labelLocale[locale] ||
+                                      menuItem.labelLocale['en']
+                                    }
                                     value={menuItem.osm_value.toLowerCase()}
                                   />
                                 </div>
@@ -380,7 +392,7 @@ function Filters({
                                 background: 'rgb(105 111 255 / 6%)',
                               }}
                             >
-                              Close
+                              <FormattedMessage {...messages.close} />
                             </Button>
                           </Popover>
                         </div>
@@ -404,14 +416,17 @@ function Filters({
                               }
                             >
                               <MenuItem value="any">
-                                <em>Any</em>
+                                <em>
+                                  <FormattedMessage {...messages.any} />
+                                </em>
                               </MenuItem>
                               {filterTag.selectors.map(menuItem => (
                                 <MenuItem
                                   key={uid(menuItem)}
                                   value={menuItem.osm_value.toLowerCase()}
                                 >
-                                  {menuItem.label}
+                                  {menuItem.labelLocale[locale] ||
+                                    menuItem.labelLocale['en']}
                                 </MenuItem>
                               ))}
                             </Select>
@@ -442,7 +457,7 @@ function Filters({
               startIcon={<FilterListIcon />}
               onClick={handleFilterInfoPopoverOpen}
             >
-              Filters
+              <FormattedMessage {...messages.filters} />
               {filterState.length > 0 && (
                 <Badge
                   className="ml-3"
@@ -477,7 +492,7 @@ function Filters({
                 variant="subtitle2"
                 gutterBottom
               >
-                Filters being applied:
+                <FormattedMessage {...messages.filtersBeingApplied} />
               </Typography>
               {filterState && filterState.length > 0 && (
                 <TableContainer>
@@ -492,7 +507,7 @@ function Filters({
                           align="right"
                           component="th"
                         >
-                          Values
+                          <FormattedMessage {...messages.values} />
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -528,7 +543,9 @@ function Filters({
                 </TableContainer>
               )}
               {filterState.length === 0 && (
-                <Typography className="text-muted">None</Typography>
+                <Typography className="text-muted">
+                  <FormattedMessage {...messages.none} />
+                </Typography>
               )}
               <Button
                 color="primary"
@@ -539,7 +556,7 @@ function Filters({
                   background: 'rgb(105 111 255 / 6%)',
                 }}
               >
-                Close
+                <FormattedMessage {...messages.close} />
               </Button>
             </Popover>
 
@@ -558,7 +575,7 @@ function Filters({
                 );
               }}
             >
-              Reset
+              <FormattedMessage {...messages.reset} />
             </Button>
           </div>
           <div className="selector5">
@@ -576,7 +593,7 @@ function Filters({
                 )
               }
             >
-              Apply
+              <FormattedMessage {...messages.apply} />
             </Button>
           </div>
         </div>

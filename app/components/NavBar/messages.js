@@ -50,6 +50,27 @@ export default defineMessages({
   },
   introDownload: {
     id: `${scope}.introDownload`,
-    defaultMessage: 'Download data displayed in the map by clicking this download button.',
+    defaultMessage:
+      'Download data displayed in the map by clicking this download button.',
+  },
+  howToUse: {
+    id: `${scope}.howToUse`,
+    defaultMessage: 'How to Use',
+  },
+  resources: {
+    id: `${scope}.resources`,
+    defaultMessage: 'Resources',
+  },
+  about: {
+    id: `${scope}.about`,
+    defaultMessage: 'About',
+  },
+  home: {
+    id: `${scope}.home`,
+    defaultMessage: 'Home',
+  },
+  skip: {
+    id: `${scope}.skip`,
+    defaultMessage: 'Skip',
   },
 });

@@ -167,6 +167,7 @@ function AmenityView({
             filterState={filterState}
             location={location}
             amenityType={amenityType}
+            locale={locale}
           />
         )}
       </Grid>

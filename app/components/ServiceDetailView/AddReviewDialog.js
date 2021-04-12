@@ -12,7 +12,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import Rating from '@material-ui/lab/Rating';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Checkbox from '@material-ui/core/Checkbox';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import messages from './messages';
 // import OsmAuth from 'components/OSMAuth/OAuth';
 
@@ -24,12 +24,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function AddReviewDialog({
+function AddReviewDialog({
   addReview,
   name,
   id,
   specialities,
   amenityType,
+  locale,
+  intl,
 }) {
   const classes = useStyles();
   // const auth = new OsmAuth();
@@ -46,6 +48,8 @@ export default function AddReviewDialog({
   //   // Update the document title using the browser API
   //   checkOSMAuthentication();
   // }, []);
+
+  const placeholder = intl.formatMessage(messages.opinion) + ' ' + name
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -97,7 +101,7 @@ export default function AddReviewDialog({
         onClick={handleClickOpen}
         startIcon={<CreateIcon />}
       >
-        Add a review
+        <FormattedMessage {...messages.addAReview} />
       </Button>
       <Dialog
         open={open}
@@ -105,7 +109,7 @@ export default function AddReviewDialog({
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Add a review for <b>{name}</b>
+          <FormattedMessage {...messages.addAReviewFor} /> <b>{name}</b>
         </DialogTitle>
         <DialogContent style={{ overflowY: 'hidden' }}>
           {
@@ -141,8 +145,7 @@ export default function AddReviewDialog({
             // </div>
           }
           <DialogContentText>
-            To add a review, please fill in the following details, give rating
-            and click on the submit button.
+            <FormattedMessage {...messages.addAReviewDescription} />
           </DialogContentText>
           <div
             style={{
@@ -166,7 +169,7 @@ export default function AddReviewDialog({
                   required
                   fullWidth
                   id="outlined-basic"
-                  label="Your name"
+                  label={<FormattedMessage {...messages.yourName} />}
                   variant="outlined"
                   value={userName}
                   onChange={e => setUserName(e.target.value)}
@@ -200,7 +203,7 @@ export default function AddReviewDialog({
                     {...params}
                     variant="outlined"
                     name="service"
-                    label="What service did you get?"
+                    label={<FormattedMessage {...messages.whatService} />}
                   />
                 )}
               />
@@ -208,7 +211,7 @@ export default function AddReviewDialog({
             <TextField
               autoFocus
               variant="filled"
-              placeholder={`Write what you think about ${name} *`}
+              placeholder={placeholder}
               margin="dense"
               id="name"
               type="email"
@@ -228,7 +231,7 @@ export default function AddReviewDialog({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            <FormattedMessage {...messages.cancel} />
           </Button>
           <Button
             disabled={!comments || !rating || !(userName || isStayAnonymous)}
@@ -244,7 +247,7 @@ export default function AddReviewDialog({
             }}
             color="primary"
           >
-            Submit
+            <FormattedMessage {...messages.submit} />
           </Button>
         </DialogActions>
       </Dialog>
@@ -258,4 +261,7 @@ AddReviewDialog.propTypes = {
   id: PropTypes.number,
   specialities: PropTypes.array,
   amenityType: PropTypes.string,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(AddReviewDialog);

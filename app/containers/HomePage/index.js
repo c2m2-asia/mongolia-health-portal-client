@@ -11,9 +11,11 @@ import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import kllLogo from 'images/kll_logo.png';
 import plmLogo from 'images/plm-logo.png';
-
+import stateDepLogo from 'images/state_dep_logo.png';
+import coloradoUniLogo from 'images/colorado_logo.png';
 import browseScreenshot from 'images/browseScreenshot.png';
 import Typography from '@material-ui/core/Typography';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import messages from './messages';
 import './styles.scss';
 
@@ -26,25 +28,29 @@ export default function HomePage() {
             <FormattedMessage {...messages.title} />
           </b>
         </Typography>
-        <h5>Accumulating health services data with OpenStreetMap</h5>
+        <h5>
+          <FormattedMessage {...messages.osmAccumulation} />
+        </h5>
 
         <br />
         <br />
 
         <p className="light-text ">
-          Do you know where the closest hospital is from your home? Do you know
-          where you can easily access an ambulance from during an emergency
-          situation? Are you prepared?
+          <FormattedMessage {...messages.projectDesc} />
         </p>
 
         <p className="light-text ">
-          Mongolia Health Portal is the answer to these questions and more.
-          Public Lab Mongolia, the local partner of
-          C2M2 Mongolia project, with help from Kathmandu Living Labs,
-          has been spearheading the ground effort to produce robust geospatial
-          data for Mongolia following the COVID-19 impact. It is hoped that
-          the critical infrastructure information made open here plays an
-          integral part in keeping both yourself and your neighbors healthy.
+          <FormattedMessage {...messages.projectDescSec} />
+        </p>
+
+        <p className="light-text ">
+          <PhoneIphoneIcon />
+          <a
+            href="https://play.google.com/store/apps/details?id=kll.c2m2.c2m2_mongolia"
+            target="_blank"
+          >
+            <FormattedMessage {...messages.mobileApp} />
+          </a>
         </p>
         <br />
 
@@ -67,7 +73,7 @@ export default function HomePage() {
         />
       </div>
 
-      <div className="col-lg-4 col-md-6 col-sm-12 my-3">
+      <div className="col-lg-3 col-md-6 col-sm-12 my-3">
         <a
           href="http://kathmandulivinglabs.org"
           target="_blank"
@@ -75,7 +81,7 @@ export default function HomePage() {
         >
           <img
             src={plmLogo}
-            style={{ maxHeight: '60px', maxWidth: '300px' }}
+            style={{ maxWidth: '200px', paddingBottom: '0.8rem' }}
             alt="Screenshots of the web and mobile version"
             className="img-fluid pr-5 "
           />
@@ -98,7 +104,7 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="col-lg-4 col-md-6 col-sm-12 my-3">
+      <div className="col-lg-3 col-md-6 col-sm-12 my-3">
         <a
           href="http://kathmandulivinglabs.org"
           target="_blank"
@@ -129,38 +135,68 @@ export default function HomePage() {
         </p>
       </div>
 
-      {
-      //   <div className="col-lg-4 col-md-6 col-sm-12 my-3">
-      //   <a
-      //     href="http://kathmandulivinglabs.org"
-      //     target="_blank"
-      //     rel="noopener noreferrer"
-      //   >
-      //     <img
-      //       src={kllLogo}
-      //       style={{ maxWidth: '300px' }}
-      //       alt="Screenshots of the web and mobile version"
-      //       className="img-fluid pr-5 "
-      //     />
-      //   </a>
-      //   <br />
-      //   <p className="light-text">
-      //     Kathmandu Living Labs <br />
-      //     1474, Lamtangin Marga <br />
-      //     Chundevi, Kathmandu, Nepal <br />
-      //     contact@kathmandulivinglabs.org
-      //     <br />
-      //     <a
-      //       target="_blank"
-      //       rel="noopener noreferrer"
-      //       href="http://kathmandulivinglabs.org"
-      //     >
-      //       kathmandulivinglabs.org
-      //     </a>
-      //     <br />
-      //   </p>
-      // </div>
-    }
+      <div className="col-lg-3 col-md-6 col-sm-12 my-3">
+        <a
+          href="https://www.state.gov/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src={stateDepLogo}
+            style={{ maxWidth: '120px' }}
+            alt="Screenshots of the web and mobile version"
+            className="img-fluid pr-5 "
+          />
+        </a>
+        <br />
+        <p className="light-text">
+          U.S. Department of State <br />
+          Harry S Truman Building 2201 C Street
+          <br />
+          Northwest, Washington, D.C., <br />
+          AskPublicAffairs@state.gov
+          <br />
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="http://kathmandulivinglabs.org"
+          >
+            state.gov
+          </a>
+          <br />
+        </p>
+      </div>
+
+      <div className="col-lg-3 col-md-6 col-sm-12 my-3">
+        <a
+          href="https://www.colostate.edu/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src={coloradoUniLogo}
+            style={{ maxWidth: '120px' }}
+            alt="Screenshots of the web and mobile version"
+            className="img-fluid pr-5 "
+          />
+        </a>
+        <br />
+        <p className="light-text">
+          Colorado State University <br />
+          Fort Collins <br />
+          CO 80523, United States <br />
+          help@colostate.edu
+          <br />
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.colostate.edu/"
+          >
+            colostate.edu
+          </a>
+          <br />
+        </p>
+      </div>
     </div>
   );
 }
