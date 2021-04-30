@@ -13,6 +13,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
+import { Drawer } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import CloseIcon from '@material-ui/icons/Close';
 import { Steps } from 'intro.js-react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
@@ -37,6 +44,22 @@ const useStyles = makeStyles(theme => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
+  noDecoration: {
+    textDecoration: 'none !important',
+  },
+  headSection: {
+    width: 200,
+  },
+  menuItemsContainer: {
+    display: 'flex',
+    gap: '2.5rem',
+  },
+  menuItemContainerMobile: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2.5rem',
+    alignItems: 'center',
+  },
 }));
 
 export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
@@ -45,6 +68,11 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
   const [selectedIndex, setSelectedIndex] = React.useState('');
   const [isTourEnabled, setIsTourEnabled] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = useState(false);
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   const steps = [
     {
@@ -116,74 +144,6 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
     setAnchorEl(null);
   };
 
-  const toggleDrawer = (anchor, open) => event => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-
-    // setState({ ...state, [anchor]: open });
-  };
-
-  const handleClick = index => {
-    if (selectedIndex === index) {
-      setSelectedIndex('');
-    } else {
-      setSelectedIndex(index);
-    }
-  };
-
-  const list = anchor => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Select a category
-          </ListSubheader>
-        }
-        className={classes.root}
-      >
-        {
-          //   sidebarMenuItems.map((menuItem, index) => (
-          //   <React.Fragment key={uid(menuItem)}>
-          //     <ListItem button onClick={() => handleClick(index)}>
-          //       <ListItemText primary={menuItem.category} />
-          //       {index === selectedIndex ? <ExpandLess /> : <ExpandMore />}
-          //     </ListItem>
-          //     <Collapse in={index === selectedIndex} timeout="auto" unmountOnExit>
-          //       <List component="div" disablePadding>
-          //         {menuItem.children.map(subCategory => (
-          //           <ListItem
-          //             key={uid(subCategory)}
-          //             component={Link}
-          //             to={subCategory.route}
-          //             button
-          //             className={classes.nested}
-          //           >
-          //             <ListItemText primary={subCategory.label} />
-          //           </ListItem>
-          //         ))}
-          //       </List>
-          //     </Collapse>
-          //   </React.Fragment>
-          // ))
-        }
-      </List>
-    </div>
-  );
-
   return (
     <div>
       <AppBar
@@ -197,7 +157,97 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
             <FormattedMessage {...messages.projectTitle} />
           </Typography>
 
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '0.8rem' }}>
+          <Hidden mdUp>
+            <IconButton
+              className={classes.menuButton}
+              onClick={() => setOpen(true)}
+              aria-label="Open Navigation"
+            >
+              <MenuIcon color="primary" />
+            </IconButton>
+          </Hidden>
+
+          <Hidden smDown>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', gap: '0.8rem' }}
+            >
+              <NavLink to="/" style={{ textDecoration: 'none' }}>
+                <Button color="secondary">
+                  <FormattedMessage {...messages.home} />
+                </Button>
+              </NavLink>
+              <Button
+                color="secondary"
+                startIcon={<TranslateIcon />}
+                endIcon={<ExpandMoreIcon />}
+                onClick={handleLanguageClick}
+              >
+                {locale === 'mn' ? 'монгол' : 'English'}
+              </Button>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleLanguageClose}
+              >
+                <MenuItem
+                  onClick={() => onLocaleToggle('en')}
+                  data-my-value="English"
+                >
+                  English
+                </MenuItem>
+                <MenuItem
+                  onClick={() => onLocaleToggle('mn')}
+                  data-my-value="Mongolia"
+                >
+                  монгол
+                </MenuItem>
+              </Menu>
+
+              <Button color="secondary" onClick={() => setIsTourEnabled(true)}>
+                <FormattedMessage {...messages.howToUse} />
+              </Button>
+              <Steps
+                enabled={isTourEnabled}
+                steps={steps}
+                initialStep={0}
+                onExit={() => setIsTourEnabled(false)}
+                options={{
+                  nextLabel: locale === 'en' ? 'Next' : 'Дараачийн',
+                  prevLabel: locale === 'en' ? 'Previous' : 'Өмнөх',
+                  skipLabel: locale === 'en' ? 'Skip' : 'Алгасах',
+                  doneLabel: locale === 'en' ? 'Done' : 'Дууссан',
+                  scrollToElement: false,
+                  showStepNumbers: false,
+                }}
+              />
+              <NavLink to="/resources" style={{ textDecoration: 'none' }}>
+                <Button color="secondary">
+                  <FormattedMessage {...messages.resources} />
+                </Button>
+              </NavLink>
+              <NavLink to="/about" style={{ textDecoration: 'none' }}>
+                <Button color="secondary">
+                  <FormattedMessage {...messages.about} />
+                </Button>
+              </NavLink>
+            </div>
+          </Hidden>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="temporary" open={open} onClose={onClose} anchor="right">
+        <Toolbar className={classes.headSection}>
+          <ListItem disableGutters>
+            <ListItemIcon className={classes.closeIcon}>
+              <IconButton onClick={onClose} aria-label="Close Navigation">
+                <CloseIcon color="primary" />
+              </IconButton>
+            </ListItemIcon>
+          </ListItem>
+        </Toolbar>
+        <List className={classes.blackList}>
+          <div className={classes.menuItemContainerMobile}>
             <NavLink to="/" style={{ textDecoration: 'none' }}>
               <Button color="secondary">
                 <FormattedMessage {...messages.home} />
@@ -219,13 +269,13 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               onClose={handleLanguageClose}
             >
               <MenuItem
-                onClick={e => onLocaleToggle('en')}
+                onClick={() => onLocaleToggle('en')}
                 data-my-value="English"
               >
                 English
               </MenuItem>
               <MenuItem
-                onClick={e => onLocaleToggle('mn')}
+                onClick={() => onLocaleToggle('mn')}
                 data-my-value="Mongolia"
               >
                 монгол
@@ -260,16 +310,8 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               </Button>
             </NavLink>
           </div>
-        </Toolbar>
-      </AppBar>
-      <SwipeableDrawer
-        anchor="left"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        onOpen={() => setIsDrawerOpen(true)}
-      >
-        {list('left')}
-      </SwipeableDrawer>
+        </List>
+      </Drawer>
     </div>
   );
 }

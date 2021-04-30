@@ -54,7 +54,7 @@ export default function HomePage() {
         </p>
         <br />
 
-        <NavLink to="/browse" style={{ textDecoration: 'none' }}>
+        <NavLink to="/" style={{ textDecoration: 'none' }}>
           <Button
             variant="contained"
             color="primary"
