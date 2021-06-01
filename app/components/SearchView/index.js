@@ -55,14 +55,11 @@ function SearchView({
     setOptions(searchResults);
   }, [searchResults]);
 
-
-
-  
-
   return (
     <React.Fragment>
       <Autocomplete
         id="combo-box-demo"
+        noOptionsText={<FormattedMessage {...messages.noMatchFound} />}
         style={{ width: 300 }}
         filterOptions={x => x}
         options={options}

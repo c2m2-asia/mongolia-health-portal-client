@@ -66,6 +66,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function countryToFlag(isoCode) {
+  return typeof String.fromCodePoint !== 'undefined'
+    ? isoCode
+        .toUpperCase()
+        .replace(/./g, char =>
+          String.fromCodePoint(char.charCodeAt(0) + 127397),
+        )
+    : isoCode;
+}
+
 export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
   const classes = useStyles();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -176,11 +186,7 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               style={{ display: 'flex', flexDirection: 'row', gap: '0.8rem' }}
             >
               <NavLink to="/" style={{ textDecoration: 'none' }}>
-                <Button
-                  className={classes.button}
-                  className={classes.button}
-                  color="secondary"
-                >
+                <Button className={classes.button} color="secondary">
                   <FormattedMessage {...messages.home} />
                 </Button>
               </NavLink>
@@ -204,13 +210,13 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
                   onClick={() => onLocaleToggle('en')}
                   data-my-value="English"
                 >
-                  English
+                  <span>{countryToFlag('GB')}</span>&nbsp;&nbsp;English
                 </MenuItem>
                 <MenuItem
                   onClick={() => onLocaleToggle('mn')}
                   data-my-value="Mongolia"
                 >
-                  монгол
+                  <span>{countryToFlag('MN')}</span>&nbsp;&nbsp;монгол
                 </MenuItem>
               </Menu>
 

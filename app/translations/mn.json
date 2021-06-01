@@ -61,6 +61,7 @@
   "app.components.ServiceDetailView.submit": "Баталгаажуулах",
   "app.components.ServiceDetailView.opinion": "Юу бодож байгаагаа бичээрэй",
   "app.components.SearchView.search": "Хайх",
+  "app.components.SearchView.noMatchFound": "Тохирсон зүйл олдсонгүй",
   "app.components.ResourcesView.resources": "нөөц",
   "app.components.ResourcesView.resourcesDesc": "Одоогоор үзүүлэх зүйл алга. Эрүүл мэндийн үйлчилгээний талаархи мэдэгдэл / нөөцийг байнга шалгаж байгаарай",
   "app.components.EditDataForm.cancel": "нөөц",

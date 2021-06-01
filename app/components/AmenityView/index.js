@@ -55,6 +55,19 @@ function AmenityView({
   const showFilters = value => setIsShowFilter(value);
 
   const onFilterChange = (filterName, filterValue, filterType) => {
+    if (filterType === 'multi-select') {
+      const filterClone = JSON.parse(JSON.stringify(filterState));
+      const withoutName = filterClone.filter(a => a.osmTag !== filterName);
+      setFilterState([
+        ...withoutName,
+        {
+          osmTag: filterName,
+          osmValue: filterValue,
+        },
+      ]);
+      return;
+    }
+
     const isFilterExists = filterState.some(el => el.osmTag === filterName);
     if (filterValue === 'any') {
       setFilterState(
@@ -82,6 +95,7 @@ function AmenityView({
           } else if (filter.osmTag === filterName) {
             filter.osmValue.push(filterValue);
           }
+          console.log('Asdasd', filter);
         });
       }
 
@@ -174,6 +188,7 @@ function AmenityView({
             tags={tags}
             locations={locations}
             locale={locale}
+            loading={loading}
           />
         )}
         <Grid
