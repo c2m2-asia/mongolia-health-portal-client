@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState, memo } from 'react';
+import React, { useState, memo, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { uid } from 'react-uid';
@@ -137,11 +137,7 @@ function Filters({
 
   const setBoundary = location => {
     setLocation(location);
-    getAmenityDetail(
-      tabIndex === 1 ? 'pharmacies' : 'healthServices',
-      filterState,
-      location,
-    );
+    getAmenityDetail(amenityType, filterState, location);
   };
 
   const checkTypeChecked = filterValue => {
@@ -158,7 +154,7 @@ function Filters({
   console.log('tags???', tags);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Grid
         item
         lg={3}
@@ -180,89 +176,92 @@ function Filters({
             height: '100%',
           }}
         >
-          <div className="info-head">
-            <Typography
-              variant="h5"
-              style={{ color: '#252525', fontWeight: '900' }}
-            >
-              {tabIndex === 0 ? (
-                <FormattedMessage {...messages.browseHospitals} />
-              ) : (
-                <FormattedMessage {...messages.browsePharmacies} />
-              )}
-            </Typography>
-            <p style={{ color: '#696969' }}>
-              {getTotalServices()}
-              &nbsp;
-              {tabIndex === 0 ? (
-                <FormattedMessage {...messages.hospitalsFound} />
-              ) : (
-                <FormattedMessage {...messages.pharmaciesFound} />
-              )}
-            </p>
-          </div>
-          <div className="pb-3 selector2">
-            <Tabs
-              className={classes.tabs}
-              variant="fullWidth"
-              value={tabIndex}
-              onChange={(e, index) => {
-                setAmenityType(index === 1 ? 'pharmacies' : 'healthServices');
-                setTabIndex(index);
-                setFilterState([]);
-                getAmenityDetail(
-                  index === 1 ? 'pharmacies' : 'healthServices',
-                  [],
-                  location,
-                );
-              }}
-              indicatorColor=""
-            >
-              <Tab
-                classes={{
-                  selected: classes.selected,
-                  wrapper: classes.wrapper,
-                }}
-                disableRipple
-                label={<FormattedMessage {...messages.healthServices}/>}
-              />
-              <Tab
-                classes={{
-                  selected: classes.selected,
-                  wrapper: classes.wrapper,
-                }}
-                disableRipple
-                label={<FormattedMessage {...messages.pharmacies}/>}
-              />
-            </Tabs>
-          </div>
-
-          <div
-            className="location"
-            style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}
-          >
-            <Typography
-              variant="subtitle2"
-              gutterBottom
-              style={{ color: '#252525', fontWeight: '600' }}
-            >
-              <FormattedMessage {...messages.selectLocation} />
-            </Typography>
-            <LocationSelect
-              getAmenityDetail={getAmenityDetail}
-              amenityType={tabIndex === 1 ? 'pharmacies' : 'healthServices'}
-              filterState={filterState}
-              setBoundary={setBoundary}
-              location={locations}
-              locale={locale}
-            />
-          </div>
-
+          {
+            // <div className="pb-3 selector2">
+            //   <Tabs
+            //     className={classes.tabs}
+            //     variant="fullWidth"
+            //     value={tabIndex}
+            //     onChange={(e, index) => {
+            //       setAmenityType(index === 1 ? 'pharmacies' : 'healthServices');
+            //       setTabIndex(index);
+            //       setFilterState([]);
+            //       getAmenityDetail(
+            //         index === 1 ? 'pharmacies' : 'healthServices',
+            //         [],
+            //         location,
+            //       );
+            //     }}
+            //     indicatorColor=""
+            //   >
+            //     <Tab
+            //       classes={{
+            //         selected: classes.selected,
+            //         wrapper: classes.wrapper,
+            //       }}
+            //       disableRipple
+            //       label={<FormattedMessage {...messages.healthServices} />}
+            //     />
+            //     <Tab
+            //       classes={{
+            //         selected: classes.selected,
+            //         wrapper: classes.wrapper,
+            //       }}
+            //       disableRipple
+            //       label={<FormattedMessage {...messages.pharmacies} />}
+            //     />
+            //   </Tabs>
+            // </div>
+            //
+            // <div
+            //   className="location"
+            //   style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}
+            // >
+            //   <Typography
+            //     variant="subtitle2"
+            //     gutterBottom
+            //     style={{ color: '#252525', fontWeight: '600' }}
+            //   >
+            //     <FormattedMessage {...messages.selectLocation} />
+            //   </Typography>
+            //   <LocationSelect
+            //     getAmenityDetail={getAmenityDetail}
+            //     amenityType={tabIndex === 1 ? 'pharmacies' : 'healthServices'}
+            //     filterState={filterState}
+            //     setBoundary={setBoundary}
+            //     location={locations}
+            //     locale={locale}
+            //   />
+            // </div>
+          }
           <div
             className="filter-content selector4"
             style={{ overflowY: 'hidden', height: '100%' }}
           >
             <SimpleBarReact style={{ maxHeight: '100%' }} autoHide>
+              <div className="info-head">
+                <Typography
+                  variant="h5"
+                  style={{ color: '#252525', fontWeight: '900' }}
+                >
+                  {amenityType === 'healthServices' ? (
+                    <FormattedMessage {...messages.browseHospitals} />
+                  ) : (
+                    <FormattedMessage {...messages.browsePharmacies} />
+                  )}
+                </Typography>
+                <p style={{ color: '#696969' }}>
+                  <FormattedMessage {...messages.showing} />
+                  &nbsp;
+                  {getTotalServices()}
+                  &nbsp;
+                  {amenityType === 'healthServices' ? (
+                    <FormattedMessage {...messages.healthServicesShowing} />
+                  ) : (
+                    <FormattedMessage {...messages.pharmaciesShowing} />
+                  )}
+                </p>
+              </div>
               <div
                 style={{
                   display: 'flex',
@@ -274,7 +273,9 @@ function Filters({
                   .filter(
                     tag =>
                       tag.value ===
-                      (tabIndex === 0 ? 'healthService' : 'pharmacy'),
+                      (amenityType === 'healthServices'
+                        ? 'healthService'
+                        : 'pharmacy'),
                   )[0]
                   .filterTags.map(filterTag => (
                     <div key={uid(filterTag)}>
@@ -524,7 +525,7 @@ function Filters({
                                 .filter(
                                   tag =>
                                     tag.value ===
-                                    (tabIndex === 0
+                                    (amenityType === 'healthServices'
                                       ? 'healthService'
                                       : 'pharmacy'),
                                 )[0]
@@ -568,11 +569,6 @@ function Filters({
               startIcon={<RefreshIcon />}
               onClick={() => {
                 setFilterState([]);
-                getAmenityDetail(
-                  tabIndex === 1 ? 'pharmacies' : 'healthServices',
-                  [],
-                  location,
-                );
               }}
             >
               <FormattedMessage {...messages.reset} />
@@ -586,11 +582,7 @@ function Filters({
               variant="contained"
               color="secondary"
               onClick={() =>
-                getAmenityDetail(
-                  tabIndex === 1 ? 'pharmacies' : 'healthServices',
-                  filterState,
-                  location,
-                )
+                getAmenityDetail(amenityType, filterState, location)
               }
             >
               <FormattedMessage {...messages.apply} />
@@ -598,7 +590,7 @@ function Filters({
           </div>
         </div>
       </Grid>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

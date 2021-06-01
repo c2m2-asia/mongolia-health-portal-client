@@ -15,11 +15,23 @@ export default defineMessages({
   },
   browseHospitals: {
     id: `${scope}.browseHospitals`,
-    defaultMessage: 'Health services',
+    defaultMessage: 'Filter health services',
   },
   browsePharmacies: {
     id: `${scope}.browsePharmacies`,
-    defaultMessage: 'Pharmacies',
+    defaultMessage: 'Filter pharmacies',
+  },
+  showing: {
+    id: `${scope}.showing`,
+    defaultMessage: 'Showing',
+  },
+  healthServicesShowing: {
+    id: `${scope}.healthServicesShow`,
+    defaultMessage: 'health services',
+  },
+  pharmaciesShowing: {
+    id: `${scope}.healthServicesShow`,
+    defaultMessage: 'pharmacies',
   },
   hospitalsFound: {
     id: `${scope}.hospitalsFound`,

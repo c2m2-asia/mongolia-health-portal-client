@@ -60,6 +60,10 @@ const useStyles = makeStyles(theme => ({
     gap: '2.5rem',
     alignItems: 'center',
   },
+  button: {
+    textTransform: 'none',
+    fontWeight: '500',
+  },
 }));
 
 export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
@@ -172,11 +176,16 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               style={{ display: 'flex', flexDirection: 'row', gap: '0.8rem' }}
             >
               <NavLink to="/" style={{ textDecoration: 'none' }}>
-                <Button color="secondary">
+                <Button
+                  className={classes.button}
+                  className={classes.button}
+                  color="secondary"
+                >
                   <FormattedMessage {...messages.home} />
                 </Button>
               </NavLink>
               <Button
+                className={classes.button}
                 color="secondary"
                 startIcon={<TranslateIcon />}
                 endIcon={<ExpandMoreIcon />}
@@ -205,7 +214,11 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
                 </MenuItem>
               </Menu>
 
-              <Button color="secondary" onClick={() => setIsTourEnabled(true)}>
+              <Button
+                className={classes.button}
+                color="secondary"
+                onClick={() => setIsTourEnabled(true)}
+              >
                 <FormattedMessage {...messages.howToUse} />
               </Button>
               <Steps
@@ -223,12 +236,12 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
                 }}
               />
               <NavLink to="/resources" style={{ textDecoration: 'none' }}>
-                <Button color="secondary">
+                <Button className={classes.button} color="secondary">
                   <FormattedMessage {...messages.resources} />
                 </Button>
               </NavLink>
               <NavLink to="/about" style={{ textDecoration: 'none' }}>
-                <Button color="secondary">
+                <Button className={classes.button} color="secondary">
                   <FormattedMessage {...messages.about} />
                 </Button>
               </NavLink>
@@ -249,11 +262,12 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
         <List className={classes.blackList}>
           <div className={classes.menuItemContainerMobile}>
             <NavLink to="/" style={{ textDecoration: 'none' }}>
-              <Button color="secondary">
+              <Button className={classes.button} color="secondary">
                 <FormattedMessage {...messages.home} />
               </Button>
             </NavLink>
             <Button
+              className={classes.button}
               color="secondary"
               startIcon={<TranslateIcon />}
               endIcon={<ExpandMoreIcon />}
@@ -282,7 +296,11 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               </MenuItem>
             </Menu>
 
-            <Button color="secondary" onClick={() => setIsTourEnabled(true)}>
+            <Button
+              className={classes.button}
+              color="secondary"
+              onClick={() => setIsTourEnabled(true)}
+            >
               <FormattedMessage {...messages.howToUse} />
             </Button>
             <Steps
@@ -300,12 +318,12 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               }}
             />
             <NavLink to="/resources" style={{ textDecoration: 'none' }}>
-              <Button color="secondary">
+              <Button className={classes.button} color="secondary">
                 <FormattedMessage {...messages.resources} />
               </Button>
             </NavLink>
             <NavLink to="/about" style={{ textDecoration: 'none' }}>
-              <Button color="secondary">
+              <Button className={classes.button} color="secondary">
                 <FormattedMessage {...messages.about} />
               </Button>
             </NavLink>

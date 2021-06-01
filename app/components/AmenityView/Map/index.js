@@ -314,7 +314,7 @@ class Map extends React.Component {
       <div
         className="selector6"
         ref={node => (this.mapNode = node)}
-        style={{ height: '100%', borderRadius: '30px' }}
+        style={{ height: '100%', borderRadius: '8px' }}
       >
         {
           //   <div
