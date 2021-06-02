@@ -9,11 +9,11 @@ import L from 'leaflet';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import $ from 'jquery';
+import 'leaflet-easybutton';
 import baatoLogo from 'images/baato-logo.png';
 import SearchView from 'containers/SearchContainer';
 import Loader from 'react-loader-spinner';
 import { PRIMARY_COLOR } from 'utils/constants';
-import 'leaflet-easybutton';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import 'leaflet-boundary-canvas';
 import 'leaflet.markercluster';
@@ -70,7 +70,23 @@ class Map extends React.Component {
 
   loadMap(data) {
     const { downloadData, amenityType, filterState, location } = this.props;
-
+    const layer1 = L.tileLayer(osmURL, { opacity: 0.3 });
+    const layer2 = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      { opacity: 0.3 },
+    );
+    const googleSat = L.tileLayer(
+      'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+      {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      },
+    );
+    const baseMaps = {
+      Thunderforest: layer1,
+      'OSM Standard': layer2,
+      'Google Satellite': googleSat,
+    };
     const map = L.map(this.mapNode, {
       //eslint-disable-line
       zoomSnap: 0.25,
@@ -82,6 +98,7 @@ class Map extends React.Component {
       // maxZoom: 14,
       // scrollWheelZoom: false,oo
       zoomControl: false,
+      layers: [layer1, layer2],
     });
     this.map = map;
 
@@ -89,8 +106,7 @@ class Map extends React.Component {
 
     // this.map.setZoom(11.5);
 
-    L.tileLayer(osmURL, { opacity: 0.3 }).addTo(this.map);
-
+    L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
     L.TileLayer.boundaryCanvas(osmURL, {
       boundary: data,
       opacity: 0.7,
@@ -109,13 +125,13 @@ class Map extends React.Component {
         'Download this data',
       ).addTo(this.map);
     }
-    //
-    // L.control
-    //   .attribution({
-    //     prefix:
-    //       'Map designed by <a href="www.kathmandulivinglabs.org" target="_blank" rel="noopener noreferrer">Kathmandu Living Labs</a> | &copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> Contributors',
-    //   })
-    //   .addTo(this.map); //eslint-disable-line
+
+    L.control
+      .attribution({
+        prefix:
+          '&copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> Contributors',
+      })
+      .addTo(this.map); //eslint-disable-line
   }
 
   addBaseLayer(data) {

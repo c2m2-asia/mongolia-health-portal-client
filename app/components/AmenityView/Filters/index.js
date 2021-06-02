@@ -20,6 +20,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Popover from '@material-ui/core/Popover';
+import Chip from '@material-ui/core/Chip';
 import { FormattedMessage } from 'react-intl';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Tabs from '@material-ui/core/Tabs';
@@ -155,7 +156,27 @@ function Filters({
     return checker;
   };
 
-  console.log('filterState', filterState);
+  const getValueChips = filter => {
+    const amenitytags = tags.filter(
+      tag =>
+        tag.value ===
+        (amenityType === 'healthServices' ? 'healthService' : 'pharmacy'),
+    )[0].filterTags;
+    const options = amenitytags.find(a => a.osm_tag === filter.osmTag)
+      .selectors;
+    const selectedOptions = options.filter(bc =>
+      filter.osmValue.some(ab => ab === bc.osm_value),
+    );
+    const labels = selectedOptions.map(selected => selected.label);
+    return labels.map(label => (
+      <Chip
+        style={{ margin: '0.1rem' }}
+        variant="outlined"
+        label={label}
+        color="primary"
+      />
+    ));
+  };
 
   return (
     <Fragment>
@@ -491,7 +512,7 @@ function Filters({
             </SimpleBarReact>
           </div>
 
-          {/* FILTERS RESET APPLY STARTS */}
+          {/* FILTERS, RESET, APPLY STARTS */}
 
           <div
             className="show-filters"
@@ -588,7 +609,7 @@ function Filters({
                             }
                           </TableCell>
                           <TableCell align="right">
-                            {filter.osmValue.join(', ')}
+                            {getValueChips(filter)}
                           </TableCell>
                         </TableRow>
                       ))}

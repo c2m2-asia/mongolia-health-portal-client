@@ -28,6 +28,7 @@ $font: 'Roboto';
 
 .download-icon {
   // margin-top: 8px;
+  border: none;
 }
 // 123, 182, 247 -border
 // 53, 144, 243 -circle
@@ -278,4 +279,10 @@ $font: 'Roboto';
 
 .makeStyles-outlinedPrimary{
   color: white,
+}
+
+.easy-button-button{
+  border: none;
+  padding: 5px 9px;
+  border-radius: 3px;  
 }
