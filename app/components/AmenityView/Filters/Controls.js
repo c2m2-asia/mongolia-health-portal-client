@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'capitalize',
   },
   tabs: {
-    background: '#f8f8f8',
+    background: '#ffffff',
     borderRadius: '10px',
   },
   selected: {
@@ -153,6 +153,7 @@ function Controls({
   return (
     <React.Fragment>
       <div
+        className="py-3"
         style={{
           display: 'flex',
           gap: '1.5rem',
@@ -185,7 +186,7 @@ function Controls({
           // </div>
         }
 
-        <div className="pb-3 selector2">
+        <div className="selector2">
           <Tabs
             className={classes.tabs}
             value={amenityType}
@@ -215,7 +216,7 @@ function Controls({
         </div>
         <div
           className="location d-flex align-items-center"
-          style={{ marginBottom: '1.5rem', marginTop: '0.5rem', gap: '1.5rem' }}
+          style={{ gap: '1.5rem' }}
         >
           <Typography
             variant="subtitle2"

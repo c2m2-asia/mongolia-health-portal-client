@@ -51,14 +51,15 @@ const info = [
     label: { en: 'Category', mn: 'ангилал' },
     osmTag: 'healthcare_facility:type',
   },
-  { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
+  // { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
+  { label: { en: 'Level', mn: 'Түвшин' }, osmTag: 'hospital:level' },
   {
     label: { en: 'Operator type', mn: 'операторын төрөл' },
     osmTag: 'operator:type',
   },
   { label: { en: 'Opening hours', mn: 'ажлын цаг' }, osmTag: 'opening_hours' },
   { label: { en: 'Phone', mn: 'утас' }, osmTag: 'phone' },
-  { label: { en: 'Email', mn: 'имэйл' }, osmTag: 'email' },
+  // { label: { en: 'Email', mn: 'имэйл' }, osmTag: 'email' },
   {
     label: { en: 'Wheelchair access', mn: 'тэргэнцэртэй нэвтрэх' },
     osmTag: 'wheelchair',
@@ -106,6 +107,8 @@ function ServiceDetailView({
   locale,
 }) {
   const classes = useStyles();
+  const ref = React.useRef();
+  const reviewsRef = React.useRef(null);
 
   const [closeSnack, setCloseSnack] = React.useState(null);
 
@@ -162,6 +165,13 @@ function ServiceDetailView({
     );
   };
 
+  useEffect(() => {
+    ref.current.recalculate();
+    console.log(ref.current.el);
+    // <- the root element you applied SimpleBar on
+    ref.current && ref.current.el.scrollIntoView({ behavior: 'smooth' });
+  });
+
   return (
     <React.Fragment>
       <div
@@ -181,7 +191,10 @@ function ServiceDetailView({
                 variant="h5"
                 style={{ color: '#252525', fontWeight: '900' }}
               >
-                {serviceDetail.properties.tags.name}
+                {locale === 'en'
+                  ? serviceDetail.properties.tags.name
+                  : serviceDetail.properties.tags['name:mn'] ||
+                    serviceDetail.properties.tags.name}
               </Typography>
             </div>
             <Tooltip title={<FormattedMessage {...messages.backToBrowsing} />}>
@@ -201,7 +214,7 @@ function ServiceDetailView({
             <i>{serviceDetail.properties.tags.amenity}</i>
           </Typography>
 
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '0.2rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '0.3rem' }}>
             <Rating
               readOnly
               className={classes.label}
@@ -281,7 +294,11 @@ function ServiceDetailView({
           </div>
         </div>
         <div style={{ overflowY: 'hidden', height: '100%' }}>
-          <SimpleBarReact style={{ maxHeight: '100%' }} autoHide={false}>
+          <SimpleBarReact
+            style={{ maxHeight: '100%', paddingRight: '2rem' }}
+            autoHide={false}
+            ref={ref}
+          >
             <div className="info">
               <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
@@ -320,7 +337,7 @@ function ServiceDetailView({
               </Button>
             </div>
 
-            <div>
+            <div ref={reviewsRef}>
               <Typography
                 variant="h6"
                 gutterBottom

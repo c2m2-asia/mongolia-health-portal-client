@@ -11,20 +11,18 @@ import clsx from 'clsx';
 // import styled from 'styled-components';
 import { uid } from 'react-uid';
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import messages from './messages';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
     minWidth: 120,
     margin: 0,
-    paddingRight: '1rem',
-    marginTop: '0.5rem',
+    background: 'white',
   },
   selectEmpty: {
     marginTop: theme.spacing(2),

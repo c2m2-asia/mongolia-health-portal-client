@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, Fragment } from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
@@ -95,7 +95,6 @@ function AmenityView({
           } else if (filter.osmTag === filterName) {
             filter.osmValue.push(filterValue);
           }
-          console.log('Asdasd', filter);
         });
       }
 
@@ -127,7 +126,7 @@ function AmenityView({
       .selectors;
 
   return (
-    <>
+    <Fragment>
       {amenityDetail && (
         <Controls
           visible={isShowFilter}
@@ -238,7 +237,7 @@ function AmenityView({
           </Grid>
         )}
       </Grid>
-    </>
+    </Fragment>
   );
 }
 

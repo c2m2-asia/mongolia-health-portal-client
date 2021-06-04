@@ -36,6 +36,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import SimpleBarReact from 'simplebar-react';
 import LocationSelect from 'components/LocationSelect';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import messages from './messages';
 import 'simplebar/dist/simplebar.min.css';
 import './styles.scss';
@@ -51,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'capitalize',
   },
   formControl: {
-    background: '#f8f8f8',
+    // background: '#f8f8f8',
   },
   label: {
     justifyContent: 'start',
@@ -187,7 +188,7 @@ function Filters({
         sm={12}
         xs={12}
         style={{
-          paddingRight: '1.5rem',
+          paddingRight: '1rem',
           height: '100%',
           display: `${visible ? 'block' : 'none'}`,
         }}
@@ -263,7 +264,10 @@ function Filters({
             className="filter-content selector4"
             style={{ overflowY: 'hidden', height: '100%' }}
           >
-            <SimpleBarReact style={{ maxHeight: '100%' }} autoHide>
+            <SimpleBarReact
+              style={{ maxHeight: '100%', paddingRight: '1rem' }}
+              autoHide
+            >
               <div className="info-head">
                 <Typography
                   variant="h5"
@@ -436,6 +440,7 @@ function Filters({
                         <Autocomplete
                           multiple
                           fullWidth
+                          popupIcon={<ExpandMoreIcon />}
                           name={filterTag.osm_tag}
                           options={filterTag.selectors}
                           getOptionLabel={option => option.label}
@@ -470,6 +475,7 @@ function Filters({
                             className={classes.formControl}
                           >
                             <Select
+                              IconComponent={ExpandMoreIcon}
                               name={filterTag.osm_tag}
                               value={
                                 (filterState.find(
@@ -512,7 +518,7 @@ function Filters({
             </SimpleBarReact>
           </div>
 
-          {/* FILTERS, RESET, APPLY STARTS */}
+          {/* BUTTONS FILTERS, RESET, APPLY STARTS */}
 
           <div
             className="show-filters"

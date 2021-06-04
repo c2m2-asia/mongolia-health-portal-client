@@ -83,10 +83,11 @@ class Map extends React.Component {
       },
     );
     const baseMaps = {
-      Thunderforest: layer1,
       'OSM Standard': layer2,
+      Thunderforest: layer1,
       'Google Satellite': googleSat,
     };
+
     const map = L.map(this.mapNode, {
       //eslint-disable-line
       zoomSnap: 0.25,
@@ -98,7 +99,7 @@ class Map extends React.Component {
       // maxZoom: 14,
       // scrollWheelZoom: false,oo
       zoomControl: false,
-      layers: [layer1, layer2],
+      layers: [layer2],
     });
     this.map = map;
 
@@ -109,8 +110,18 @@ class Map extends React.Component {
     L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
     L.TileLayer.boundaryCanvas(osmURL, {
       boundary: data,
-      opacity: 0.7,
+      opacity: 1,
     }).addTo(map);
+
+    map.on('baselayerchange', function(e) {
+      if (e.name === 'Google Satellite') {
+        map.attributionControl.setPrefix('&copy; Google');
+      } else {
+        map.attributionControl.setPrefix(
+          '&copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> Contributors',
+        );
+      }
+    });
 
     // L.control.scale().addTo(map);
 
@@ -169,8 +180,6 @@ class Map extends React.Component {
       getSelectedServiceId,
     } = this;
     const { locale } = this.props;
-
-    console.log('locale>>>', locale);
 
     const iconOptions = amenity => {
       return L.icon({
@@ -330,7 +339,7 @@ class Map extends React.Component {
       <div
         className="selector6"
         ref={node => (this.mapNode = node)}
-        style={{ height: '100%', borderRadius: '8px' }}
+        style={{ height: '100%', borderRadius: '6px' }}
       >
         {
           //   <div

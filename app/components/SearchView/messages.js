@@ -21,4 +21,8 @@ export default defineMessages({
     id: `${scope}.noMatchFound`,
     defaultMessage: 'No match found',
   },
+  loading: {
+    id: `${scope}.loading`,
+    defaultMessage: 'Loading...',
+  },
 });

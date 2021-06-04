@@ -66,6 +66,8 @@ function SearchView({
         autoComplete
         includeInputInList
         filterSelectedOptions
+        loading={loading}
+        loadingText={<FormattedMessage {...messages.loading} />}
         getOptionLabel={option =>
           option.geometries.properties.tags.name ||
           option.geometries.properties.tags['name:mn']
