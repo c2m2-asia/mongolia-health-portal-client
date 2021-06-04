@@ -64,9 +64,10 @@ const info = [
     label: { en: 'Wheelchair access', mn: 'тэргэнцэртэй нэвтрэх' },
     osmTag: 'wheelchair',
   },
-  { label: { en: 'Address city', mn: 'хаяг хот' }, osmTag: 'addr:city' },
-  { label: { en: 'Address street', mn: 'хаяг гудамж' }, osmTag: 'addr:street' },
-  { label: { en: 'Postcode', mn: 'шуудангийн код' }, osmTag: 'addr:postcode' },
+  { label: { en: 'Address', mn: 'хаяг' }, osmTag: 'addr:city' },
+  // { label: { en: 'Address city', mn: 'хаяг хот' }, osmTag: 'addr:city' },
+  // { label: { en: 'Address street', mn: 'хаяг гудамж' }, osmTag: 'addr:street' },
+  // { label: { en: 'Postcode', mn: 'шуудангийн код' }, osmTag: 'addr:postcode' },
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -153,12 +154,13 @@ function ServiceDetailView({
     return (
       specialities &&
       specialities
+        .replace(/_/g, ' ')
         .split(';')
         .map(speciality => (
           <Chip
             key={uid(speciality)}
             variant="outlined"
-            style={{ marginBottom: '0.2rem', marginRight: '0.2rem' }}
+            style={{ marginBottom: '0.1rem', marginRight: '0.1rem' }}
             label={speciality}
           />
         ))
@@ -313,10 +315,20 @@ function ServiceDetailView({
                           {detail.label[locale]}
                         </TableCell>
                         <TableCell align="right">
-                          {detail.label === 'Specialities'
+                          {detail.label.en === 'Specialities'
                             ? getSpecialities(
                                 serviceDetail.properties.tags[detail.osmTag],
                               )
+                            : detail.label.en === 'Category'
+                            ? serviceDetail.properties.tags[
+                                detail.osmTag
+                              ].replace(/_/g, ' ')
+                            : detail.label.en === 'Address'
+                            ? `${serviceDetail.properties.tags['addr:city']}, ${
+                                serviceDetail.properties.tags['addr:street']
+                              }, ${
+                                serviceDetail.properties.tags['addr:postcode']
+                              }`
                             : serviceDetail.properties.tags[detail.osmTag]}
                         </TableCell>
                       </TableRow>
