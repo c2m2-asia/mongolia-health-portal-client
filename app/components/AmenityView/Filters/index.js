@@ -25,6 +25,7 @@ import { FormattedMessage } from 'react-intl';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Tabs from '@material-ui/core/Tabs';
 import Badge from '@material-ui/core/Badge';
+import Switch from '@material-ui/core/Switch';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import RefreshIcon from '@material-ui/icons/Refresh';
@@ -179,6 +180,8 @@ function Filters({
     ));
   };
 
+  console.log('filterTags', tags);
+
   return (
     <Fragment>
       <Grid
@@ -301,7 +304,7 @@ function Filters({
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '2rem',
+                  gap: '1.65rem',
                 }}
               >
                 {tags
@@ -510,6 +513,38 @@ function Filters({
                               ))}
                             </Select>
                           </FormControl>
+                        </React.Fragment>
+                      )}
+                      {filterTag.type === 'switch' && (
+                        <React.Fragment>
+                          <FormControlLabel
+                            control={
+                              <Switch
+                                checked={
+                                  (filterState.find(
+                                    a => a.osmTag === filterTag.osm_tag,
+                                  ) &&
+                                    filterState.find(
+                                      a => a.osmTag === filterTag.osm_tag,
+                                    ).osmValue[0] ===
+                                      filterTag.selectors[0].osm_value) ||
+                                  false
+                                }
+                                onChange={e =>
+                                  onFilterChange(
+                                    e.target.name,
+                                    e.target.checked
+                                      ? filterTag.selectors[0].osm_value
+                                      : 'any',
+                                    filterTag.type,
+                                  )
+                                }
+                                name={filterTag.osm_tag}
+                                color="primary"
+                              />
+                            }
+                            label={filterTag.selectors[0].label}
+                          />
                         </React.Fragment>
                       )}
                     </div>
