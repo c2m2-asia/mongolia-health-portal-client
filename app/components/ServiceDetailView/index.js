@@ -108,10 +108,7 @@ function ServiceDetailView({
   locale,
 }) {
   const classes = useStyles();
-  const ref = React.useRef();
-  const reviewsRef = React.useRef(null);
-
-  const [closeSnack, setCloseSnack] = React.useState(null);
+  // const [closeSnack, setCloseSnack] = React.useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -142,37 +139,48 @@ function ServiceDetailView({
     return initials;
   };
 
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
+  // const handleSnackbarClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+  //
+  //   setCloseSnack(false);
+  // };
+
+  const getSpecialitiesChip = value =>
+    value &&
+    value
+      .replace(/_/g, ' ')
+      .split(';')
+      .map(speciality => (
+        <Chip
+          key={uid(speciality)}
+          variant="outlined"
+          style={{ marginBottom: '0.1rem', marginRight: '0.1rem' }}
+          label={speciality}
+        />
+      ));
+
+  const getTagValue = (label, tag) => {
+    switch (label) {
+      case 'Specialities':
+        return getSpecialitiesChip(serviceDetail.properties.tags[tag]);
+      case 'Category':
+        return (
+          serviceDetail.properties.tags[tag] &&
+          serviceDetail.properties.tags[tag].replace(/_/g, ' ')
+        );
+      case 'Address':
+        return (
+          serviceDetail.properties.tags['addr:city'] &&
+          `${serviceDetail.properties.tags['addr:city']}, ${
+            serviceDetail.properties.tags['addr:street']
+          }, ${serviceDetail.properties.tags['addr:postcode']}`
+        );
+      default:
+        return serviceDetail.properties.tags[tag];
     }
-
-    setCloseSnack(false);
   };
-
-  const getSpecialities = specialities => {
-    return (
-      specialities &&
-      specialities
-        .replace(/_/g, ' ')
-        .split(';')
-        .map(speciality => (
-          <Chip
-            key={uid(speciality)}
-            variant="outlined"
-            style={{ marginBottom: '0.1rem', marginRight: '0.1rem' }}
-            label={speciality}
-          />
-        ))
-    );
-  };
-
-  useEffect(() => {
-    ref.current.recalculate();
-    console.log(ref.current.el);
-    // <- the root element you applied SimpleBar on
-    ref.current && ref.current.el.scrollIntoView({ behavior: 'smooth' });
-  });
 
   return (
     <React.Fragment>
@@ -182,6 +190,8 @@ function ServiceDetailView({
           flex: 'auto',
           flexDirection: 'column',
           height: '100%',
+          paddingTop: '1rem',
+          paddingBottom: '2rem',
         }}
       >
         <div
@@ -199,23 +209,24 @@ function ServiceDetailView({
                     serviceDetail.properties.tags.name}
               </Typography>
             </div>
-            <Tooltip title={<FormattedMessage {...messages.backToBrowsing} />}>
-              <IconButton
-                style={{ padding: '0' }}
-                color="primary"
-                aria-label="upload picture"
-                component="span"
-                onClick={() => showFilters(true)}
-              >
-                <KeyboardTabIcon fontSize="large" />
-              </IconButton>
-            </Tooltip>
+            {
+              //   <Tooltip title={<FormattedMessage {...messages.backToBrowsing} />}>
+              //   <IconButton
+              //     style={{ padding: '0' }}
+              //     color="primary"
+              //     aria-label="upload picture"
+              //     component="span"
+              //     onClick={() => showFilters(true)}
+              //   >
+              //     <KeyboardTabIcon fontSize="large" />
+              //   </IconButton>
+              // </Tooltip>
+            }
           </div>
 
           <Typography variant="subtitle1" className="text-muted">
             <i>{serviceDetail.properties.tags.amenity}</i>
           </Typography>
-
           <div style={{ display: 'flex', flexDirection: 'row', gap: '0.3rem' }}>
             <Rating
               readOnly
@@ -299,7 +310,6 @@ function ServiceDetailView({
           <SimpleBarReact
             style={{ maxHeight: '100%', paddingRight: '2rem' }}
             autoHide={false}
-            ref={ref}
           >
             <div className="info">
               <TableContainer component={Paper}>
@@ -315,21 +325,7 @@ function ServiceDetailView({
                           {detail.label[locale]}
                         </TableCell>
                         <TableCell align="right">
-                          {detail.label.en === 'Specialities'
-                            ? getSpecialities(
-                                serviceDetail.properties.tags[detail.osmTag],
-                              )
-                            : detail.label.en === 'Category'
-                            ? serviceDetail.properties.tags[
-                                detail.osmTag
-                              ].replace(/_/g, ' ')
-                            : detail.label.en === 'Address'
-                            ? `${serviceDetail.properties.tags['addr:city']}, ${
-                                serviceDetail.properties.tags['addr:street']
-                              }, ${
-                                serviceDetail.properties.tags['addr:postcode']
-                              }`
-                            : serviceDetail.properties.tags[detail.osmTag]}
+                          {getTagValue(detail.label.en, detail.osmTag)}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -349,7 +345,7 @@ function ServiceDetailView({
               </Button>
             </div>
 
-            <div ref={reviewsRef}>
+            <div>
               <Typography
                 variant="h6"
                 gutterBottom

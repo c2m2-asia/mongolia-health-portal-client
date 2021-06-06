@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
 function Filters({
   amenityDetail,
   getAmenityDetail,
-  visible,
+  isShowFilter,
   setFilterState,
   onFilterChange,
   filterState,
@@ -188,9 +188,9 @@ function Filters({
         sm={12}
         xs={12}
         style={{
-          paddingRight: '1rem',
+          padding: '1.5rem 1rem 1.5rem 1.5rem',
           height: '100%',
-          display: `${visible ? 'block' : 'none'}`,
+          display: `${isShowFilter ? 'block' : 'none'}`,
         }}
       >
         <div
@@ -679,6 +679,7 @@ Filters.propTypes = {
   amenityDetail: PropTypes.object,
   getAmenityDetail: PropTypes.func,
   loading: PropTypes.bool,
+  isShowFilter: PropTypes.bool,
 };
 
 export default memo(Filters);

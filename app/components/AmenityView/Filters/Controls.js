@@ -22,6 +22,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Badge from '@material-ui/core/Badge';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -31,6 +32,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import SimpleBarReact from 'simplebar-react';
 import LocationSelect from 'components/LocationSelect';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import messages from './messages';
 import 'simplebar/dist/simplebar.min.css';
 import './styles.scss';
@@ -82,7 +84,7 @@ const useStyles = makeStyles(theme => ({
 function Controls({
   amenityDetail,
   getAmenityDetail,
-  visible,
+  isShowFilter,
   setFilterState,
   onFilterChange,
   filterState,
@@ -93,6 +95,7 @@ function Controls({
   tags,
   locations,
   locale,
+  setIsShowFilter,
 }) {
   const classes = useStyles();
   // const [tabIndex, setTabIndex] = useState(0);
@@ -153,87 +156,80 @@ function Controls({
   return (
     <React.Fragment>
       <div
-        className="py-3"
-        style={{
-          display: 'flex',
-          gap: '1.5rem',
-          alignItems: 'center',
-          paddingLeft: '1.5rem',
-          backgroundColor: '#f0f2f5',
-        }}
+        className="d-flex align-items-center"
+        style={{ height: '90px', backgroundColor: '#f5f7fc' }}
       >
-        {
-          //   <div className="info-head">
-          //   <Typography
-          //     variant="h5"
-          //     style={{ color: '#252525', fontWeight: '900' }}
-          //   >
-          //     {amenityType === 'healthServices' ? (
-          //       <FormattedMessage {...messages.browseHospitals} />
-          //     ) : (
-          //       <FormattedMessage {...messages.browsePharmacies} />
-          //     )}
-          //   </Typography>
-          //   <p style={{ color: '#696969' }}>
-          //     {getTotalServices()}
-          //     &nbsp;
-          //     {amenityType === 'healthServices' ? (
-          //       <FormattedMessage {...messages.hospitalsFound} />
-          //     ) : (
-          //       <FormattedMessage {...messages.pharmaciesFound} />
-          //     )}
-          //   </p>
-          // </div>
-        }
-
-        <div className="selector2">
-          <Tabs
-            className={classes.tabs}
-            value={amenityType}
-            onChange={(e, value) => {
-              setAmenityType(value);
-              setFilterState([]);
+        {isShowFilter && (
+          <div
+            className="py-3"
+            style={{
+              display: 'flex',
+              gap: '1.5rem',
+              alignItems: 'center',
+              paddingLeft: '1.5rem',
             }}
-            indicatorColor=""
           >
-            <Tab
-              classes={{
-                selected: classes.selected,
-                wrapper: classes.wrapper,
-              }}
-              label={<FormattedMessage {...messages.healthServices} />}
-              value="healthServices"
-            />
-            <Tab
-              classes={{
-                selected: classes.selected,
-                wrapper: classes.wrapper,
-              }}
-              label={<FormattedMessage {...messages.pharmacies} />}
-              value="pharmacies"
-            />
-          </Tabs>
-        </div>
-        <div
-          className="location d-flex align-items-center"
-          style={{ gap: '1.5rem' }}
-        >
-          <Typography
-            variant="subtitle2"
-            gutterBottom
-            style={{ color: '#252525', fontWeight: '600' }}
-          >
-            <FormattedMessage {...messages.selectLocation} />
-          </Typography>
-          <LocationSelect
-            getAmenityDetail={getAmenityDetail}
-            amenityType={amenityType}
-            filterState={filterState}
-            setBoundary={setBoundary}
-            location={locations}
-            locale={locale}
-          />
-        </div>
+            <div className="selector2">
+              <Tabs
+                className={classes.tabs}
+                value={amenityType}
+                onChange={(e, value) => {
+                  setAmenityType(value);
+                  setFilterState([]);
+                }}
+                indicatorColor=""
+              >
+                <Tab
+                  classes={{
+                    selected: classes.selected,
+                    wrapper: classes.wrapper,
+                  }}
+                  label={<FormattedMessage {...messages.healthServices} />}
+                  value="healthServices"
+                />
+                <Tab
+                  classes={{
+                    selected: classes.selected,
+                    wrapper: classes.wrapper,
+                  }}
+                  label={<FormattedMessage {...messages.pharmacies} />}
+                  value="pharmacies"
+                />
+              </Tabs>
+            </div>
+            <div
+              className="location d-flex align-items-center"
+              style={{ gap: '1.5rem' }}
+            >
+              <Typography
+                variant="subtitle2"
+                gutterBottom
+                style={{ color: '#252525', fontWeight: '600' }}
+              >
+                <FormattedMessage {...messages.selectLocation} />
+              </Typography>
+              <LocationSelect
+                getAmenityDetail={getAmenityDetail}
+                amenityType={amenityType}
+                filterState={filterState}
+                setBoundary={setBoundary}
+                location={locations}
+                locale={locale}
+              />
+            </div>
+          </div>
+        )}
+        {!isShowFilter && (
+          <div style={{ paddingLeft: '1.5rem' }}>
+            <IconButton
+              aria-label="delete"
+              onClick={() => setIsShowFilter(true)}
+            >
+              <KeyboardBackspaceIcon fontSize="large" color="primary" />
+            </IconButton>
+            Back to browsing
+          </div>
+        )}
       </div>
     </React.Fragment>
   );

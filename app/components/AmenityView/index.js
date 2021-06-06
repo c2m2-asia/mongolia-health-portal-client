@@ -129,7 +129,7 @@ function AmenityView({
     <Fragment>
       {amenityDetail && (
         <Controls
-          visible={isShowFilter}
+          isShowFilter={isShowFilter}
           filters={amenityDetail.filters}
           getAmenityDetail={getAmenityDetail}
           amenityType={amenityType}
@@ -143,13 +143,13 @@ function AmenityView({
           tags={tags}
           locations={locations}
           locale={locale}
+          setIsShowFilter={setIsShowFilter}
         />
       )}
       <Grid
         container
         style={{
-          height: 'calc(100vh - 165px)',
-          padding: '1.5rem',
+          height: 'calc(100vh - 155px)',
           background: '#FFFFFF',
         }}
       >
@@ -173,7 +173,7 @@ function AmenityView({
         )}
         {amenityDetail && (
           <Filters
-            visible={isShowFilter}
+            isShowFilter={isShowFilter}
             filters={amenityDetail.filters}
             getAmenityDetail={getAmenityDetail}
             amenityType={amenityType}
