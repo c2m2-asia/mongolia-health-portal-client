@@ -151,6 +151,7 @@ function AmenityView({
         style={{
           height: 'calc(100vh - 155px)',
           background: '#FFFFFF',
+          padding: '1.5rem',
         }}
       >
         {!amenityDetail && (

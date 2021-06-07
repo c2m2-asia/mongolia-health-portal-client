@@ -91,7 +91,6 @@ function LocationSelect({
         </InputLabel>
 
         <Select
-          disabled
           value={province}
           onChange={handleProvinceChange}
           label={<FormattedMessage {...messages.province} />}

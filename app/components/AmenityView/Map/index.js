@@ -115,7 +115,9 @@ class Map extends React.Component {
 
     map.on('baselayerchange', function(e) {
       if (e.name === 'Google Satellite') {
-        map.attributionControl.setPrefix('&copy; Google');
+        map.attributionControl.setPrefix(
+          'Satellite imagery &copy; Google',
+        );
       } else {
         map.attributionControl.setPrefix(
           '&copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> Contributors',
@@ -339,7 +341,7 @@ class Map extends React.Component {
       <div
         className="selector6"
         ref={node => (this.mapNode = node)}
-        style={{ height: '100%' }}
+        style={{ height: '100%', borderRadius: '7px' }}
       >
         {
           //   <div

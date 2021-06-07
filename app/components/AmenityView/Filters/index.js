@@ -23,10 +23,10 @@ import Popover from '@material-ui/core/Popover';
 import Chip from '@material-ui/core/Chip';
 import { FormattedMessage } from 'react-intl';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Tabs from '@material-ui/core/Tabs';
+// import Tabs from '@material-ui/core/Tabs';
 import Badge from '@material-ui/core/Badge';
-import Switch from '@material-ui/core/Switch';
-import Tab from '@material-ui/core/Tab';
+// import Switch from '@material-ui/core/Switch';
+// import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Table from '@material-ui/core/Table';
@@ -36,8 +36,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import SimpleBarReact from 'simplebar-react';
-import LocationSelect from 'components/LocationSelect';
+// import LocationSelect from 'components/LocationSelect';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { PRIMARY_COLOR } from 'utils/constants';
+import StyledRadio from './Radio';
 import messages from './messages';
 import 'simplebar/dist/simplebar.min.css';
 import './styles.scss';
@@ -191,7 +193,7 @@ function Filters({
         sm={12}
         xs={12}
         style={{
-          padding: '1.5rem 1rem 1.5rem 1.5rem',
+          paddingRight: '1rem',
           height: '100%',
           display: `${isShowFilter ? 'block' : 'none'}`,
         }}
@@ -518,33 +520,101 @@ function Filters({
                       {filterTag.type === 'switch' && (
                         <React.Fragment>
                           <FormControlLabel
+                            style={{
+                              marginLeft: '0px',
+                              padding: '3px 18px 3px 3px',
+                              border: `1px solid ${
+                                filterState.find(
+                                  a => a.osmTag === filterTag.osm_tag,
+                                )
+                                  ? '#dedede'
+                                  : PRIMARY_COLOR
+                              }`,
+                              borderRadius: '6px',
+                            }}
+                            value="female"
                             control={
-                              <Switch
+                              <StyledRadio
+                                name={filterTag.osm_tag}
                                 checked={
-                                  (filterState.find(
+                                  !filterState.find(
                                     a => a.osmTag === filterTag.osm_tag,
-                                  ) &&
-                                    filterState.find(
-                                      a => a.osmTag === filterTag.osm_tag,
-                                    ).osmValue[0] ===
-                                      filterTag.selectors[0].osm_value) ||
-                                  false
+                                  )
                                 }
                                 onChange={e =>
                                   onFilterChange(
                                     e.target.name,
-                                    e.target.checked
-                                      ? filterTag.selectors[0].osm_value
-                                      : 'any',
+                                    'any',
                                     filterTag.type,
                                   )
                                 }
+                              />
+                            }
+                            label="Any"
+                          />
+                          <FormControlLabel
+                            style={{
+                              marginLeft: '0px',
+                              padding: '3px 18px 3px 3px',
+                              border: `1px solid ${
+                                filterState.find(
+                                  a => a.osmTag === filterTag.osm_tag,
+                                )
+                                  ? PRIMARY_COLOR
+                                  : '#dedede'
+                              }`,
+                              borderRadius: '6px',
+                            }}
+                            value="female"
+                            control={
+                              <StyledRadio
                                 name={filterTag.osm_tag}
-                                color="primary"
+                                checked={
+                                  filterState.find(
+                                    a => a.osmTag === filterTag.osm_tag,
+                                  ) || false
+                                }
+                                onChange={e =>
+                                  onFilterChange(
+                                    e.target.name,
+                                    filterTag.selectors[0].osm_value,
+                                    filterTag.type,
+                                  )
+                                }
                               />
                             }
                             label={filterTag.selectors[0].label}
                           />
+                          {
+                            //   <FormControlLabel
+                            //   control={
+                            //     <Switch
+                            //       checked={
+                            //         (filterState.find(
+                            //           a => a.osmTag === filterTag.osm_tag,
+                            //         ) &&
+                            //           filterState.find(
+                            //             a => a.osmTag === filterTag.osm_tag,
+                            //           ).osmValue[0] ===
+                            //             filterTag.selectors[0].osm_value) ||
+                            //         false
+                            //       }
+                            //       onChange={e =>
+                            //         onFilterChange(
+                            //           e.target.name,
+                            //           e.target.checked
+                            //             ? filterTag.selectors[0].osm_value
+                            //             : 'any',
+                            //           filterTag.type,
+                            //         )
+                            //       }
+                            //       name={filterTag.osm_tag}
+                            //       color="primary"
+                            //     />
+                            //   }
+                            //   label={filterTag.selectors[0].label}
+                            // />
+                          }
                         </React.Fragment>
                       )}
                     </div>

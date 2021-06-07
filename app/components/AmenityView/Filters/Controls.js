@@ -100,73 +100,71 @@ function Controls({
   const classes = useStyles();
   // const [tabIndex, setTabIndex] = useState(0);
   // const [filterState, setFilterState] = useState([]);
-  const [showMore, setShowMore] = useState(false);
-  const [showMoreType, setShowMoreType] = useState(false);
-  const [openedPopoverId, setOpenedPopoverId] = useState('');
+  // const [showMore, setShowMore] = useState(false);
+  // const [showMoreType, setShowMoreType] = useState(false);
+  // const [openedPopoverId, setOpenedPopoverId] = useState('');
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [filterInfoAnchorEl, setFilterInfoAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [filterInfoAnchorEl, setFilterInfoAnchorEl] = React.useState(null);
 
-  const open = Boolean(anchorEl);
-  const filterInfoPopoverOpen = Boolean(filterInfoAnchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
-  const handleClickPopover = (event, popoverId) => {
-    setOpenedPopoverId(popoverId);
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClosePopover = () => {
-    setOpenedPopoverId('');
-    setAnchorEl(null);
-  };
-
-  const handleFilterInfoPopoverOpen = event => {
-    setFilterInfoAnchorEl(event.currentTarget);
-  };
-
-  const handleFilterInfoPopoverClose = () => {
-    setFilterInfoAnchorEl(null);
-  };
-
-  const getTotalServices = () => amenityDetail.geometries.features.length;
-
-  const getTotalFilters = () => {
-    let total = 0;
-    filterState.forEach(filter => (total += filter.osmValue.length));
-    return total;
-  };
+  // const open = Boolean(anchorEl);
+  // const filterInfoPopoverOpen = Boolean(filterInfoAnchorEl);
+  // const id = open ? 'simple-popover' : undefined;
+  //
+  // const handleClickPopover = (event, popoverId) => {
+  //   setOpenedPopoverId(popoverId);
+  //   setAnchorEl(event.currentTarget);
+  // };
+  //
+  // const handleClosePopover = () => {
+  //   setOpenedPopoverId('');
+  //   setAnchorEl(null);
+  // };
+  //
+  // const handleFilterInfoPopoverOpen = event => {
+  //   setFilterInfoAnchorEl(event.currentTarget);
+  // };
+  //
+  // const handleFilterInfoPopoverClose = () => {
+  //   setFilterInfoAnchorEl(null);
+  // };
+  //
+  // const getTotalServices = () => amenityDetail.geometries.features.length;
+  //
+  // const getTotalFilters = () => {
+  //   let total = 0;
+  //   filterState.forEach(filter => (total += filter.osmValue.length));
+  //   return total;
+  // };
 
   const setBoundary = location => {
     setLocation(location);
     getAmenityDetail(amenityType, filterState, location);
   };
 
-  const checkTypeChecked = filterValue => {
-    let checker = false;
-    const filterClone = JSON.parse(JSON.stringify(filterState));
-    filterClone.forEach(filter => {
-      if (filter.osmValue.includes(filterValue)) {
-        checker = true;
-      }
-    });
-    return checker;
-  };
+  // const checkTypeChecked = filterValue => {
+  //   let checker = false;
+  //   const filterClone = JSON.parse(JSON.stringify(filterState));
+  //   filterClone.forEach(filter => {
+  //     if (filter.osmValue.includes(filterValue)) {
+  //       checker = true;
+  //     }
+  //   });
+  //   return checker;
+  // };
 
   return (
     <React.Fragment>
-      <div
-        className="d-flex align-items-center"
-        style={{ height: '90px', backgroundColor: '#f5f7fc' }}
-      >
+      <div style={{ height: '90px', backgroundColor: '#f5f7fc' }}>
         {isShowFilter && (
           <div
             className="py-3"
             style={{
               display: 'flex',
-              gap: '1.5rem',
               alignItems: 'center',
               paddingLeft: '1.5rem',
+              paddingRight: '1.5rem',
+              justifyContent: 'space-between',
             }}
           >
             <div className="selector2">
@@ -201,13 +199,15 @@ function Controls({
               className="location d-flex align-items-center"
               style={{ gap: '1.5rem' }}
             >
-              <Typography
-                variant="subtitle2"
-                gutterBottom
-                style={{ color: '#252525', fontWeight: '600' }}
-              >
-                <FormattedMessage {...messages.selectLocation} />
-              </Typography>
+              {
+                //   <Typography
+                //   variant="subtitle2"
+                //   gutterBottom
+                //   style={{ color: '#252525', fontWeight: '600' }}
+                // >
+                //   <FormattedMessage {...messages.selectLocation} />
+                // </Typography>
+              }
               <LocationSelect
                 getAmenityDetail={getAmenityDetail}
                 amenityType={amenityType}
@@ -220,7 +220,7 @@ function Controls({
           </div>
         )}
         {!isShowFilter && (
-          <div style={{ paddingLeft: '1.5rem' }}>
+          <div className="d-flex align-items-center h-100" style={{paddingLeft: '1rem'}}>
             <IconButton
               aria-label="delete"
               onClick={() => setIsShowFilter(true)}

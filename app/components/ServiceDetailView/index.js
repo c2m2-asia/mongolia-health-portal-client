@@ -190,8 +190,6 @@ function ServiceDetailView({
           flex: 'auto',
           flexDirection: 'column',
           height: '100%',
-          paddingTop: '1rem',
-          paddingBottom: '2rem',
         }}
       >
         <div
