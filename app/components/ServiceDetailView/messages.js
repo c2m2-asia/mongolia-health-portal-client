@@ -73,5 +73,13 @@ export default defineMessages({
   opinion: {
     id: `${scope}.opinion`,
     defaultMessage: 'Write what you think about',
+  },
+  share: {
+    id: `${scope}.share`,
+    defaultMessage: 'Share',
+  },
+  clipboardCopy: {
+    id: `${scope}.clipboardCopy`,
+    defaultMessage: 'Link copied to clipboard',
   }
 });

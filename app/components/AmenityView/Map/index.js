@@ -52,6 +52,26 @@ class Map extends React.Component {
       this.addPois(this.props.amenityDetail.geometries.features);
       this.addBaseLayer(this.props.amenityDetail.boundary);
     }
+
+    if (this.props.selectedService !== prevProps.selectedService) {
+      const { coordinates } = this.props.selectedService.geometry;
+      if (this.props.firstTime) {
+        this.map.eachLayer(layer => {
+          if (!layer._url && layer.name === 'markers') {
+            this.map.removeLayer(layer);
+          } else if (
+            layer.name === 'overlay' ||
+            layer.name === 'geojsonLayer'
+          ) {
+            this.map.removeLayer(layer);
+          }
+        });
+        this.addPois(this.props.amenityDetail.geometries.features);
+        this.addBaseLayer(this.props.amenityDetail.boundary);
+        this.map.setView(coordinates.reverse(), 16);
+        this.props.setFirstTime(false);
+      }
+    }
   }
 
   filtersShow(value) {
@@ -115,9 +135,7 @@ class Map extends React.Component {
 
     map.on('baselayerchange', function(e) {
       if (e.name === 'Google Satellite') {
-        map.attributionControl.setPrefix(
-          'Satellite imagery &copy; Google',
-        );
+        map.attributionControl.setPrefix('Satellite imagery &copy; Google');
       } else {
         map.attributionControl.setPrefix(
           '&copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> Contributors',
@@ -178,10 +196,9 @@ class Map extends React.Component {
       filtersShow,
       selectedServiceSet,
       clearHighlightLayers,
-      selectedService,
       getSelectedServiceId,
     } = this;
-    const { locale } = this.props;
+    const { locale, history, amenityType, selectedService } = this.props;
 
     const iconOptions = amenity => {
       return L.icon({
@@ -209,6 +226,21 @@ class Map extends React.Component {
           locale === 'en'
             ? '<i>(name unavailable)</i><br/><span class="leaflet-tooltip-text">Click icon for more details</span>'
             : '<i>(name unavailable)</i><br/><span class="leaflet-tooltip-text">Дэлгэрэнгүй мэдээллийг дүрс дээр дарна уу</span>';
+
+        console.log(
+          layer.feature.properties.id ===
+            (selectedService && selectedService.properties.id),
+        );
+
+        if (
+          layer.feature.properties.id ===
+          (selectedService && selectedService.properties.id)
+        ) {
+          layer.setIcon(iconOptionsBlack(feature.properties.tags.amenity));
+          oldLayer = layer;
+          oldAmenity = feature.properties.tags.amenity;
+        }
+
         layer.on('mouseover', () => {
           layer
             .bindTooltip(
@@ -227,6 +259,7 @@ class Map extends React.Component {
         });
 
         layer.on('click', () => {
+          history.push(`/${amenityType}/${feature.properties.id}`);
           filtersShow(false);
           selectedServiceSet(feature);
           layer.openPopup();
@@ -262,6 +295,8 @@ class Map extends React.Component {
     this.map.addLayer(markers);
     markers.name = 'markers';
     this.markers = markers;
+
+    // this.map.setView([47.9351123, 106.8800054], 16);
   }
 
   onSearchResultSelect(selectedResult) {
@@ -395,8 +430,11 @@ class Map extends React.Component {
 Map.propTypes = {
   history: PropTypes.object,
   amenityDetail: PropTypes.object,
+  firstTime: PropTypes.bool,
+  setFirstTime: PropTypes.func,
   loading: PropTypes.bool,
   setIsShowFilter: PropTypes.func,
+  selectedService: PropTypes.object,
   setSelectedService: PropTypes.func,
   downloadData: PropTypes.func,
   showFilters: PropTypes.func,

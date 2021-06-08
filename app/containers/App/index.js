@@ -30,6 +30,7 @@ export default function App() {
       <MessengerCustomerChat appId="723915871692886" pageId="103065175334366" />
       <Switch>
         <Route exact path="/" component={AmenityContainer} />
+        <Route path="/:amenity/:id" component={AmenityContainer} />
         <Route exact path="/about" component={HomePage} />
         <Route exact path="/language" component={Languagetesting} />
         <Route exact path="/location" component={LocationSelect} />

@@ -19,6 +19,7 @@ import Controls from './Filters/Controls';
 
 function AmenityView({
   history,
+  pathLocation,
   loading,
   getAmenityDetail,
   fetchTags,
@@ -37,7 +38,10 @@ function AmenityView({
   const [selectedService, setSelectedService] = useState(null);
   const [filterState, setFilterState] = useState([]);
   const [location, setLocation] = useState({ city: 'Ulaanbaatar' });
-  const [amenityType, setAmenityType] = useState('healthServices');
+  const [amenityType, setAmenityType] = useState(
+    pathLocation.pathname.split('/')[1] || 'healthServices',
+  );
+  const [firstTime, setFirstTime] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,6 +55,18 @@ function AmenityView({
   useEffect(() => {
     getAmenityDetail(amenityType, filterState, location);
   }, [location, amenityType]);
+
+  useEffect(() => {
+    const poiId = Number(pathLocation.pathname.split('/')[2]);
+    if (poiId && firstTime) {
+      // setAmenityType(pathLocation.pathname.split('/')[1]);
+      const poi =
+        amenityDetail &&
+        amenityDetail.geometries.features.find(a => a.properties.id === poiId);
+      setSelectedService(poi);
+      setIsShowFilter(false);
+    }
+  }, [amenityDetail]);
 
   const showFilters = value => setIsShowFilter(value);
 
@@ -129,6 +145,7 @@ function AmenityView({
     <Fragment>
       {amenityDetail && (
         <Controls
+          history={history}
           isShowFilter={isShowFilter}
           filters={amenityDetail.filters}
           getAmenityDetail={getAmenityDetail}
@@ -189,6 +206,7 @@ function AmenityView({
             locations={locations}
             locale={locale}
             loading={loading}
+            setFirstTime={setFirstTime}
           />
         )}
         <Grid
@@ -212,6 +230,8 @@ function AmenityView({
               location={location}
               amenityType={amenityType}
               locale={locale}
+              firstTime={firstTime}
+              setFirstTime={setFirstTime}
             />
           )}
         </Grid>
@@ -223,18 +243,20 @@ function AmenityView({
             md={4}
             style={{ paddingLeft: '1.5rem', height: '100%' }}
           >
-            <ServiceDetailView
-              history={history}
-              serviceDetail={selectedService}
-              showFilters={showFilters}
-              getPoiReviews={getPoiReviews}
-              addReview={addReview}
-              reviews={reviews}
-              isReviewAdded={isReviewAdded}
-              specialities={specialities}
-              amenityType={amenityType}
-              locale={locale}
-            />
+            {amenityDetail && selectedService && (
+              <ServiceDetailView
+                history={history}
+                serviceDetail={selectedService}
+                showFilters={showFilters}
+                getPoiReviews={getPoiReviews}
+                addReview={addReview}
+                reviews={reviews}
+                isReviewAdded={isReviewAdded}
+                specialities={specialities}
+                amenityType={amenityType}
+                locale={locale}
+              />
+            )}
           </Grid>
         )}
       </Grid>
@@ -244,7 +266,8 @@ function AmenityView({
 
 AmenityView.propTypes = {
   history: PropTypes.object,
-  location: PropTypes.object,
+  pathLocation: PropTypes.object,
+  locations: PropTypes.object,
   loading: PropTypes.bool,
   fetchTags: PropTypes.func.isRequired,
   getAmenityDetail: PropTypes.func.isRequired,

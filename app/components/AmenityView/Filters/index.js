@@ -103,6 +103,7 @@ function Filters({
   locations,
   locale,
   loading,
+  setFirstTime,
 }) {
   const classes = useStyles();
   const [tabIndex, setTabIndex] = useState(0);
@@ -181,8 +182,6 @@ function Filters({
       />
     ));
   };
-
-  console.log('filterTags', tags);
 
   return (
     <Fragment>
@@ -766,9 +765,10 @@ function Filters({
               fullWidth
               variant="contained"
               color="secondary"
-              onClick={() =>
-                getAmenityDetail(amenityType, filterState, location)
-              }
+              onClick={() => {
+                getAmenityDetail(amenityType, filterState, location);
+                setFirstTime(false);
+              }}
             >
               <FormattedMessage {...messages.apply} />
             </Button>

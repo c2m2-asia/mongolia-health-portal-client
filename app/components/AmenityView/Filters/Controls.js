@@ -82,6 +82,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Controls({
+  history,
   amenityDetail,
   getAmenityDetail,
   isShowFilter,
@@ -220,10 +221,16 @@ function Controls({
           </div>
         )}
         {!isShowFilter && (
-          <div className="d-flex align-items-center h-100" style={{paddingLeft: '1rem'}}>
+          <div
+            className="d-flex align-items-center h-100"
+            style={{ paddingLeft: '1rem' }}
+          >
             <IconButton
               aria-label="delete"
-              onClick={() => setIsShowFilter(true)}
+              onClick={() => {
+                setIsShowFilter(true);
+                history.push('/');
+              }}
             >
               <KeyboardBackspaceIcon fontSize="large" color="primary" />
             </IconButton>

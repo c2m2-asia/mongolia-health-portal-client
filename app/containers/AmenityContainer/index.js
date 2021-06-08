@@ -46,7 +46,7 @@ export function AmenityContainer({
   return (
     <AmenityView
       history={history}
-      location={location}
+      pathLocation={location}
       loading={amenityContainer.get('loading')}
       getAmenityDetail={getAmenityDetail}
       amenityDetail={amenityContainer.get('amenityDetail')}

@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -19,6 +19,8 @@ import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Table from '@material-ui/core/Table';
 import Tooltip from '@material-ui/core/Tooltip';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -26,6 +28,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EditLocationIcon from '@material-ui/icons/EditLocation';
 import SimpleBarReact from 'simplebar-react';
+import ShareIcon from '@material-ui/icons/Share';
 import AddReviewDialog from './AddReviewDialog';
 import 'simplebar/dist/simplebar.min.css';
 
@@ -109,6 +112,19 @@ function ServiceDetailView({
 }) {
   const classes = useStyles();
   // const [closeSnack, setCloseSnack] = React.useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -118,7 +134,6 @@ function ServiceDetailView({
   }, [serviceDetail.properties.id]);
 
   const onEdit = data => {
-    // console.log('yesyeysad');
     history.push({
       pathname: '/edit',
       state: {
@@ -208,19 +223,38 @@ function ServiceDetailView({
               </Typography>
             </div>
             {
-              //   <Tooltip title={<FormattedMessage {...messages.backToBrowsing} />}>
-              //   <IconButton
-              //     style={{ padding: '0' }}
-              //     color="primary"
-              //     aria-label="upload picture"
-              //     component="span"
-              //     onClick={() => showFilters(true)}
-              //   >
-              //     <KeyboardTabIcon fontSize="large" />
-              //   </IconButton>
-              // </Tooltip>
+              <Tooltip title={<FormattedMessage {...messages.share} />}>
+                <IconButton
+                  color="primary"
+                  onClick={handleShare}
+                >
+                  <ShareIcon fontSize="medium" />
+                </IconButton>
+              </Tooltip>
             }
           </div>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            open={open}
+            autoHideDuration={3500}
+            onClose={handleClose}
+            message={<FormattedMessage {...messages.clipboardCopy} />}
+            action={
+              <React.Fragment>
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={handleClose}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+          />
 
           <Typography variant="subtitle1" className="text-muted">
             <i>{serviceDetail.properties.tags.amenity}</i>
