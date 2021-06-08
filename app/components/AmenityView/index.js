@@ -41,7 +41,9 @@ function AmenityView({
   const [amenityType, setAmenityType] = useState(
     pathLocation.pathname.split('/')[1] || 'healthServices',
   );
-  const [firstTime, setFirstTime] = useState(true);
+  const [firstTime, setFirstTime] = useState(
+    !!pathLocation.pathname.split('/')[2],
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {

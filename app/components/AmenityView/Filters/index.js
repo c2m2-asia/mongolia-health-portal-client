@@ -172,12 +172,12 @@ function Filters({
     const selectedOptions = options.filter(bc =>
       filter.osmValue.some(ab => ab === bc.osm_value),
     );
-    const labels = selectedOptions.map(selected => selected.label);
+    const labels = selectedOptions.map(selected => selected.labelLocale);
     return labels.map(label => (
       <Chip
         style={{ margin: '0.1rem' }}
         variant="outlined"
-        label={label}
+        label={label[locale] || label['en']}
         color="primary"
       />
     ));
@@ -300,7 +300,6 @@ function Filters({
                   </p>
                 )}
               </div>
-
               <div
                 style={{
                   display: 'flex',
@@ -447,7 +446,10 @@ function Filters({
                           popupIcon={<ExpandMoreIcon />}
                           name={filterTag.osm_tag}
                           options={filterTag.selectors}
-                          getOptionLabel={option => option.label}
+                          getOptionLabel={option =>
+                            option.labelLocale[locale] ||
+                            option.labelLocale['en']
+                          }
                           onChange={(e, value) => {
                             const emptyArray = [];
                             value.forEach(datum =>
@@ -549,7 +551,7 @@ function Filters({
                                 }
                               />
                             }
-                            label="Any"
+                            label={<FormattedMessage {...messages.any} />}
                           />
                           <FormControlLabel
                             style={{
@@ -582,7 +584,7 @@ function Filters({
                                 }
                               />
                             }
-                            label={filterTag.selectors[0].label}
+                            label={filterTag.selectors[0].labelLocale[locale]}
                           />
                           {
                             //   <FormControlLabel
@@ -685,7 +687,7 @@ function Filters({
                     <TableHead>
                       <TableRow>
                         <TableCell align="left" component="th">
-                          <span style={{ fontWeight: '600' }}>OSM Tag</span>
+                          <span style={{ fontWeight: '600' }}><FormattedMessage {...messages.osmTag} /></span>
                         </TableCell>
                         <TableCell
                           style={{ fontWeight: '600' }}
@@ -715,7 +717,7 @@ function Filters({
                                 )[0]
                                 .filterTags.filter(
                                   element => element.osm_tag === filter.osmTag,
-                                )[0].label
+                                )[0].labelLocale[locale]
                             }
                           </TableCell>
                           <TableCell align="right">

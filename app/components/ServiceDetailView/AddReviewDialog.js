@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -49,7 +50,7 @@ function AddReviewDialog({
   //   checkOSMAuthentication();
   // }, []);
 
-  const placeholder = intl.formatMessage(messages.opinion) + ' ' + name
+  const placeholder = intl.formatMessage(messages.opinion) + ' ' + name;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -189,9 +190,12 @@ function AddReviewDialog({
               <Autocomplete
                 multiple
                 fullWidth
+                popupIcon={<ExpandMoreIcon />}
                 id="tags-standard"
                 options={specialities}
-                getOptionLabel={option => option.label}
+                getOptionLabel={option =>
+                  option.labelLocale[locale] || option.labelLocale.en
+                }
                 defaultValue={[]}
                 onChange={(e, value) => {
                   const emptyArray = [];

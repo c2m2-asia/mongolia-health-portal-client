@@ -15,6 +15,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Search from '@material-ui/icons/Search';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -59,6 +60,7 @@ function SearchView({
     <React.Fragment>
       <Autocomplete
         id="combo-box-demo"
+        popupIcon={<ExpandMoreIcon />}
         noOptionsText={<FormattedMessage {...messages.noMatchFound} />}
         style={{ width: 300 }}
         filterOptions={x => x}

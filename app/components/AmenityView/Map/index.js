@@ -227,11 +227,6 @@ class Map extends React.Component {
             ? '<i>(name unavailable)</i><br/><span class="leaflet-tooltip-text">Click icon for more details</span>'
             : '<i>(name unavailable)</i><br/><span class="leaflet-tooltip-text">Дэлгэрэнгүй мэдээллийг дүрс дээр дарна уу</span>';
 
-        console.log(
-          layer.feature.properties.id ===
-            (selectedService && selectedService.properties.id),
-        );
-
         if (
           layer.feature.properties.id ===
           (selectedService && selectedService.properties.id)
@@ -247,7 +242,10 @@ class Map extends React.Component {
               feature.properties.tags.name === undefined
                 ? clickDesc
                 : `${
-                    feature.properties.tags.name
+                    locale === 'en'
+                      ? feature.properties.tags.name
+                      : feature.properties.tags['name:mn'] ||
+                        feature.properties.tags.name
                   }<br/><span class="leaflet-tooltip-text">${
                     locale === 'en'
                       ? 'Click icon for more details'

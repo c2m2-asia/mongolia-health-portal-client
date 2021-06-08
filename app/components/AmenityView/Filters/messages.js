@@ -26,11 +26,11 @@ export default defineMessages({
     defaultMessage: 'Showing',
   },
   healthServicesShowing: {
-    id: `${scope}.healthServicesShow`,
+    id: `${scope}.healthServicesShowing`,
     defaultMessage: 'health services',
   },
   pharmaciesShowing: {
-    id: `${scope}.healthServicesShow`,
+    id: `${scope}.pharmaciesShowing`,
     defaultMessage: 'pharmacies',
   },
   hospitalsFound: {
@@ -96,6 +96,14 @@ export default defineMessages({
   values: {
     id: `${scope}.values`,
     defaultMessage: 'Values',
+  },
+  osmTag: {
+    id: `${scope}.osmTag`,
+    defaultMessage: 'OSM tag',
+  },
+  backToBrowsing: {
+    id: `${scope}.backToBrowsing`,
+    defaultMessage: 'Back to browsing',
   },
   none: {
     id: `${scope}.none`,

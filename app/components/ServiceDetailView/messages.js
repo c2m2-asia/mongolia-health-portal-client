@@ -37,13 +37,9 @@ export default defineMessages({
     id: `${scope}.addAReviewFor`,
     defaultMessage: 'Add a review for',
   },
-  backToBrowsing: {
-    id: `${scope}.backToBrowsing`,
-    defaultMessage: 'Back to browsing',
-  },
   visitFacebook: {
-    id: `${scope}.backToBrowsing`,
-    defaultMessage: 'Visit Facebook',
+    id: `${scope}.visitFacebook`,
+    defaultMessage: 'Visit Facebook page',
   },
   viewInOSM: {
     id: `${scope}.viewInOSM`,

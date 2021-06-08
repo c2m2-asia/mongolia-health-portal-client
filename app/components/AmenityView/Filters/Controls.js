@@ -234,7 +234,7 @@ function Controls({
             >
               <KeyboardBackspaceIcon fontSize="large" color="primary" />
             </IconButton>
-            Back to browsing
+            <FormattedMessage {...messages.backToBrowsing} />
           </div>
         )}
       </div>

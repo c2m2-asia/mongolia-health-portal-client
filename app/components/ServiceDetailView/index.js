@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
-import KeyboardTabIcon from '@material-ui/icons/KeyboardTab';
 import Rating from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';

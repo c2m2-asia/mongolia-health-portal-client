@@ -97,7 +97,7 @@ function LocationSelect({
         >
           {location.map(province => (
             <MenuItem key={uid(province)} value={province.id}>
-              {province.label}
+              {province.label[locale] || province.label}
             </MenuItem>
           ))}
         </Select>
