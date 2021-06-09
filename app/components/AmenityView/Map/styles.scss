@@ -1,4 +1,4 @@
-$color: #696FFF;
+$color: #696fff;
 $font: 'Roboto';
 
 .leaflet-tooltip {
@@ -274,16 +274,27 @@ $font: 'Roboto';
 
 .Tab.Mui-selected {
   color: #fff;
-  background-color: #696FFF;
+  background-color: #696fff;
 }
 
-.makeStyles-outlinedPrimary{
-  color: white,
+.makeStyles-outlinedPrimary {
+  color: white;
 }
 
-.easy-button-button{
+.easy-button-button {
   border: none;
   padding: 5px 9px;
   border-radius: 3px;
   background: white;
+}
+
+.map-container {
+  height: 100%;
+  border-radius: 7px;
+}
+
+@media only screen and (max-width: 960px) {
+  .map-container {
+    border-radius: 0px;
+  }
 }

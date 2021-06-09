@@ -15,6 +15,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from '@material-ui/core/Button';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Checkbox from '@material-ui/core/Checkbox';
+import Hidden from '@material-ui/core/Hidden';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -43,6 +44,7 @@ import StyledRadio from './Radio';
 import messages from './messages';
 import 'simplebar/dist/simplebar.min.css';
 import './styles.scss';
+import Controls from './Controls';
 
 const useStyles = makeStyles(theme => ({
   showButton: {
@@ -104,6 +106,7 @@ function Filters({
   locale,
   loading,
   setFirstTime,
+  handleFilterDialogClose,
 }) {
   const classes = useStyles();
   // const [tabIndex, setTabIndex] = useState(0);
@@ -203,6 +206,24 @@ function Filters({
             style={{ maxHeight: '100%', paddingRight: '1rem' }}
             autoHide
           >
+            <Hidden mdUp>
+              <Controls
+                isShowFilter={isShowFilter}
+                filters={amenityDetail.filters}
+                getAmenityDetail={getAmenityDetail}
+                amenityType={amenityType}
+                amenityDetail={amenityDetail}
+                setFilterState={setFilterState}
+                filterState={filterState}
+                onFilterChange={onFilterChange}
+                setLocation={setLocation}
+                location={location}
+                setAmenityType={setAmenityType}
+                tags={tags}
+                locations={locations}
+                locale={locale}
+              />
+            </Hidden>
             <div className="info-head">
               <Typography
                 variant="h5"
@@ -702,6 +723,7 @@ function Filters({
             onClick={() => {
               getAmenityDetail(amenityType, filterState, location);
               setFirstTime(false);
+              handleFilterDialogClose();
             }}
           >
             <FormattedMessage {...messages.apply} />
@@ -718,6 +740,7 @@ Filters.propTypes = {
   getAmenityDetail: PropTypes.func,
   loading: PropTypes.bool,
   isShowFilter: PropTypes.bool,
+  handleFilterDialogClose: PropTypes.func,
 };
 
 export default memo(Filters);

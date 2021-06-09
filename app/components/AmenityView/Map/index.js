@@ -15,6 +15,7 @@ import withWidth from '@material-ui/core/withWidth';
 import Hidden from '@material-ui/core/Hidden';
 import SearchView from 'containers/SearchContainer';
 import Loader from 'react-loader-spinner';
+import FilterListIcon from '@material-ui/icons/FilterList';
 import { PRIMARY_COLOR } from 'utils/constants';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import 'leaflet-boundary-canvas';
@@ -200,7 +201,13 @@ class Map extends React.Component {
       clearHighlightLayers,
       getSelectedServiceId,
     } = this;
-    const { locale, history, amenityType, selectedService, handleDialogOpen } = this.props;
+    const {
+      locale,
+      history,
+      amenityType,
+      selectedService,
+      handleDialogOpen,
+    } = this.props;
 
     const iconOptions = amenity => {
       return L.icon({
@@ -375,9 +382,8 @@ class Map extends React.Component {
   render() {
     return (
       <div
-        className="selector6"
+        className="selector6 map-container"
         ref={node => (this.mapNode = node)}
-        style={{ height: '100%', borderRadius: '7px' }}
       >
         {
           //   <div
@@ -415,16 +421,32 @@ class Map extends React.Component {
             </div>
           </div>
         )}
-        <Hidden smDown>
-          <div style={{ position: 'absolute', right: '12px', top: '15px' }}>
-            <SearchView
-              onSearchResultSelect={this.onSearchResultSelect}
-              setIsShowFilter={this.props.setIsShowFilter}
-              selectedServiceSet={this.selectedServiceSet}
-              amenityType={this.props.amenityType}
-            />
-          </div>
-        </Hidden>
+        <div style={{ position: 'absolute', right: '12px', top: '15px' }}>
+          <SearchView
+            onSearchResultSelect={this.onSearchResultSelect}
+            setIsShowFilter={this.props.setIsShowFilter}
+            selectedServiceSet={this.selectedServiceSet}
+            amenityType={this.props.amenityType}
+          />
+          <Hidden mdUp>
+            <div style={{ position: 'absolute', zIndex: '1000', right: '0' }}>
+              <div
+                className="mt-4"
+                style={{
+                  borderRadius: '50%',
+                  padding: '7px',
+                  backgroundColor: PRIMARY_COLOR,
+                }}
+              >
+                <FilterListIcon
+                  fontSize="large"
+                  style={{ color: 'white' }}
+                  onClick={() => this.props.handleFilterDialogOpen()}
+                />
+              </div>
+            </div>
+          </Hidden>
+        </div>
       </div>
     );
   }
@@ -443,6 +465,7 @@ Map.propTypes = {
   showFilters: PropTypes.func,
   amenityType: PropTypes.string,
   locale: PropTypes.string,
+  handleFilterDialogOpen: PropTypes.func,
 };
 
 export default withWidth()(memo(Map));

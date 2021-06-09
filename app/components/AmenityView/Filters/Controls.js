@@ -59,6 +59,35 @@ const useStyles = makeStyles(theme => ({
   table: {
     maxWidth: 650,
   },
+  background: {
+    height: '90px',
+    backgroundColor: '#f5f7fc',
+    [theme.breakpoints.down('sm')]: {
+      height: '100%',
+    },
+  },
+  locations: {
+    display: 'flex',
+    gap: '1.5rem',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '1rem',
+    },
+  },
+  controlsContainer: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '1.5rem',
+    paddingRight: '1.5rem',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      paddingTop: '1rem',
+      paddingBottom: '1rem',
+      marginBottom: '1rem',
+    },
+  },
 }));
 
 function Controls({
@@ -136,18 +165,9 @@ function Controls({
 
   return (
     <React.Fragment>
-      <div style={{ height: '90px', backgroundColor: '#f5f7fc' }}>
+      <div className={classes.background}>
         {isShowFilter && (
-          <div
-            className="py-3"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              paddingLeft: '1.5rem',
-              paddingRight: '1.5rem',
-              justifyContent: 'space-between',
-            }}
-          >
+          <div className={classes.controlsContainer}>
             <div className="selector2">
               <Tabs
                 className={classes.tabs}
@@ -176,10 +196,7 @@ function Controls({
                 />
               </Tabs>
             </div>
-            <div
-              className="location d-flex align-items-center"
-              style={{ gap: '1.5rem' }}
-            >
+            <div className={classes.locations}>
               {
                 //   <Typography
                 //   variant="subtitle2"
@@ -200,6 +217,7 @@ function Controls({
             </div>
           </div>
         )}
+
         {!isShowFilter && (
           <div
             className="d-flex align-items-center h-100"

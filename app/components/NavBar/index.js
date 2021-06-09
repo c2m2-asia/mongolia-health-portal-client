@@ -64,6 +64,14 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'none',
     fontWeight: '500',
   },
+  appBar: {
+    paddingLeft: '1.5rem',
+    paddingRight: '10px',
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '14px',
+      paddingRight: '0',
+    },
+  },
 }));
 
 function countryToFlag(isoCode) {
@@ -165,25 +173,12 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
         color="white"
         elevation={0}
         style={{ borderBottom: '1px solid rgba(105,105,105,0.33)' }}
+        className={classes.appBar}
       >
-        <Toolbar>
-          <Hidden mdDown>
-            <Typography variant="h6" className={classes.title}>
-              <FormattedMessage {...messages.projectTitle} />
-            </Typography>
-          </Hidden>
-
-          {
-            // <Hidden mdUp>
-            //   <SearchView
-            //     onSearchResultSelect={onSearchResultSelect}
-            //     setIsShowFilter={props.setIsShowFilter}
-            //     selectedServiceSet={selectedServiceSet}
-            //     amenityType={amenityType}
-            //   />
-            // </Hidden>
-          }
-
+        <Toolbar disableGutters>
+          <Typography variant="h6" className={classes.title}>
+            <FormattedMessage {...messages.projectTitle} />
+          </Typography>
           <Hidden mdUp>
             <IconButton
               className={classes.menuButton}

@@ -13,6 +13,8 @@ import Dialog from '@material-ui/core/Dialog';
 import ServiceDetailView from 'components/ServiceDetailView';
 import { PRIMARY_COLOR } from 'utils/constants';
 import { makeStyles } from '@material-ui/core/styles';
+import Slide from '@material-ui/core/Slide';
+
 import Loader from 'react-loader-spinner';
 import NavBar from 'containers/NavBarContainer';
 import Map from './Map';
@@ -30,7 +32,24 @@ const useStyles = makeStyles(theme => ({
     height: '65vh',
     padding: '1.5rem',
   },
+  grid: {
+    height: 'calc(100vh - 155px)',
+    background: '#FFFFFF',
+    padding: '1.5rem',
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
+      height: 'calc(100vh - 65px)',
+    },
+    [theme.breakpoints.down('xs')]: {
+      padding: 0,
+      height: 'calc(100vh - 56px)',
+    },
+  },
 }));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function AmenityView({
   history,
@@ -160,6 +179,7 @@ function AmenityView({
       .selectors;
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [filterDialogOpen, setFilterDialogOpen] = React.useState(false);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
@@ -167,6 +187,14 @@ function AmenityView({
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handleFilterDialogOpen = () => {
+    setFilterDialogOpen(true);
+  };
+
+  const handleFilterDialogClose = () => {
+    setFilterDialogOpen(false);
   };
 
   return (
@@ -190,18 +218,10 @@ function AmenityView({
               tags={tags}
               locations={locations}
               locale={locale}
-              setIsShowFilter={setIsShowFilter}
             />
           </Hidden>
         )}
-        <Grid
-          container
-          style={{
-            height: 'calc(100vh - 155px)',
-            background: '#FFFFFF',
-            padding: '1.5rem',
-          }}
-        >
+        <Grid container className={classes.grid}>
           {!amenityDetail && (
             <div
               style={{
@@ -251,6 +271,8 @@ function AmenityView({
                   locale={locale}
                   loading={loading}
                   setFirstTime={setFirstTime}
+                  setFilterDialogOpen={setFilterDialogOpen}
+                  handleFilterDialogClose={handleFilterDialogClose}
                 />
               </Grid>
             </Hidden>
@@ -279,6 +301,7 @@ function AmenityView({
                 firstTime={firstTime}
                 setFirstTime={setFirstTime}
                 handleDialogOpen={handleDialogOpen}
+                handleFilterDialogOpen={handleFilterDialogOpen}
               />
             )}
           </Grid>
@@ -290,6 +313,8 @@ function AmenityView({
                 paper: classes.dialogPaper,
               }}
               fullWidth
+              TransitionComponent={Transition}
+              keepMounted
               maxWidth="md"
             >
               {amenityDetail && selectedService && (
@@ -335,6 +360,41 @@ function AmenityView({
             )}
           </Hidden>
         </Grid>
+        <Hidden mdUp>
+          <Dialog
+            open={filterDialogOpen}
+            onClose={handleFilterDialogClose}
+            classes={{
+              paper: classes.dialogPaper,
+            }}
+            fullWidth
+            TransitionComponent={Transition}
+            keepMounted
+            maxWidth="md"
+          >
+            {amenityDetail && tags && (
+              <Filters
+                isShowFilter={isShowFilter}
+                filters={amenityDetail.filters}
+                getAmenityDetail={getAmenityDetail}
+                amenityType={amenityType}
+                amenityDetail={amenityDetail}
+                setFilterState={setFilterState}
+                filterState={filterState}
+                onFilterChange={onFilterChange}
+                setLocation={setLocation}
+                location={location}
+                setAmenityType={setAmenityType}
+                tags={tags}
+                locations={locations}
+                locale={locale}
+                loading={loading}
+                setFirstTime={setFirstTime}
+                handleFilterDialogClose={handleFilterDialogClose}
+              />
+            )}
+          </Dialog>
+        </Hidden>
       </Fragment>
     </NavBar>
   );
