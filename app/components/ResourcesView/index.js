@@ -7,6 +7,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import NavBar from 'containers/NavBarContainer';
 // import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
@@ -21,24 +22,26 @@ function ResourcesView({ fetchResources, resources }) {
   }, []);
 
   return (
-    <div className="container">
-      <Typography variant="h4" gutterBottom style={{ paddingTop: '6vh' }}>
-        <FormattedMessage {...messages.resources} />
-      </Typography>
-      {
-        // resources &&
-        // resources.map(resource => (
-        //   <div>
-        //     {resource.title}
-        //     {resource.description}
-        //   </div>
-        // ))
-      }
+    <NavBar>
+      <div className="container">
+        <Typography variant="h4" gutterBottom style={{ paddingTop: '6vh' }}>
+          <FormattedMessage {...messages.resources} />
+        </Typography>
+        {
+          // resources &&
+          // resources.map(resource => (
+          //   <div>
+          //     {resource.title}
+          //     {resource.description}
+          //   </div>
+          // ))
+        }
 
-      <div className="text-muted">
-        <FormattedMessage {...messages.resourcesDesc} />
+        <div className="text-muted">
+          <FormattedMessage {...messages.resourcesDesc} />
+        </div>
       </div>
-    </div>
+    </NavBar>
   );
 }
 

@@ -223,11 +223,8 @@ function ServiceDetailView({
             </div>
             {
               <Tooltip title={<FormattedMessage {...messages.share} />}>
-                <IconButton
-                  color="primary"
-                  onClick={handleShare}
-                >
-                  <ShareIcon fontSize="medium" />
+                <IconButton color="primary" onClick={handleShare}>
+                  <ShareIcon />
                 </IconButton>
               </Tooltip>
             }
@@ -450,7 +447,13 @@ function ServiceDetailView({
                   ))}
               </div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginBottom: '.5rem',
+              }}
+            >
               <AddReviewDialog
                 addReview={addReview}
                 name={serviceDetail.properties.tags.name}

@@ -21,11 +21,15 @@ import messages from './messages';
 import { changeLocale } from '../LanguageProvider/actions';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
 
-export function NavBarContainer({ locale, onLocaleToggle }) {
+export function NavBarContainer({ locale, onLocaleToggle, children }) {
   useInjectReducer({ key: 'navBar}Container', reducer });
   useInjectSaga({ key: 'navBarContainer', saga });
 
-  return <NavBar locale={locale} onLocaleToggle={onLocaleToggle} />;
+  return (
+    <NavBar locale={locale} onLocaleToggle={onLocaleToggle}>
+      {children}
+    </NavBar>
+  );
 }
 
 NavBarContainer.propTypes = {

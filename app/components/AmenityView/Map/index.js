@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
 // import $ from 'jquery';
 import 'leaflet-easybutton';
 // import baatoLogo from 'images/baato-logo.png';
+import withWidth from '@material-ui/core/withWidth';
+import Hidden from '@material-ui/core/Hidden';
 import SearchView from 'containers/SearchContainer';
 import Loader from 'react-loader-spinner';
 import { PRIMARY_COLOR } from 'utils/constants';
@@ -103,7 +105,7 @@ class Map extends React.Component {
       },
     );
     const baseMaps = {
-      'OSM Standard': layer2,
+      'OSM Carto': layer2,
       Thunderforest: layer1,
       'Google Satellite': googleSat,
     };
@@ -198,7 +200,7 @@ class Map extends React.Component {
       clearHighlightLayers,
       getSelectedServiceId,
     } = this;
-    const { locale, history, amenityType, selectedService } = this.props;
+    const { locale, history, amenityType, selectedService, handleDialogOpen } = this.props;
 
     const iconOptions = amenity => {
       return L.icon({
@@ -260,6 +262,7 @@ class Map extends React.Component {
           history.push(`/${amenityType}/${feature.properties.id}`);
           filtersShow(false);
           selectedServiceSet(feature);
+          handleDialogOpen();
           layer.openPopup();
           layer.setIcon(iconOptionsBlack(feature.properties.tags.amenity));
           if (oldLayer && oldLayer !== layer)
@@ -412,14 +415,16 @@ class Map extends React.Component {
             </div>
           </div>
         )}
-        <div style={{ position: 'absolute', right: '12px', top: '15px' }}>
-          <SearchView
-            onSearchResultSelect={this.onSearchResultSelect}
-            setIsShowFilter={this.props.setIsShowFilter}
-            selectedServiceSet={this.selectedServiceSet}
-            amenityType={this.props.amenityType}
-          />
-        </div>
+        <Hidden smDown>
+          <div style={{ position: 'absolute', right: '12px', top: '15px' }}>
+            <SearchView
+              onSearchResultSelect={this.onSearchResultSelect}
+              setIsShowFilter={this.props.setIsShowFilter}
+              selectedServiceSet={this.selectedServiceSet}
+              amenityType={this.props.amenityType}
+            />
+          </div>
+        </Hidden>
       </div>
     );
   }
@@ -440,4 +445,4 @@ Map.propTypes = {
   locale: PropTypes.string,
 };
 
-export default memo(Map);
+export default withWidth()(memo(Map));

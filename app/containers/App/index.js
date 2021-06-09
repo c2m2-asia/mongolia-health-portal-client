@@ -7,9 +7,9 @@
  *
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import NavBarContainer from 'containers/NavBarContainer';
+// import NavBarContainer from 'containers/NavBarContainer';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Languagetesting from 'components/Languagetesting';
@@ -25,8 +25,7 @@ import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
-      <NavBarContainer />
+    <Fragment>
       <MessengerCustomerChat appId="723915871692886" pageId="103065175334366" />
       <Switch>
         <Route exact path="/" component={AmenityContainer} />
@@ -41,6 +40,6 @@ export default function App() {
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
-    </div>
+    </Fragment>
   );
 }

@@ -8,14 +8,29 @@ import React, { useState, useEffect, memo, Fragment } from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import Dialog from '@material-ui/core/Dialog';
 import ServiceDetailView from 'components/ServiceDetailView';
 import { PRIMARY_COLOR } from 'utils/constants';
+import { makeStyles } from '@material-ui/core/styles';
 import Loader from 'react-loader-spinner';
+import NavBar from 'containers/NavBarContainer';
 import Map from './Map';
 import Filters from './Filters';
 import 'simplebar/dist/simplebar.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Controls from './Filters/Controls';
+
+const useStyles = makeStyles(theme => ({
+  dialogPaper: {
+    position: 'absolute',
+    width: '100vw',
+    bottom: 0,
+    margin: '0',
+    height: '65vh',
+    padding: '1.5rem',
+  },
+}));
 
 function AmenityView({
   history,
@@ -34,6 +49,7 @@ function AmenityView({
   fetchLocation,
   locations,
 }) {
+  const classes = useStyles();
   const [isShowFilter, setIsShowFilter] = useState(true);
   const [selectedService, setSelectedService] = useState(null);
   const [filterState, setFilterState] = useState([]);
@@ -143,133 +159,191 @@ function AmenityView({
       .filterTags.filter(tag => tag.osm_tag === 'healthcare:speciality')[0]
       .selectors;
 
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
-    <Fragment>
-      {amenityDetail && (
-        <Controls
-          history={history}
-          isShowFilter={isShowFilter}
-          filters={amenityDetail.filters}
-          getAmenityDetail={getAmenityDetail}
-          amenityType={amenityType}
-          amenityDetail={amenityDetail}
-          setFilterState={setFilterState}
-          filterState={filterState}
-          onFilterChange={onFilterChange}
-          setLocation={setLocation}
-          location={location}
-          setAmenityType={setAmenityType}
-          tags={tags}
-          locations={locations}
-          locale={locale}
-          setIsShowFilter={setIsShowFilter}
-        />
-      )}
-      <Grid
-        container
-        style={{
-          height: 'calc(100vh - 155px)',
-          background: '#FFFFFF',
-          padding: '1.5rem',
-        }}
-      >
-        {!amenityDetail && (
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Loader
-              type="Circles"
-              color={PRIMARY_COLOR}
-              height={65}
-              width={65}
+    <NavBar>
+      <Fragment>
+        {amenityDetail && locations && tags && (
+          <Hidden smDown>
+            <Controls
+              history={history}
+              isShowFilter={isShowFilter}
+              filters={amenityDetail.filters}
+              getAmenityDetail={getAmenityDetail}
+              amenityType={amenityType}
+              amenityDetail={amenityDetail}
+              setFilterState={setFilterState}
+              filterState={filterState}
+              onFilterChange={onFilterChange}
+              setLocation={setLocation}
+              location={location}
+              setAmenityType={setAmenityType}
+              tags={tags}
+              locations={locations}
+              locale={locale}
+              setIsShowFilter={setIsShowFilter}
             />
-          </div>
-        )}
-        {amenityDetail && (
-          <Filters
-            isShowFilter={isShowFilter}
-            filters={amenityDetail.filters}
-            getAmenityDetail={getAmenityDetail}
-            amenityType={amenityType}
-            amenityDetail={amenityDetail}
-            setFilterState={setFilterState}
-            filterState={filterState}
-            onFilterChange={onFilterChange}
-            setLocation={setLocation}
-            location={location}
-            setAmenityType={setAmenityType}
-            tags={tags}
-            locations={locations}
-            locale={locale}
-            loading={loading}
-            setFirstTime={setFirstTime}
-          />
+          </Hidden>
         )}
         <Grid
-          item
-          lg={isShowFilter ? 9 : 8}
-          md={isShowFilter ? 9 : 8}
-          xs={12}
-          sm={12}
+          container
+          style={{
+            height: 'calc(100vh - 155px)',
+            background: '#FFFFFF',
+            padding: '1.5rem',
+          }}
         >
-          {amenityDetail && (
-            <Map
-              loading={loading}
-              history={history}
-              amenityDetail={amenityDetail}
-              showFilters={showFilters}
-              setIsShowFilter={setIsShowFilter}
-              setSelectedService={setSelectedService}
-              selectedService={selectedService}
-              downloadData={downloadData}
-              filterState={filterState}
-              location={location}
-              amenityType={amenityType}
-              locale={locale}
-              firstTime={firstTime}
-              setFirstTime={setFirstTime}
-            />
+          {!amenityDetail && (
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Loader
+                type="Circles"
+                color={PRIMARY_COLOR}
+                height={65}
+                width={65}
+              />
+            </div>
           )}
-        </Grid>
-        {!isShowFilter && selectedService !== null && (
+          {amenityDetail && tags && (
+            <Hidden smDown>
+              <Grid
+                item
+                lg={3}
+                md={3}
+                sm={12}
+                xs={12}
+                style={{
+                  paddingRight: '1rem',
+                  height: '100%',
+                  display: `${isShowFilter ? 'block' : 'none'}`,
+                }}
+              >
+                <Filters
+                  isShowFilter={isShowFilter}
+                  filters={amenityDetail.filters}
+                  getAmenityDetail={getAmenityDetail}
+                  amenityType={amenityType}
+                  amenityDetail={amenityDetail}
+                  setFilterState={setFilterState}
+                  filterState={filterState}
+                  onFilterChange={onFilterChange}
+                  setLocation={setLocation}
+                  location={location}
+                  setAmenityType={setAmenityType}
+                  tags={tags}
+                  locations={locations}
+                  locale={locale}
+                  loading={loading}
+                  setFirstTime={setFirstTime}
+                />
+              </Grid>
+            </Hidden>
+          )}
           <Grid
             item
-            lg={4}
+            lg={isShowFilter ? 9 : 8}
+            md={isShowFilter ? 9 : 8}
             xs={12}
-            md={4}
-            style={{ paddingLeft: '1.5rem', height: '100%' }}
+            sm={12}
           >
-            {amenityDetail && selectedService && (
-              <ServiceDetailView
+            {amenityDetail && (
+              <Map
+                loading={loading}
                 history={history}
-                serviceDetail={selectedService}
+                amenityDetail={amenityDetail}
                 showFilters={showFilters}
-                getPoiReviews={getPoiReviews}
-                addReview={addReview}
-                reviews={reviews}
-                isReviewAdded={isReviewAdded}
-                specialities={specialities}
+                setIsShowFilter={setIsShowFilter}
+                setSelectedService={setSelectedService}
+                selectedService={selectedService}
+                downloadData={downloadData}
+                filterState={filterState}
+                location={location}
                 amenityType={amenityType}
                 locale={locale}
+                firstTime={firstTime}
+                setFirstTime={setFirstTime}
+                handleDialogOpen={handleDialogOpen}
               />
             )}
           </Grid>
-        )}
-      </Grid>
-    </Fragment>
+          <Hidden mdUp>
+            <Dialog
+              open={dialogOpen}
+              onClose={handleDialogClose}
+              classes={{
+                paper: classes.dialogPaper,
+              }}
+              fullWidth
+              maxWidth="md"
+            >
+              {amenityDetail && selectedService && (
+                <ServiceDetailView
+                  history={history}
+                  serviceDetail={selectedService}
+                  showFilters={showFilters}
+                  getPoiReviews={getPoiReviews}
+                  addReview={addReview}
+                  reviews={reviews}
+                  isReviewAdded={isReviewAdded}
+                  specialities={specialities}
+                  amenityType={amenityType}
+                  locale={locale}
+                />
+              )}
+            </Dialog>
+          </Hidden>
+          <Hidden smDown>
+            {!isShowFilter && selectedService !== null && (
+              <Grid
+                item
+                lg={4}
+                xs={12}
+                md={4}
+                style={{ paddingLeft: '1.5rem', height: '100%' }}
+              >
+                {amenityDetail && selectedService && (
+                  <ServiceDetailView
+                    history={history}
+                    serviceDetail={selectedService}
+                    showFilters={showFilters}
+                    getPoiReviews={getPoiReviews}
+                    addReview={addReview}
+                    reviews={reviews}
+                    isReviewAdded={isReviewAdded}
+                    specialities={specialities}
+                    amenityType={amenityType}
+                    locale={locale}
+                  />
+                )}
+              </Grid>
+            )}
+          </Hidden>
+        </Grid>
+      </Fragment>
+    </NavBar>
   );
 }
 
 AmenityView.propTypes = {
   history: PropTypes.object,
   pathLocation: PropTypes.object,
-  locations: PropTypes.object,
+  locations: PropTypes.array,
   loading: PropTypes.bool,
   fetchTags: PropTypes.func.isRequired,
   getAmenityDetail: PropTypes.func.isRequired,

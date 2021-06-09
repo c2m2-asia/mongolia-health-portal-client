@@ -4,33 +4,13 @@
  *
  */
 
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { uid } from 'react-uid';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Popover from '@material-ui/core/Popover';
 import { FormattedMessage } from 'react-intl';
 import Tabs from '@material-ui/core/Tabs';
-import Badge from '@material-ui/core/Badge';
 import Tab from '@material-ui/core/Tab';
-import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import SimpleBarReact from 'simplebar-react';
 import LocationSelect from 'components/LocationSelect';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import messages from './messages';

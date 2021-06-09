@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    // marginRight: '1rem',
   },
   title: {
     flexGrow: 1,
@@ -76,7 +76,7 @@ function countryToFlag(isoCode) {
     : isoCode;
 }
 
-export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
+function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
   const classes = useStyles();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState('');
@@ -167,9 +167,22 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
         style={{ borderBottom: '1px solid rgba(105,105,105,0.33)' }}
       >
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <FormattedMessage {...messages.projectTitle} />
-          </Typography>
+          <Hidden mdDown>
+            <Typography variant="h6" className={classes.title}>
+              <FormattedMessage {...messages.projectTitle} />
+            </Typography>
+          </Hidden>
+
+          {
+            // <Hidden mdUp>
+            //   <SearchView
+            //     onSearchResultSelect={onSearchResultSelect}
+            //     setIsShowFilter={props.setIsShowFilter}
+            //     selectedServiceSet={selectedServiceSet}
+            //     amenityType={amenityType}
+            //   />
+            // </Hidden>
+          }
 
           <Hidden mdUp>
             <IconButton
@@ -302,27 +315,29 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
               </MenuItem>
             </Menu>
 
-            <Button
-              className={classes.button}
-              color="secondary"
-              onClick={() => setIsTourEnabled(true)}
-            >
-              <FormattedMessage {...messages.howToUse} />
-            </Button>
-            <Steps
-              enabled={isTourEnabled}
-              steps={steps}
-              initialStep={0}
-              onExit={() => setIsTourEnabled(false)}
-              options={{
-                nextLabel: locale === 'en' ? 'Next' : 'Дараачийн',
-                prevLabel: locale === 'en' ? 'Previous' : 'Өмнөх',
-                skipLabel: locale === 'en' ? 'Skip' : 'Алгасах',
-                doneLabel: locale === 'en' ? 'Done' : 'Дууссан',
-                scrollToElement: false,
-                showStepNumbers: false,
-              }}
-            />
+            {
+              //   <Button
+              //   className={classes.button}
+              //   color="secondary"
+              //   onClick={() => setIsTourEnabled(true)}
+              // >
+              //   <FormattedMessage {...messages.howToUse} />
+              // </Button>
+              // <Steps
+              //   enabled={isTourEnabled}
+              //   steps={steps}
+              //   initialStep={0}
+              //   onExit={() => setIsTourEnabled(false)}
+              //   options={{
+              //     nextLabel: locale === 'en' ? 'Next' : 'Дараачийн',
+              //     prevLabel: locale === 'en' ? 'Previous' : 'Өмнөх',
+              //     skipLabel: locale === 'en' ? 'Skip' : 'Алгасах',
+              //     doneLabel: locale === 'en' ? 'Done' : 'Дууссан',
+              //     scrollToElement: false,
+              //     showStepNumbers: false,
+              //   }}
+              // />
+            }
             <NavLink to="/resources" style={{ textDecoration: 'none' }}>
               <Button className={classes.button} color="secondary">
                 <FormattedMessage {...messages.resources} />
@@ -336,6 +351,9 @@ export default function SwipeableTemporaryDrawer({ onLocaleToggle, locale }) {
           </div>
         </List>
       </Drawer>
+      {children}
     </div>
   );
 }
+
+export default SwipeableTemporaryDrawer;

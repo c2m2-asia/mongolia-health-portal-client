@@ -106,28 +106,28 @@ function Filters({
   setFirstTime,
 }) {
   const classes = useStyles();
-  const [tabIndex, setTabIndex] = useState(0);
+  // const [tabIndex, setTabIndex] = useState(0);
   // const [filterState, setFilterState] = useState([]);
-  const [showMore, setShowMore] = useState(false);
-  const [showMoreType, setShowMoreType] = useState(false);
-  const [openedPopoverId, setOpenedPopoverId] = useState('');
+  // const [showMore, setShowMore] = useState(false);
+  // const [showMoreType, setShowMoreType] = useState(false);
+  // const [openedPopoverId, setOpenedPopoverId] = useState('');
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
   const [filterInfoAnchorEl, setFilterInfoAnchorEl] = React.useState(null);
 
-  const open = Boolean(anchorEl);
+  // const open = Boolean(anchorEl);
   const filterInfoPopoverOpen = Boolean(filterInfoAnchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  // const id = open ? 'simple-popover' : undefined;
 
-  const handleClickPopover = (event, popoverId) => {
-    setOpenedPopoverId(popoverId);
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClosePopover = () => {
-    setOpenedPopoverId('');
-    setAnchorEl(null);
-  };
+  // const handleClickPopover = (event, popoverId) => {
+  //   setOpenedPopoverId(popoverId);
+  //   setAnchorEl(event.currentTarget);
+  // };
+  //
+  // const handleClosePopover = () => {
+  //   setOpenedPopoverId('');
+  //   setAnchorEl(null);
+  // };
 
   const handleFilterInfoPopoverOpen = event => {
     setFilterInfoAnchorEl(event.currentTarget);
@@ -145,21 +145,21 @@ function Filters({
     return total;
   };
 
-  const setBoundary = location => {
-    setLocation(location);
-    getAmenityDetail(amenityType, filterState, location);
-  };
+  // const setBoundary = location => {
+  //   setLocation(location);
+  //   getAmenityDetail(amenityType, filterState, location);
+  // };
 
-  const checkTypeChecked = filterValue => {
-    let checker = false;
-    const filterClone = JSON.parse(JSON.stringify(filterState));
-    filterClone.forEach(filter => {
-      if (filter.osmValue.includes(filterValue)) {
-        checker = true;
-      }
-    });
-    return checker;
-  };
+  // const checkTypeChecked = filterValue => {
+  //   let checker = false;
+  //   const filterClone = JSON.parse(JSON.stringify(filterState));
+  //   filterClone.forEach(filter => {
+  //     if (filter.osmValue.includes(filterValue)) {
+  //       checker = true;
+  //     }
+  //   });
+  //   return checker;
+  // };
 
   const getValueChips = filter => {
     const amenitytags = tags.filter(
@@ -175,9 +175,10 @@ function Filters({
     const labels = selectedOptions.map(selected => selected.labelLocale);
     return labels.map(label => (
       <Chip
+        key={uid(label)}
         style={{ margin: '0.1rem' }}
         variant="outlined"
-        label={label[locale] || label['en']}
+        label={label[locale] || label.en}
         color="primary"
       />
     ));
@@ -185,598 +186,528 @@ function Filters({
 
   return (
     <Fragment>
-      <Grid
-        item
-        lg={3}
-        md={12}
-        sm={12}
-        xs={12}
+      <div
+        className="selector1"
         style={{
-          paddingRight: '1rem',
+          display: 'flex',
+          flex: 'auto',
+          flexDirection: 'column',
           height: '100%',
-          display: `${isShowFilter ? 'block' : 'none'}`,
         }}
       >
         <div
-          className="selector1"
-          style={{
-            display: 'flex',
-            flex: 'auto',
-            flexDirection: 'column',
-            height: '100%',
-          }}
+          className="filter-content selector4"
+          style={{ overflowY: 'hidden', height: '100%' }}
         >
-          {
-            // <div className="pb-3 selector2">
-            //   <Tabs
-            //     className={classes.tabs}
-            //     variant="fullWidth"
-            //     value={tabIndex}
-            //     onChange={(e, index) => {
-            //       setAmenityType(index === 1 ? 'pharmacies' : 'healthServices');
-            //       setTabIndex(index);
-            //       setFilterState([]);
-            //       getAmenityDetail(
-            //         index === 1 ? 'pharmacies' : 'healthServices',
-            //         [],
-            //         location,
-            //       );
-            //     }}
-            //     indicatorColor=""
-            //   >
-            //     <Tab
-            //       classes={{
-            //         selected: classes.selected,
-            //         wrapper: classes.wrapper,
-            //       }}
-            //       disableRipple
-            //       label={<FormattedMessage {...messages.healthServices} />}
-            //     />
-            //     <Tab
-            //       classes={{
-            //         selected: classes.selected,
-            //         wrapper: classes.wrapper,
-            //       }}
-            //       disableRipple
-            //       label={<FormattedMessage {...messages.pharmacies} />}
-            //     />
-            //   </Tabs>
-            // </div>
-            //
-            // <div
-            //   className="location"
-            //   style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}
-            // >
-            //   <Typography
-            //     variant="subtitle2"
-            //     gutterBottom
-            //     style={{ color: '#252525', fontWeight: '600' }}
-            //   >
-            //     <FormattedMessage {...messages.selectLocation} />
-            //   </Typography>
-            //   <LocationSelect
-            //     getAmenityDetail={getAmenityDetail}
-            //     amenityType={tabIndex === 1 ? 'pharmacies' : 'healthServices'}
-            //     filterState={filterState}
-            //     setBoundary={setBoundary}
-            //     location={locations}
-            //     locale={locale}
-            //   />
-            // </div>
-          }
-          <div
-            className="filter-content selector4"
-            style={{ overflowY: 'hidden', height: '100%' }}
+          <SimpleBarReact
+            style={{ maxHeight: '100%', paddingRight: '1rem' }}
+            autoHide
           >
-            <SimpleBarReact
-              style={{ maxHeight: '100%', paddingRight: '1rem' }}
-              autoHide
-            >
-              <div className="info-head">
-                <Typography
-                  variant="h5"
-                  style={{ color: '#252525', fontWeight: '900' }}
-                >
-                  {amenityType === 'healthServices' ? (
-                    <FormattedMessage {...messages.browseHospitals} />
-                  ) : (
-                    <FormattedMessage {...messages.browsePharmacies} />
-                  )}
-                </Typography>
-                {loading && (
-                  <Skeleton animation="wave" variant="text" width={250} />
-                )}
-                {!loading && (
-                  <p style={{ color: '#696969' }}>
-                    <FormattedMessage {...messages.showing} />
-                    &nbsp;
-                    {getTotalServices()}
-                    &nbsp;
-                    {amenityType === 'healthServices' ? (
-                      <FormattedMessage {...messages.healthServicesShowing} />
-                    ) : (
-                      <FormattedMessage {...messages.pharmaciesShowing} />
-                    )}
-                  </p>
-                )}
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1.65rem',
-                }}
+            <div className="info-head">
+              <Typography
+                variant="h5"
+                style={{ color: '#252525', fontWeight: '900' }}
               >
-                {tags
-                  .filter(
-                    tag =>
-                      tag.value ===
-                      (amenityType === 'healthServices'
-                        ? 'healthService'
-                        : 'pharmacy'),
-                  )[0]
-                  .filterTags.map(filterTag => (
-                    <div key={uid(filterTag)}>
-                      <Typography
-                        variant="subtitle2"
-                        gutterBottom
-                        style={{ color: '#252525', fontWeight: '600' }}
-                      >
-                        {filterTag.labelLocale[locale]}
-                      </Typography>
-                      {
-                        //   filterTag.type === 'multi-select' && (
-                        //   <div className="filterContainer" key={Math.random()}>
-                        //     {filterTag.selectors.map((menuItem, index) => {
-                        //       if (index < 4 || showMore) {
-                        //         return (
-                        //           <div
-                        //             className="filterItem"
-                        //             key={uid(menuItem, index)}
-                        //           >
-                        //             <FormControlLabel
-                        //               control={
-                        //                 <Checkbox
-                        //                   checked={checkTypeChecked(
-                        //                     menuItem.osm_value.toLowerCase(),
-                        //                   )}
-                        //                   onChange={e =>
-                        //                     onFilterChange(
-                        //                       e.target.name,
-                        //                       e.target.value,
-                        //                       filterTag.type,
-                        //                     )
-                        //                   }
-                        //                   name={filterTag.osm_tag}
-                        //                   color="primary"
-                        //                 />
-                        //               }
-                        //               label={
-                        //                 menuItem.labelLocale[locale] ||
-                        //                 menuItem.labelLocale['en']
-                        //               }
-                        //               value={menuItem.osm_value.toLowerCase()}
-                        //             />
-                        //           </div>
-                        //         );
-                        //       }
-                        //     })}
-                        //     {filterTag.selectors.length > 4 && (
-                        //       <Button
-                        //         style={{ background: 'rgb(105 111 255 / 6%)' }}
-                        //         className={classes.label}
-                        //         onClick={event =>
-                        //           handleClickPopover(event, filterTag.osm_tag)
-                        //         }
-                        //       >
-                        //         {!showMore ? (
-                        //           <FormattedMessage {...messages.showMore} />
-                        //         ) : (
-                        //           <FormattedMessage {...messages.showLess} />
-                        //         )}
-                        //       </Button>
-                        //     )}
-                        //     <Popover
-                        //       open={openedPopoverId === filterTag.osm_tag}
-                        //       anchorEl={anchorEl}
-                        //       onClose={handleClosePopover}
-                        //       anchorOrigin={{
-                        //         vertical: 'bottom',
-                        //         horizontal: 'center',
-                        //       }}
-                        //       transformOrigin={{
-                        //         vertical: 'top',
-                        //         horizontal: 'center',
-                        //       }}
-                        //     >
-                        //       <div className="parent-pop">
-                        //         {filterTag.selectors.map((menuItem, index) => (
-                        //           <div
-                        //             className="popdiv"
-                        //             key={uid(menuItem, index)}
-                        //           >
-                        //             <FormControlLabel
-                        //               key={uid(menuItem, index)}
-                        //               control={
-                        //                 <Checkbox
-                        //                   checked={checkTypeChecked(
-                        //                     menuItem.osm_value.toLowerCase(),
-                        //                   )}
-                        //                   onChange={e => {
-                        //                     onFilterChange(
-                        //                       e.target.name,
-                        //                       e.target.value,
-                        //                       filterTag.type,
-                        //                     );
-                        //                   }}
-                        //                   name={filterTag.osm_tag}
-                        //                   color="primary"
-                        //                 />
-                        //               }
-                        //               label={
-                        //                 menuItem.labelLocale[locale] ||
-                        //                 menuItem.labelLocale['en']
-                        //               }
-                        //               value={menuItem.osm_value.toLowerCase()}
-                        //             />
-                        //           </div>
-                        //         ))}
-                        //       </div>
-                        //       <Button
-                        //         color="primary"
-                        //         onClick={handleClosePopover}
-                        //         style={{
-                        //           fontWeight: '600',
-                        //           marginLeft: '1rem',
-                        //           marginBottom: '1rem',
-                        //           background: 'rgb(105 111 255 / 6%)',
-                        //         }}
-                        //       >
-                        //         <FormattedMessage {...messages.close} />
-                        //       </Button>
-                        //     </Popover>
-                        //   </div>
-                        // )
-                      }
+                {amenityType === 'healthServices' ? (
+                  <FormattedMessage {...messages.browseHospitals} />
+                ) : (
+                  <FormattedMessage {...messages.browsePharmacies} />
+                )}
+              </Typography>
+              {loading && (
+                <Skeleton animation="wave" variant="text" width={250} />
+              )}
+              {!loading && (
+                <p style={{ color: '#696969' }}>
+                  <FormattedMessage {...messages.showing} />
+                  &nbsp;
+                  {getTotalServices()}
+                  &nbsp;
+                  {amenityType === 'healthServices' ? (
+                    <FormattedMessage {...messages.healthServicesShowing} />
+                  ) : (
+                    <FormattedMessage {...messages.pharmaciesShowing} />
+                  )}
+                </p>
+              )}
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.65rem',
+              }}
+            >
+              {tags
+                .filter(
+                  tag =>
+                    tag.value ===
+                    (amenityType === 'healthServices'
+                      ? 'healthService'
+                      : 'pharmacy'),
+                )[0]
+                .filterTags.map(filterTag => (
+                  <div key={uid(filterTag)}>
+                    <Typography
+                      variant="subtitle2"
+                      gutterBottom
+                      style={{ color: '#252525', fontWeight: '600' }}
+                    >
+                      {filterTag.labelLocale[locale]}
+                    </Typography>
+                    {
+                      //   filterTag.type === 'multi-select' && (
+                      //   <div className="filterContainer" key={Math.random()}>
+                      //     {filterTag.selectors.map((menuItem, index) => {
+                      //       if (index < 4 || showMore) {
+                      //         return (
+                      //           <div
+                      //             className="filterItem"
+                      //             key={uid(menuItem, index)}
+                      //           >
+                      //             <FormControlLabel
+                      //               control={
+                      //                 <Checkbox
+                      //                   checked={checkTypeChecked(
+                      //                     menuItem.osm_value.toLowerCase(),
+                      //                   )}
+                      //                   onChange={e =>
+                      //                     onFilterChange(
+                      //                       e.target.name,
+                      //                       e.target.value,
+                      //                       filterTag.type,
+                      //                     )
+                      //                   }
+                      //                   name={filterTag.osm_tag}
+                      //                   color="primary"
+                      //                 />
+                      //               }
+                      //               label={
+                      //                 menuItem.labelLocale[locale] ||
+                      //                 menuItem.labelLocale['en']
+                      //               }
+                      //               value={menuItem.osm_value.toLowerCase()}
+                      //             />
+                      //           </div>
+                      //         );
+                      //       }
+                      //     })}
+                      //     {filterTag.selectors.length > 4 && (
+                      //       <Button
+                      //         style={{ background: 'rgb(105 111 255 / 6%)' }}
+                      //         className={classes.label}
+                      //         onClick={event =>
+                      //           handleClickPopover(event, filterTag.osm_tag)
+                      //         }
+                      //       >
+                      //         {!showMore ? (
+                      //           <FormattedMessage {...messages.showMore} />
+                      //         ) : (
+                      //           <FormattedMessage {...messages.showLess} />
+                      //         )}
+                      //       </Button>
+                      //     )}
+                      //     <Popover
+                      //       open={openedPopoverId === filterTag.osm_tag}
+                      //       anchorEl={anchorEl}
+                      //       onClose={handleClosePopover}
+                      //       anchorOrigin={{
+                      //         vertical: 'bottom',
+                      //         horizontal: 'center',
+                      //       }}
+                      //       transformOrigin={{
+                      //         vertical: 'top',
+                      //         horizontal: 'center',
+                      //       }}
+                      //     >
+                      //       <div className="parent-pop">
+                      //         {filterTag.selectors.map((menuItem, index) => (
+                      //           <div
+                      //             className="popdiv"
+                      //             key={uid(menuItem, index)}
+                      //           >
+                      //             <FormControlLabel
+                      //               key={uid(menuItem, index)}
+                      //               control={
+                      //                 <Checkbox
+                      //                   checked={checkTypeChecked(
+                      //                     menuItem.osm_value.toLowerCase(),
+                      //                   )}
+                      //                   onChange={e => {
+                      //                     onFilterChange(
+                      //                       e.target.name,
+                      //                       e.target.value,
+                      //                       filterTag.type,
+                      //                     );
+                      //                   }}
+                      //                   name={filterTag.osm_tag}
+                      //                   color="primary"
+                      //                 />
+                      //               }
+                      //               label={
+                      //                 menuItem.labelLocale[locale] ||
+                      //                 menuItem.labelLocale['en']
+                      //               }
+                      //               value={menuItem.osm_value.toLowerCase()}
+                      //             />
+                      //           </div>
+                      //         ))}
+                      //       </div>
+                      //       <Button
+                      //         color="primary"
+                      //         onClick={handleClosePopover}
+                      //         style={{
+                      //           fontWeight: '600',
+                      //           marginLeft: '1rem',
+                      //           marginBottom: '1rem',
+                      //           background: 'rgb(105 111 255 / 6%)',
+                      //         }}
+                      //       >
+                      //         <FormattedMessage {...messages.close} />
+                      //       </Button>
+                      //     </Popover>
+                      //   </div>
+                      // )
+                    }
 
-                      {filterTag.type === 'multi-select' && (
-                        <Autocomplete
-                          multiple
-                          fullWidth
-                          popupIcon={<ExpandMoreIcon />}
-                          name={filterTag.osm_tag}
-                          options={filterTag.selectors}
-                          getOptionLabel={option =>
-                            option.labelLocale[locale] ||
-                            option.labelLocale['en']
-                          }
-                          onChange={(e, value) => {
-                            const emptyArray = [];
-                            value.forEach(datum =>
-                              emptyArray.push(datum.osm_value),
-                            );
-                            onFilterChange(
-                              filterTag.osm_tag,
-                              emptyArray,
-                              filterTag.type,
-                            );
-                          }}
-                          renderInput={params => (
-                            <TextField
-                              {...params}
-                              variant="outlined"
-                              name="service"
-                              placeholder={`${
-                                locale === 'en' ? 'Select' : 'Сонгох'
-                              } ${filterTag.labelLocale[locale].toLowerCase()}`}
-                            />
-                          )}
-                        />
-                      )}
-                      {filterTag.type === 'single-select' && (
-                        <React.Fragment>
-                          <FormControl
-                            fullWidth
+                    {filterTag.type === 'multi-select' && (
+                      <Autocomplete
+                        multiple
+                        fullWidth
+                        popupIcon={<ExpandMoreIcon />}
+                        name={filterTag.osm_tag}
+                        options={filterTag.selectors}
+                        getOptionLabel={option =>
+                          option.labelLocale[locale] || option.labelLocale['en']
+                        }
+                        onChange={(e, value) => {
+                          const emptyArray = [];
+                          value.forEach(datum =>
+                            emptyArray.push(datum.osm_value),
+                          );
+                          onFilterChange(
+                            filterTag.osm_tag,
+                            emptyArray,
+                            filterTag.type,
+                          );
+                        }}
+                        renderInput={params => (
+                          <TextField
+                            {...params}
                             variant="outlined"
-                            className={classes.formControl}
-                          >
-                            <Select
-                              IconComponent={ExpandMoreIcon}
-                              name={filterTag.osm_tag}
-                              value={
-                                (filterState.find(
+                            name="service"
+                            placeholder={`${
+                              locale === 'en' ? 'Select' : 'Сонгох'
+                            } ${filterTag.labelLocale[locale].toLowerCase()}`}
+                          />
+                        )}
+                      />
+                    )}
+                    {filterTag.type === 'single-select' && (
+                      <React.Fragment>
+                        <FormControl
+                          fullWidth
+                          variant="outlined"
+                          className={classes.formControl}
+                        >
+                          <Select
+                            IconComponent={ExpandMoreIcon}
+                            name={filterTag.osm_tag}
+                            value={
+                              (filterState.find(
+                                a => a.osmTag === filterTag.osm_tag,
+                              ) &&
+                                filterState.find(
                                   a => a.osmTag === filterTag.osm_tag,
-                                ) &&
-                                  filterState.find(
-                                    a => a.osmTag === filterTag.osm_tag,
-                                  ).osmValue[0]) ||
-                                'any'
+                                ).osmValue[0]) ||
+                              'any'
+                            }
+                            onChange={e =>
+                              onFilterChange(
+                                e.target.name,
+                                e.target.value,
+                                filterTag.type,
+                              )
+                            }
+                          >
+                            <MenuItem value="any">
+                              <em>
+                                <FormattedMessage {...messages.any} />
+                              </em>
+                            </MenuItem>
+                            {filterTag.selectors.map(menuItem => (
+                              <MenuItem
+                                key={uid(menuItem)}
+                                value={menuItem.osm_value.toLowerCase()}
+                              >
+                                {menuItem.labelLocale[locale] ||
+                                  menuItem.labelLocale.en}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </React.Fragment>
+                    )}
+                    {filterTag.type === 'switch' && (
+                      <React.Fragment>
+                        <FormControlLabel
+                          style={{
+                            marginLeft: '0px',
+                            padding: '3px 18px 3px 3px',
+                            border: `1px solid ${
+                              filterState.find(
+                                a => a.osmTag === filterTag.osm_tag,
+                              )
+                                ? '#dedede'
+                                : PRIMARY_COLOR
+                            }`,
+                            borderRadius: '6px',
+                          }}
+                          value="female"
+                          control={
+                            <StyledRadio
+                              name={filterTag.osm_tag}
+                              checked={
+                                !filterState.find(
+                                  a => a.osmTag === filterTag.osm_tag,
+                                )
                               }
                               onChange={e =>
                                 onFilterChange(
                                   e.target.name,
-                                  e.target.value,
+                                  'any',
                                   filterTag.type,
                                 )
                               }
-                            >
-                              <MenuItem value="any">
-                                <em>
-                                  <FormattedMessage {...messages.any} />
-                                </em>
-                              </MenuItem>
-                              {filterTag.selectors.map(menuItem => (
-                                <MenuItem
-                                  key={uid(menuItem)}
-                                  value={menuItem.osm_value.toLowerCase()}
-                                >
-                                  {menuItem.labelLocale[locale] ||
-                                    menuItem.labelLocale['en']}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        </React.Fragment>
-                      )}
-                      {filterTag.type === 'switch' && (
-                        <React.Fragment>
-                          <FormControlLabel
-                            style={{
-                              marginLeft: '0px',
-                              padding: '3px 18px 3px 3px',
-                              border: `1px solid ${
-                                filterState.find(
-                                  a => a.osmTag === filterTag.osm_tag,
-                                )
-                                  ? '#dedede'
-                                  : PRIMARY_COLOR
-                              }`,
-                              borderRadius: '6px',
-                            }}
-                            value="female"
-                            control={
-                              <StyledRadio
-                                name={filterTag.osm_tag}
-                                checked={
-                                  !filterState.find(
-                                    a => a.osmTag === filterTag.osm_tag,
-                                  )
-                                }
-                                onChange={e =>
-                                  onFilterChange(
-                                    e.target.name,
-                                    'any',
-                                    filterTag.type,
-                                  )
-                                }
-                              />
-                            }
-                            label={<FormattedMessage {...messages.any} />}
-                          />
-                          <FormControlLabel
-                            style={{
-                              marginLeft: '0px',
-                              padding: '3px 18px 3px 3px',
-                              border: `1px solid ${
-                                filterState.find(
-                                  a => a.osmTag === filterTag.osm_tag,
-                                )
-                                  ? PRIMARY_COLOR
-                                  : '#dedede'
-                              }`,
-                              borderRadius: '6px',
-                            }}
-                            value="female"
-                            control={
-                              <StyledRadio
-                                name={filterTag.osm_tag}
-                                checked={
-                                  filterState.find(
-                                    a => a.osmTag === filterTag.osm_tag,
-                                  ) || false
-                                }
-                                onChange={e =>
-                                  onFilterChange(
-                                    e.target.name,
-                                    filterTag.selectors[0].osm_value,
-                                    filterTag.type,
-                                  )
-                                }
-                              />
-                            }
-                            label={filterTag.selectors[0].labelLocale[locale]}
-                          />
-                          {
-                            //   <FormControlLabel
-                            //   control={
-                            //     <Switch
-                            //       checked={
-                            //         (filterState.find(
-                            //           a => a.osmTag === filterTag.osm_tag,
-                            //         ) &&
-                            //           filterState.find(
-                            //             a => a.osmTag === filterTag.osm_tag,
-                            //           ).osmValue[0] ===
-                            //             filterTag.selectors[0].osm_value) ||
-                            //         false
-                            //       }
-                            //       onChange={e =>
-                            //         onFilterChange(
-                            //           e.target.name,
-                            //           e.target.checked
-                            //             ? filterTag.selectors[0].osm_value
-                            //             : 'any',
-                            //           filterTag.type,
-                            //         )
-                            //       }
-                            //       name={filterTag.osm_tag}
-                            //       color="primary"
-                            //     />
-                            //   }
-                            //   label={filterTag.selectors[0].label}
-                            // />
+                            />
                           }
-                        </React.Fragment>
-                      )}
-                    </div>
-                  ))}
-              </div>
-            </SimpleBarReact>
-          </div>
+                          label={<FormattedMessage {...messages.any} />}
+                        />
+                        <FormControlLabel
+                          style={{
+                            marginLeft: '0px',
+                            padding: '3px 18px 3px 3px',
+                            border: `1px solid ${
+                              filterState.find(
+                                a => a.osmTag === filterTag.osm_tag,
+                              )
+                                ? PRIMARY_COLOR
+                                : '#dedede'
+                            }`,
+                            borderRadius: '6px',
+                          }}
+                          value="female"
+                          control={
+                            <StyledRadio
+                              name={filterTag.osm_tag}
+                              checked={
+                                filterState.find(
+                                  a => a.osmTag === filterTag.osm_tag,
+                                ) || false
+                              }
+                              onChange={e =>
+                                onFilterChange(
+                                  e.target.name,
+                                  filterTag.selectors[0].osm_value,
+                                  filterTag.type,
+                                )
+                              }
+                            />
+                          }
+                          label={filterTag.selectors[0].labelLocale[locale]}
+                        />
+                        {
+                          //   <FormControlLabel
+                          //   control={
+                          //     <Switch
+                          //       checked={
+                          //         (filterState.find(
+                          //           a => a.osmTag === filterTag.osm_tag,
+                          //         ) &&
+                          //           filterState.find(
+                          //             a => a.osmTag === filterTag.osm_tag,
+                          //           ).osmValue[0] ===
+                          //             filterTag.selectors[0].osm_value) ||
+                          //         false
+                          //       }
+                          //       onChange={e =>
+                          //         onFilterChange(
+                          //           e.target.name,
+                          //           e.target.checked
+                          //             ? filterTag.selectors[0].osm_value
+                          //             : 'any',
+                          //           filterTag.type,
+                          //         )
+                          //       }
+                          //       name={filterTag.osm_tag}
+                          //       color="primary"
+                          //     />
+                          //   }
+                          //   label={filterTag.selectors[0].label}
+                          // />
+                        }
+                      </React.Fragment>
+                    )}
+                  </div>
+                ))}
+            </div>
+          </SimpleBarReact>
+        </div>
 
-          {/* BUTTONS FILTERS, RESET, APPLY STARTS */}
+        {/* BUTTONS FILTERS, RESET, APPLY STARTS */}
 
-          <div
-            className="show-filters"
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '1rem',
-              paddingBottom: '1rem',
-              paddingTop: '1.5rem',
-            }}
+        <div
+          className="show-filters"
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '1rem',
+            paddingBottom: '1rem',
+            paddingTop: '1.5rem',
+          }}
+        >
+          <Button
+            disableElevation
+            className={classes.filterInfo}
+            fullWidth
+            variant="contained"
+            startIcon={<FilterListIcon />}
+            onClick={handleFilterInfoPopoverOpen}
           >
-            <Button
-              disableElevation
-              className={classes.filterInfo}
-              fullWidth
-              variant="contained"
-              startIcon={<FilterListIcon />}
-              onClick={handleFilterInfoPopoverOpen}
+            <FormattedMessage {...messages.filters} />
+            {filterState.length > 0 && (
+              <Badge
+                className="ml-3"
+                badgeContent={
+                  <span style={{ fontWeight: '900', whiteSpace: 'nowrap' }}>
+                    {getTotalFilters()}
+                  </span>
+                }
+                color="primary"
+              />
+            )}
+          </Button>
+          <Popover
+            id="mouse-over-popover"
+            classes={{
+              paper: classes.paper,
+            }}
+            open={filterInfoPopoverOpen}
+            anchorEl={filterInfoAnchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            onClose={handleFilterInfoPopoverClose}
+          >
+            <Typography
+              style={{ fontWeight: '700' }}
+              variant="subtitle2"
+              gutterBottom
             >
-              <FormattedMessage {...messages.filters} />
-              {filterState.length > 0 && (
-                <Badge
-                  className="ml-3"
-                  badgeContent={
-                    <span style={{ fontWeight: '900', whiteSpace: 'nowrap' }}>
-                      {getTotalFilters()}
-                    </span>
-                  }
-                  color="primary"
-                />
-              )}
-            </Button>
-            <Popover
-              id="mouse-over-popover"
-              classes={{
-                paper: classes.paper,
-              }}
-              open={filterInfoPopoverOpen}
-              anchorEl={filterInfoAnchorEl}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              onClose={handleFilterInfoPopoverClose}
-            >
-              <Typography
-                style={{ fontWeight: '700' }}
-                variant="subtitle2"
-                gutterBottom
-              >
-                <FormattedMessage {...messages.filtersBeingApplied} />
-              </Typography>
-              {filterState && filterState.length > 0 && (
-                <TableContainer>
-                  <Table className={classes.table}>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="left" component="th">
-                          <span style={{ fontWeight: '600' }}><FormattedMessage {...messages.osmTag} /></span>
-                        </TableCell>
+              <FormattedMessage {...messages.filtersBeingApplied} />
+            </Typography>
+            {filterState && filterState.length > 0 && (
+              <TableContainer>
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left" component="th">
+                        <span style={{ fontWeight: '600' }}>
+                          <FormattedMessage {...messages.osmTag} />
+                        </span>
+                      </TableCell>
+                      <TableCell
+                        style={{ fontWeight: '600' }}
+                        align="right"
+                        component="th"
+                      >
+                        <FormattedMessage {...messages.values} />
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {filterState.map(filter => (
+                      <TableRow hover key={uid(filter)}>
                         <TableCell
-                          style={{ fontWeight: '600' }}
-                          align="right"
                           component="th"
+                          scope="row"
+                          style={{ whiteSpace: 'nowrap' }}
                         >
-                          <FormattedMessage {...messages.values} />
+                          {
+                            tags
+                              .filter(
+                                tag =>
+                                  tag.value ===
+                                  (amenityType === 'healthServices'
+                                    ? 'healthService'
+                                    : 'pharmacy'),
+                              )[0]
+                              .filterTags.filter(
+                                element => element.osm_tag === filter.osmTag,
+                              )[0].labelLocale[locale]
+                          }
+                        </TableCell>
+                        <TableCell align="right">
+                          {getValueChips(filter)}
                         </TableCell>
                       </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {filterState.map(filter => (
-                        <TableRow hover key={uid(filter)}>
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            style={{ whiteSpace: 'nowrap' }}
-                          >
-                            {
-                              tags
-                                .filter(
-                                  tag =>
-                                    tag.value ===
-                                    (amenityType === 'healthServices'
-                                      ? 'healthService'
-                                      : 'pharmacy'),
-                                )[0]
-                                .filterTags.filter(
-                                  element => element.osm_tag === filter.osmTag,
-                                )[0].labelLocale[locale]
-                            }
-                          </TableCell>
-                          <TableCell align="right">
-                            {getValueChips(filter)}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-              {filterState.length === 0 && (
-                <Typography className="text-muted">
-                  <FormattedMessage {...messages.none} />
-                </Typography>
-              )}
-              <Button
-                color="primary"
-                onClick={handleFilterInfoPopoverClose}
-                style={{
-                  marginTop: '0.5rem',
-                  fontWeight: '600',
-                  background: 'rgb(105 111 255 / 6%)',
-                }}
-              >
-                <FormattedMessage {...messages.close} />
-              </Button>
-            </Popover>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+            {filterState.length === 0 && (
+              <Typography className="text-muted">
+                <FormattedMessage {...messages.none} />
+              </Typography>
+            )}
+            <Button
+              color="primary"
+              onClick={handleFilterInfoPopoverClose}
+              style={{
+                marginTop: '0.5rem',
+                fontWeight: '600',
+                background: 'rgb(105 111 255 / 6%)',
+              }}
+            >
+              <FormattedMessage {...messages.close} />
+            </Button>
+          </Popover>
 
-            <Button
-              disableElevation
-              className={classes.filterInfo}
-              fullWidth
-              variant="contained"
-              startIcon={<RefreshIcon />}
-              onClick={() => {
-                setFilterState([]);
-              }}
-            >
-              <FormattedMessage {...messages.reset} />
-            </Button>
-          </div>
-          <div className="selector5">
-            <Button
-              disableElevation
-              className={classes.showButton}
-              fullWidth
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                getAmenityDetail(amenityType, filterState, location);
-                setFirstTime(false);
-              }}
-            >
-              <FormattedMessage {...messages.apply} />
-            </Button>
-          </div>
+          <Button
+            disableElevation
+            className={classes.filterInfo}
+            fullWidth
+            variant="contained"
+            startIcon={<RefreshIcon />}
+            onClick={() => {
+              setFilterState([]);
+            }}
+          >
+            <FormattedMessage {...messages.reset} />
+          </Button>
         </div>
-      </Grid>
+        <div className="selector5">
+          <Button
+            disableElevation
+            className={classes.showButton}
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              getAmenityDetail(amenityType, filterState, location);
+              setFirstTime(false);
+            }}
+          >
+            <FormattedMessage {...messages.apply} />
+          </Button>
+        </div>
+      </div>
     </Fragment>
   );
 }
