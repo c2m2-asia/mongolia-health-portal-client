@@ -30,6 +30,7 @@ import SimpleBarReact from 'simplebar-react';
 import ShareIcon from '@material-ui/icons/Share';
 import AddReviewDialog from './AddReviewDialog';
 import 'simplebar/dist/simplebar.min.css';
+import './styles.css';
 
 import messages from './messages';
 

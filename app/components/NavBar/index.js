@@ -24,6 +24,8 @@ import { Steps } from 'intro.js-react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import 'intro.js/introjs.css';
+import ukFlag from 'images/uk-flag.svg';
+import mnFlag from 'images/mn-flag.svg';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -201,7 +203,7 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
               <Button
                 className={classes.button}
                 color="secondary"
-                startIcon={<TranslateIcon />}
+                startIcon={locale === 'en' ? <img src={ukFlag} height="16px" /> : <img src={mnFlag} height="16px" />}
                 endIcon={<ExpandMoreIcon />}
                 onClick={handleLanguageClick}
               >
@@ -218,13 +220,19 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
                   onClick={() => onLocaleToggle('en')}
                   data-my-value="English"
                 >
-                  <span>{countryToFlag('GB')}</span>&nbsp;&nbsp;English
+                  <span>
+                    <img src={ukFlag} height="16px" />
+                  </span>
+                  &nbsp;&nbsp;English
                 </MenuItem>
                 <MenuItem
                   onClick={() => onLocaleToggle('mn')}
                   data-my-value="Mongolia"
                 >
-                  <span>{countryToFlag('MN')}</span>&nbsp;&nbsp;монгол
+                  <span>
+                    <img src={mnFlag} height="16px" />
+                  </span>
+                  &nbsp;&nbsp;монгол
                 </MenuItem>
               </Menu>
 

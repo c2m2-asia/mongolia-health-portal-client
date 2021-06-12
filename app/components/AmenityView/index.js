@@ -218,6 +218,7 @@ function AmenityView({
               tags={tags}
               locations={locations}
               locale={locale}
+              setIsShowFilter={setIsShowFilter}
             />
           </Hidden>
         )}
