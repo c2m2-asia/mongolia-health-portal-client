@@ -111,6 +111,12 @@ function AmenityView({
     if (filterType === 'multi-select') {
       const filterClone = JSON.parse(JSON.stringify(filterState));
       const withoutName = filterClone.filter(a => a.osmTag !== filterName);
+      if (filterValue.length === 0) {
+        setFilterState(
+          filterState.filter(filter => filter.osmTag !== filterName),
+        );
+        return;
+      }
       setFilterState([
         ...withoutName,
         {

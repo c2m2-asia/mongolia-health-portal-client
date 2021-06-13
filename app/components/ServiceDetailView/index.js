@@ -98,8 +98,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 function ServiceDetailView({
   history,
   serviceDetail,

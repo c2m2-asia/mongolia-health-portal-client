@@ -203,7 +203,13 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
               <Button
                 className={classes.button}
                 color="secondary"
-                startIcon={locale === 'en' ? <img src={ukFlag} height="16px" /> : <img src={mnFlag} height="16px" />}
+                startIcon={
+                  locale === 'en' ? (
+                    <img src={ukFlag} height="16px" alt="UK flag icon" />
+                  ) : (
+                    <img src={mnFlag} height="16px" alt="MN flag icon" />
+                  )
+                }
                 endIcon={<ExpandMoreIcon />}
                 onClick={handleLanguageClick}
               >
@@ -221,7 +227,7 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
                   data-my-value="English"
                 >
                   <span>
-                    <img src={ukFlag} height="16px" />
+                    <img src={ukFlag} height="16px" alt="UK flag icon" />
                   </span>
                   &nbsp;&nbsp;English
                 </MenuItem>
@@ -230,7 +236,7 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
                   data-my-value="Mongolia"
                 >
                   <span>
-                    <img src={mnFlag} height="16px" />
+                    <img src={mnFlag} height="16px" alt="MN flag icon" />
                   </span>
                   &nbsp;&nbsp;монгол
                 </MenuItem>

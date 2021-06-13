@@ -187,6 +187,20 @@ function Filters({
     ));
   };
 
+  const getSelectedValues = (options, name) => {
+    const selectedOSMValues =
+      filterState.find(a => a.osmTag === name) &&
+      filterState.find(a => a.osmTag === name).osmValue;
+
+    if (selectedOSMValues) {
+      const selectedValues = options.filter(b =>
+        selectedOSMValues.includes(b.osm_value),
+      );
+      return selectedValues;
+    }
+    return [];
+  };
+
   return (
     <Fragment>
       <div
@@ -422,6 +436,10 @@ function Filters({
                             } ${filterTag.labelLocale[locale].toLowerCase()}`}
                           />
                         )}
+                        value={getSelectedValues(
+                          filterTag.selectors,
+                          filterTag.osm_tag,
+                        )}
                       />
                     )}
                     {filterTag.type === 'single-select' && (
@@ -596,7 +614,7 @@ function Filters({
             onClick={handleFilterInfoPopoverOpen}
           >
             <FormattedMessage {...messages.filters} />
-            {filterState.length > 0 && (
+            {filterState.length >= 1 && (
               <Badge
                 className="ml-3"
                 badgeContent={
@@ -708,6 +726,7 @@ function Filters({
             startIcon={<RefreshIcon />}
             onClick={() => {
               setFilterState([]);
+              getAmenityDetail(amenityType, [], location);
             }}
           >
             <FormattedMessage {...messages.reset} />
