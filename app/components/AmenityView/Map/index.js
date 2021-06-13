@@ -41,6 +41,7 @@ class Map extends React.Component {
   componentDidMount() {
     this.loadMap(this.props.amenityDetail.boundary);
     this.addPois(this.props.amenityDetail.geometries.features);
+    this.addBaseLayer(this.props.amenityDetail.boundary);
   }
 
   componentDidUpdate(prevProps) {
@@ -129,12 +130,12 @@ class Map extends React.Component {
     this.map.fitBounds(L.geoJSON(data).getBounds());
 
     // this.map.setZoom(11.5);
-
+    // L.tileLayer(osmURL, { opacity: 0.3 }).addTo(this.map);
     L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
-    L.TileLayer.boundaryCanvas(osmURL, {
-      boundary: data,
-      opacity: 1,
-    }).addTo(map);
+    // L.TileLayer.boundaryCanvas(osmURL, {
+    //   boundary: data,
+    //   opacity: 1,
+    // }).addTo(map);
 
     map.on('baselayerchange', function(e) {
       if (e.name === 'Google Satellite') {
@@ -170,7 +171,7 @@ class Map extends React.Component {
 
   addBaseLayer(data) {
     //eslint-disable-line
-    this.clearHighlightLayers(this.map);
+    // this.clearHighlightLayers(this.map);
 
     const baseLayer = L.TileLayer.boundaryCanvas(osmURL, {
       boundary: data,
@@ -346,13 +347,6 @@ class Map extends React.Component {
       const point = map.latLngToContainerPoint(layer._latlng);
       const newPoint = L.point([point.x - 10, point.y - 100]);
       const newLatLng = map.containerPointToLatLng(newPoint);
-
-      // clearHighlightLayers(map);
-      //
-      // const highlight = L.circle(layer._latlng, { radius: 50, fillColor: color, weight: 1 });
-      // const highlightLayer = L.layerGroup([highlight]).addTo(map);
-      // highlightLayer.name = 'highlight';
-
       map.panTo(newLatLng);
     });
 

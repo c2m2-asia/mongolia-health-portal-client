@@ -61,10 +61,12 @@ const useStyles = makeStyles(theme => ({
   },
   background: {
     height: '90px',
-    backgroundColor: '#f5f7fc',
+    backgroundColor: '#ffffff',
     [theme.breakpoints.down('sm')]: {
       height: '100%',
     },
+    boxShadow: 'rgb(0 0 0 / 6%) 0px 2px 8px',
+    position: 'relative',
   },
   locations: {
     display: 'flex',
