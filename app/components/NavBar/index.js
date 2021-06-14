@@ -174,7 +174,7 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
         position="static"
         color="white"
         elevation={0}
-        style={{ borderBottom: '1px solid rgba(105,105,105,0.33)' }}
+        style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.1)' }}
         className={classes.appBar}
       >
         <Toolbar disableGutters>

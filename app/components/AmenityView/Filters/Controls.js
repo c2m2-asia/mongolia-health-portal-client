@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'capitalize',
   },
   tabs: {
-    background: '#ffffff',
+    background: '#f8f8f8',
     borderRadius: '10px',
   },
   selected: {
@@ -168,7 +168,7 @@ function Controls({
   return (
     <React.Fragment>
       <div className={classes.background}>
-        {isShowFilter && (
+        <div style={{ display: `${isShowFilter ? 'block' : 'none'}`, height: '100%' }}>
           <div className={classes.controlsContainer}>
             <div className="selector2">
               <Tabs
@@ -215,10 +215,11 @@ function Controls({
                 setBoundary={setBoundary}
                 location={locations}
                 locale={locale}
+                locations={location}
               />
             </div>
           </div>
-        )}
+        </div>
 
         {!isShowFilter && (
           <div

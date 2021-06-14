@@ -88,6 +88,9 @@ const useStyles = makeStyles(theme => ({
   table: {
     maxWidth: 650,
   },
+  helperText: {
+    marginLeft: '0px',
+  },
 }));
 
 function Filters({
@@ -200,6 +203,19 @@ function Filters({
     }
     return [];
   };
+
+  const getHelperText = tag => {
+    if (tag === 'facility:services') {
+      return locale === 'en'
+        ? `Currently showing health services of all services`
+        : 'Одоогийн байдлаар бүх үйлчилгээний эрүүл мэндийн үйлчилгээг үзүүлж байна';
+    }
+    return locale === 'en'
+      ? `Currently showing health services of all specialities`
+      : 'Одоо бүх мэргэжлийн эрүүл мэндийн үйлчилгээг үзүүлж байна';
+  };
+
+  console.log('filterState', filterState);
 
   return (
     <Fragment>
@@ -431,6 +447,16 @@ function Filters({
                             {...params}
                             variant="outlined"
                             name="service"
+                            helperText={
+                              !filterState.find(
+                                a => a.osmTag === filterTag.osm_tag,
+                              ) && getHelperText(filterTag.osm_tag)
+                            }
+                            FormHelperTextProps={{
+                              classes: {
+                                root: classes.helperText,
+                              },
+                            }}
                             placeholder={`${
                               locale === 'en' ? 'Select' : 'Сонгох'
                             } ${filterTag.labelLocale[locale].toLowerCase()}`}
@@ -477,7 +503,7 @@ function Filters({
                             {filterTag.selectors.map(menuItem => (
                               <MenuItem
                                 key={uid(menuItem)}
-                                value={menuItem.osm_value.toLowerCase()}
+                                value={menuItem.osm_value}
                               >
                                 {menuItem.labelLocale[locale] ||
                                   menuItem.labelLocale.en}
