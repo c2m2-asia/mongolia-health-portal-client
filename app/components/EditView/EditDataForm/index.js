@@ -12,9 +12,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Snackbar from '@material-ui/core/Snackbar';
 import cloneDeep from 'lodash.clonedeep';
+import { FormattedMessage } from 'react-intl';
 import ConfirmationDialog from './Confirmation';
 import OsmAuth from './utils/OAuth';
-import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 const auth = new OsmAuth();

@@ -278,7 +278,9 @@ function ServiceDetailView({
                   style={{ padding: '0' }}
                   onClick={() =>
                     window.open(
-                      `https://www.openstreetmap.org/${serviceDetail.id}`,
+                      `https://www.openstreetmap.org/${
+                        serviceDetail.properties.type
+                      }/${serviceDetail.properties.id}`,
                       '_blank',
                     )
                   }
