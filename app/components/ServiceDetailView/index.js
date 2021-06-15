@@ -91,7 +91,7 @@ const useStyles = makeStyles(theme => ({
   suggestEditButton: {
     marginTop: '0.8rem',
     borderRadius: '1rem',
-    textTransform: 'capitalize',
+    textTransform: 'none',
   },
   table: {
     marginTop: '1rem',
@@ -140,6 +140,8 @@ function ServiceDetailView({
         amenityData: data,
         type: serviceDetail.properties.tags.amenity,
         locale,
+        amenityType,
+        id: serviceDetail.properties.id,
       },
     });
   };

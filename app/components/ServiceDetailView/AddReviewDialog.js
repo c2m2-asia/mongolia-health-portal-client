@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   addReview: {
     marginTop: '0.8rem',
     borderRadius: '1rem',
-    textTransform: 'capitalize',
+    textTransform: 'none',
   },
 }));
 

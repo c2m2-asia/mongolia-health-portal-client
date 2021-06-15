@@ -229,10 +229,10 @@ class EditForm extends Component {
       this.props.locale === 'en'
         ? 'Click here to login'
         : 'Нэвтрэхийн тулд энд дарна уу';
-        const clickHereToLogout =
-          this.props.locale === 'en'
-            ? 'Click here to logout'
-            : 'Гарах бол энд дарна уу';
+    const clickHereToLogout =
+      this.props.locale === 'en'
+        ? 'Click here to logout'
+        : 'Гарах бол энд дарна уу';
     const loggedInLocale =
       this.props.locale === 'en'
         ? 'You are logged in as'
@@ -380,7 +380,10 @@ class EditForm extends Component {
           </div>
         </div>
         <div className="pl-2 pr-2 pb-3 pt-3">
-          <NavLink to="/" style={{ textDecoration: 'none' }}>
+          <NavLink
+            to={`/${this.props.amenityType}/${this.props.id}`}
+            style={{ textDecoration: 'none' }}
+          >
             <Button variant="contained" fullWidth>
               <FormattedMessage {...messages.cancel} />
             </Button>
