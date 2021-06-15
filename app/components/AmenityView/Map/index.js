@@ -57,7 +57,11 @@ class Map extends React.Component {
       this.addBaseLayer(this.props.amenityDetail.boundary);
     }
 
-    if (this.props.selectedService !== prevProps.selectedService) {
+    if (
+      this.props.selectedService !== prevProps.selectedService ||
+      this.props.firstTime
+    ) {
+      console.log('firstTime', this.props.firstTime);
       const { coordinates } = this.props.selectedService.geometry;
       if (this.props.firstTime) {
         this.map.eachLayer(layer => {
@@ -72,6 +76,7 @@ class Map extends React.Component {
         });
         this.addPois(this.props.amenityDetail.geometries.features);
         this.addBaseLayer(this.props.amenityDetail.boundary);
+        console.log('setting biew');
         this.map.setView(coordinates.reverse(), 16);
         this.props.setFirstTime(false);
       }

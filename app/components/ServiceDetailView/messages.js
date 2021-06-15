@@ -77,5 +77,23 @@ export default defineMessages({
   clipboardCopy: {
     id: `${scope}.clipboardCopy`,
     defaultMessage: 'Link copied to clipboard',
-  }
+  },
+  editUsingOSM: {
+    id: `${scope}.editUsingOSM`,
+    defaultMessage: 'Suggest edit using OSM',
+  },
+  editUsingForm: {
+    id: `${scope}.editUsingForm`,
+    defaultMessage: 'Suggest edit using Google form',
+  },
+  usingOSM: {
+    id: `${scope}.usingOSM`,
+    defaultMessage:
+      "If you'd like to make an edit or add missing information using your OSM account, click on the button below.",
+  },
+  usingForm: {
+    id: `${scope}.usingForm`,
+    defaultMessage:
+      'Or, you can also suggest an edit using our Google form by clicking the button below.',
+  },
 });

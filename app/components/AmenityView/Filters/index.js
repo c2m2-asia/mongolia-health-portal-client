@@ -215,8 +215,6 @@ function Filters({
       : 'Одоо бүх мэргэжлийн эрүүл мэндийн үйлчилгээг үзүүлж байна';
   };
 
-  console.log('filterState', filterState);
-
   return (
     <Fragment>
       <div

@@ -29,6 +29,7 @@ import EditLocationIcon from '@material-ui/icons/EditLocation';
 import SimpleBarReact from 'simplebar-react';
 import ShareIcon from '@material-ui/icons/Share';
 import AddReviewDialog from './AddReviewDialog';
+import SuggestAnEdit from './SuggestAnEdit';
 import 'simplebar/dist/simplebar.min.css';
 import './styles.css';
 
@@ -368,14 +369,17 @@ function ServiceDetailView({
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button
-                className={classes.suggestEditButton}
-                variant="outlined"
-                startIcon={<EditLocationIcon />}
-                onClick={() => onEdit(serviceDetail)}
-              >
-                <FormattedMessage {...messages.suggestAnEdit} />
-              </Button>
+              <SuggestAnEdit
+                name={
+                  locale === 'en'
+                    ? serviceDetail.properties.tags.name
+                    : serviceDetail.properties.tags['name:mn'] ||
+                      serviceDetail.properties.tags.name
+                }
+                onEdit={onEdit}
+                serviceDetail={serviceDetail}
+                locale={locale}
+              />
             </div>
 
             <div>
@@ -407,18 +411,9 @@ function ServiceDetailView({
                       style={{ display: 'flex', gap: '1rem' }}
                     >
                       <Avatar>{getInitials(review.osm_username)}</Avatar>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                        }}
-                      >
-                        <div
-                          style={{ display: 'flex', flexDirection: 'column' }}
-                        >
-                          <div
-                            style={{ display: 'flex', flexDirection: 'row' }}
-                          >
+                      <div className="d-flex flex-column">
+                        <div className="d-flex flex-column">
+                          <div className="d-flex">
                             <Typography className="font-weight-bold pr-2">
                               {review.osm_username}
                             </Typography>
