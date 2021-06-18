@@ -168,6 +168,21 @@ function Filters({
   // };
 
   const getValueChips = filter => {
+    if (filter.osmTag === 'facility:services') {
+      const allServices = getServices();
+      const selectedServicesLabels = allServices.filter(abc =>
+        filter.osmValue.some(mn => mn === abc.osm_value),
+      );
+      return selectedServicesLabels.map(label => (
+        <Chip
+          key={uid(label)}
+          style={{ margin: '0.1rem' }}
+          variant="outlined"
+          label={label.labelLocale[locale] || label.labelLocale.en}
+          color="primary"
+        />
+      ));
+    }
     const amenitytags = tags.filter(
       tag =>
         tag.value ===
@@ -213,6 +228,35 @@ function Filters({
     return locale === 'en'
       ? `Currently showing health services of all specialities`
       : 'Одоо бүх мэргэжлийн эрүүл мэндийн үйлчилгээг үзүүлж байна';
+  };
+
+  const getServices = () => {
+    const selectedSpecialities =
+      filterState.find(a => a.osmTag === 'healthcare:speciality') &&
+      filterState.find(a => a.osmTag === 'healthcare:speciality').osmValue;
+
+    const services =
+      selectedSpecialities &&
+      tags
+        .find(b => b.value === 'healthService')
+        .filterTags.find(c => c.osm_tag === 'healthcare:speciality')
+        .selectors.filter(option =>
+          selectedSpecialities.some(spc => spc === option.osm_value),
+        );
+
+    let allServices = [];
+
+    services &&
+      services.map(service =>
+        service.services.selectors.map(serviceOptions =>
+          allServices.push({
+            serviceLabel: service.labelLocale[locale],
+            ...serviceOptions,
+          }),
+        ),
+      );
+
+    return allServices;
   };
 
   return (
@@ -304,167 +348,113 @@ function Filters({
                     >
                       {filterTag.labelLocale[locale]}
                     </Typography>
-                    {
-                      //   filterTag.type === 'multi-select' && (
-                      //   <div className="filterContainer" key={Math.random()}>
-                      //     {filterTag.selectors.map((menuItem, index) => {
-                      //       if (index < 4 || showMore) {
-                      //         return (
-                      //           <div
-                      //             className="filterItem"
-                      //             key={uid(menuItem, index)}
-                      //           >
-                      //             <FormControlLabel
-                      //               control={
-                      //                 <Checkbox
-                      //                   checked={checkTypeChecked(
-                      //                     menuItem.osm_value.toLowerCase(),
-                      //                   )}
-                      //                   onChange={e =>
-                      //                     onFilterChange(
-                      //                       e.target.name,
-                      //                       e.target.value,
-                      //                       filterTag.type,
-                      //                     )
-                      //                   }
-                      //                   name={filterTag.osm_tag}
-                      //                   color="primary"
-                      //                 />
-                      //               }
-                      //               label={
-                      //                 menuItem.labelLocale[locale] ||
-                      //                 menuItem.labelLocale['en']
-                      //               }
-                      //               value={menuItem.osm_value.toLowerCase()}
-                      //             />
-                      //           </div>
-                      //         );
-                      //       }
-                      //     })}
-                      //     {filterTag.selectors.length > 4 && (
-                      //       <Button
-                      //         style={{ background: 'rgb(105 111 255 / 6%)' }}
-                      //         className={classes.label}
-                      //         onClick={event =>
-                      //           handleClickPopover(event, filterTag.osm_tag)
-                      //         }
-                      //       >
-                      //         {!showMore ? (
-                      //           <FormattedMessage {...messages.showMore} />
-                      //         ) : (
-                      //           <FormattedMessage {...messages.showLess} />
-                      //         )}
-                      //       </Button>
-                      //     )}
-                      //     <Popover
-                      //       open={openedPopoverId === filterTag.osm_tag}
-                      //       anchorEl={anchorEl}
-                      //       onClose={handleClosePopover}
-                      //       anchorOrigin={{
-                      //         vertical: 'bottom',
-                      //         horizontal: 'center',
-                      //       }}
-                      //       transformOrigin={{
-                      //         vertical: 'top',
-                      //         horizontal: 'center',
-                      //       }}
-                      //     >
-                      //       <div className="parent-pop">
-                      //         {filterTag.selectors.map((menuItem, index) => (
-                      //           <div
-                      //             className="popdiv"
-                      //             key={uid(menuItem, index)}
-                      //           >
-                      //             <FormControlLabel
-                      //               key={uid(menuItem, index)}
-                      //               control={
-                      //                 <Checkbox
-                      //                   checked={checkTypeChecked(
-                      //                     menuItem.osm_value.toLowerCase(),
-                      //                   )}
-                      //                   onChange={e => {
-                      //                     onFilterChange(
-                      //                       e.target.name,
-                      //                       e.target.value,
-                      //                       filterTag.type,
-                      //                     );
-                      //                   }}
-                      //                   name={filterTag.osm_tag}
-                      //                   color="primary"
-                      //                 />
-                      //               }
-                      //               label={
-                      //                 menuItem.labelLocale[locale] ||
-                      //                 menuItem.labelLocale['en']
-                      //               }
-                      //               value={menuItem.osm_value.toLowerCase()}
-                      //             />
-                      //           </div>
-                      //         ))}
-                      //       </div>
-                      //       <Button
-                      //         color="primary"
-                      //         onClick={handleClosePopover}
-                      //         style={{
-                      //           fontWeight: '600',
-                      //           marginLeft: '1rem',
-                      //           marginBottom: '1rem',
-                      //           background: 'rgb(105 111 255 / 6%)',
-                      //         }}
-                      //       >
-                      //         <FormattedMessage {...messages.close} />
-                      //       </Button>
-                      //     </Popover>
-                      //   </div>
-                      // )
-                    }
-
                     {filterTag.type === 'multi-select' && (
-                      <Autocomplete
-                        multiple
-                        fullWidth
-                        popupIcon={<ExpandMoreIcon />}
-                        name={filterTag.osm_tag}
-                        options={filterTag.selectors}
-                        getOptionLabel={option =>
-                          option.labelLocale[locale] || option.labelLocale['en']
-                        }
-                        onChange={(e, value) => {
-                          const emptyArray = [];
-                          value.forEach(datum =>
-                            emptyArray.push(datum.osm_value),
-                          );
-                          onFilterChange(
+                      <Fragment>
+                        <Autocomplete
+                          multiple
+                          fullWidth
+                          popupIcon={<ExpandMoreIcon />}
+                          name={filterTag.osm_tag}
+                          options={filterTag.selectors}
+                          getOptionLabel={option =>
+                            option.labelLocale[locale] ||
+                            option.labelLocale['en']
+                          }
+                          onChange={(e, value) => {
+                            const emptyArray = [];
+                            value.forEach(datum =>
+                              emptyArray.push(datum.osm_value),
+                            );
+                            onFilterChange(
+                              filterTag.osm_tag,
+                              emptyArray,
+                              filterTag.type,
+                            );
+                          }}
+                          renderInput={params => (
+                            <TextField
+                              {...params}
+                              variant="outlined"
+                              name="service"
+                              helperText={
+                                !filterState.find(
+                                  a => a.osmTag === filterTag.osm_tag,
+                                ) && getHelperText(filterTag.osm_tag)
+                              }
+                              FormHelperTextProps={{
+                                classes: {
+                                  root: classes.helperText,
+                                },
+                              }}
+                              placeholder={`${
+                                locale === 'en' ? 'Select' : 'Сонгох'
+                              } ${filterTag.labelLocale[locale].toLowerCase()}`}
+                            />
+                          )}
+                          value={getSelectedValues(
+                            filterTag.selectors,
                             filterTag.osm_tag,
-                            emptyArray,
-                            filterTag.type,
-                          );
-                        }}
-                        renderInput={params => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            name="service"
-                            helperText={
-                              !filterState.find(
-                                a => a.osmTag === filterTag.osm_tag,
-                              ) && getHelperText(filterTag.osm_tag)
+                          )}
+                        />
+
+                        {filterTag.osm_tag === 'healthcare:speciality' && (
+                          <Autocomplete
+                            style={{ marginTop: '1.65rem' }}
+                            multiple
+                            fullWidth
+                            noOptionsText={
+                              <FormattedMessage
+                                {...messages.noSpecialitiesSelected}
+                              />
                             }
-                            FormHelperTextProps={{
-                              classes: {
-                                root: classes.helperText,
-                              },
+                            popupIcon={<ExpandMoreIcon />}
+                            name={filterTag.osm_tag}
+                            options={getServices()}
+                            groupBy={option => option.serviceLabel}
+                            getOptionLabel={option =>
+                              option.labelLocale[locale] ||
+                              option.labelLocale.en
+                            }
+                            onChange={(e, value) => {
+                              const emptyArray = [];
+                              value.forEach(datum =>
+                                emptyArray.push(datum.osm_value),
+                              );
+                              onFilterChange(
+                                'facility:services',
+                                emptyArray,
+                                'multi-select',
+                              );
                             }}
-                            placeholder={`${
-                              locale === 'en' ? 'Select' : 'Сонгох'
-                            } ${filterTag.labelLocale[locale].toLowerCase()}`}
+                            renderInput={params => (
+                              <TextField
+                                {...params}
+                                variant="outlined"
+                                name="service"
+                                placeholder={
+                                  locale === 'en'
+                                    ? 'Select services'
+                                    : 'Үйлчилгээ сонгох'
+                                }
+                                helperText={
+                                  locale === 'en'
+                                    ? 'Services are subsets of specialities. You can choose services only for selected specialities.'
+                                    : 'Үйлчилгээ нь төрөлжсөн мэргэжлийн дэд зүйлүүд юм. Та зөвхөн сонгосон мэргэжлээрээ үйлчилгээгээ сонгох боломжтой.'
+                                }
+                                FormHelperTextProps={{
+                                  classes: {
+                                    root: classes.helperText,
+                                  },
+                                }}
+                              />
+                            )}
+                            value={getSelectedValues(
+                              getServices(),
+                              'facility:services',
+                            )}
                           />
                         )}
-                        value={getSelectedValues(
-                          filterTag.selectors,
-                          filterTag.osm_tag,
-                        )}
-                      />
+                      </Fragment>
                     )}
                     {filterTag.type === 'single-select' && (
                       <React.Fragment>
@@ -701,7 +691,12 @@ function Filters({
                           scope="row"
                           style={{ whiteSpace: 'nowrap' }}
                         >
-                          {
+                          {filter.osmTag === 'facility:services' && (
+                            <span>
+                              <FormattedMessage {...messages.services} />
+                            </span>
+                          )}
+                          {filter.osmTag !== 'facility:services' &&
                             tags
                               .filter(
                                 tag =>
@@ -712,8 +707,7 @@ function Filters({
                               )[0]
                               .filterTags.filter(
                                 element => element.osm_tag === filter.osmTag,
-                              )[0].labelLocale[locale]
-                          }
+                              )[0].labelLocale[locale]}
                         </TableCell>
                         <TableCell align="right">
                           {getValueChips(filter)}

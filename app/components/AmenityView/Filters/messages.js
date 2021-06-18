@@ -121,4 +121,12 @@ export default defineMessages({
     id: `${scope}.pharmacies`,
     defaultMessage: 'Pharmacies',
   },
+  noSpecialitiesSelected: {
+    id: `${scope}.noSpecialitiesSelected`,
+    defaultMessage: 'No specialities selected',
+  },
+  services: {
+    id: `${scope}.services`,
+    defaultMessage: 'Services',
+  },
 });

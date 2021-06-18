@@ -43,6 +43,8 @@
   "app.components.Filters.pharmacies": "Эмийн сан",
   "app.components.Filters.selectLocation": "Байршлыг сонгоно уу",
   "app.components.Filters.backToBrowsing": "Хайлт руу буцах",
+  "app.components.Filters.noSpecialitiesSelected": "Мэргэжил сонгоогүй",
+  "app.components.Filters.services": "Үйлчилгээ",
   "app.components.LocationSelect.province": "Аймаг",
   "app.components.LocationSelect.district": "Дүүрэг",
   "app.components.LocationSelect.khoroo": "Хороо",
