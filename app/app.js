@@ -66,13 +66,13 @@ const theme = createMuiTheme({
     accent: { main: 'rgba(230,230,230)' },
   },
   typography: {
-    fontFamily: 'Roboto Condensed !important',
+    fontFamily: 'Roboto !important',
   },
 });
 
 WebFont.load({
   google: {
-    families: ['Roboto Condensed:300,400,600,700,900'],
+    families: ['Roboto:300,400,600,700'],
   },
 });
 

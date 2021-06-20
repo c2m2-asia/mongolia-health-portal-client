@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -87,7 +88,13 @@ const useStyles = makeStyles(theme => ({
 //     : isoCode;
 // }
 
-function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
+function NavBar({
+  onLocaleToggle,
+  locale,
+  isHowToUseShown,
+  hideIcon,
+  children,
+}) {
   const classes = useStyles();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState('');
@@ -183,8 +190,11 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
             {
               // <FormattedMessage {...messages.projectTitle} />
             }
-            <img src={logo} height="50" alt="Mongolia health portal logo" />
+            <Link to="/">
+              <img src={logo} height="50" alt="Mongolia health portal logo" />
+            </Link>
           </Typography>
+
           <Hidden mdUp>
             <IconButton
               className={classes.menuButton}
@@ -199,11 +209,22 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
             <div
               style={{ display: 'flex', flexDirection: 'row', gap: '0.8rem' }}
             >
-              <NavLink to="/" style={{ textDecoration: 'none' }}>
-                <Button className={classes.button} color="secondary">
-                  <FormattedMessage {...messages.home} />
+              {
+                //   <NavLink to="/" style={{ textDecoration: 'none' }}>
+                //   <Button className={classes.button} color="secondary">
+                //     <FormattedMessage {...messages.home} />
+                //   </Button>
+                // </NavLink>
+              }
+              {isHowToUseShown && (
+                <Button
+                  className={classes.button}
+                  color="secondary"
+                  onClick={() => setIsTourEnabled(true)}
+                >
+                  <FormattedMessage {...messages.howToUse} />
                 </Button>
-              </NavLink>
+              )}
               <Button
                 className={classes.button}
                 color="secondary"
@@ -246,13 +267,6 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
                 </MenuItem>
               </Menu>
 
-              <Button
-                className={classes.button}
-                color="secondary"
-                onClick={() => setIsTourEnabled(true)}
-              >
-                <FormattedMessage {...messages.howToUse} />
-              </Button>
               <Steps
                 enabled={isTourEnabled}
                 steps={steps}
@@ -293,11 +307,13 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
         </Toolbar>
         <List className={classes.blackList}>
           <div className={classes.menuItemContainerMobile}>
-            <NavLink to="/" style={{ textDecoration: 'none' }}>
-              <Button className={classes.button} color="secondary">
-                <FormattedMessage {...messages.home} />
-              </Button>
-            </NavLink>
+            {
+              //   <NavLink to="/" style={{ textDecoration: 'none' }}>
+              //   <Button className={classes.button} color="secondary">
+              //     <FormattedMessage {...messages.home} />
+              //   </Button>
+              // </NavLink>
+            }
             <Button
               className={classes.button}
               color="secondary"
@@ -369,4 +385,13 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
   );
 }
 
-export default SwipeableTemporaryDrawer;
+NavBar.propTypes = {
+  isHowToUseShown: PropTypes.bool,
+};
+
+NavBar.defaultProps = {
+  isHowToUseShown: false,
+  hideIcon: false,
+};
+
+export default NavBar;

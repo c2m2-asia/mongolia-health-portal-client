@@ -398,61 +398,69 @@ function Filters({
                         />
 
                         {filterTag.osm_tag === 'healthcare:speciality' && (
-                          <Autocomplete
-                            style={{ marginTop: '1.65rem' }}
-                            multiple
-                            fullWidth
-                            noOptionsText={
-                              <FormattedMessage
-                                {...messages.noSpecialitiesSelected}
-                              />
-                            }
-                            popupIcon={<ExpandMoreIcon />}
-                            name={filterTag.osm_tag}
-                            options={getServices()}
-                            groupBy={option => option.serviceLabel}
-                            getOptionLabel={option =>
-                              option.labelLocale[locale] ||
-                              option.labelLocale.en
-                            }
-                            onChange={(e, value) => {
-                              const emptyArray = [];
-                              value.forEach(datum =>
-                                emptyArray.push(datum.osm_value),
-                              );
-                              onFilterChange(
+                          <div style={{ marginTop: '1.65rem' }}>
+                            <Typography
+                              variant="subtitle2"
+                              gutterBottom
+                              style={{ color: '#252525', fontWeight: '600' }}
+                            >
+                              <FormattedMessage {...messages.services} />
+                            </Typography>
+                            <Autocomplete
+                              multiple
+                              fullWidth
+                              noOptionsText={
+                                <FormattedMessage
+                                  {...messages.noSpecialitiesSelected}
+                                />
+                              }
+                              popupIcon={<ExpandMoreIcon />}
+                              name={filterTag.osm_tag}
+                              options={getServices()}
+                              groupBy={option => option.serviceLabel}
+                              getOptionLabel={option =>
+                                option.labelLocale[locale] ||
+                                option.labelLocale.en
+                              }
+                              onChange={(e, value) => {
+                                const emptyArray = [];
+                                value.forEach(datum =>
+                                  emptyArray.push(datum.osm_value),
+                                );
+                                onFilterChange(
+                                  'facility:services',
+                                  emptyArray,
+                                  'multi-select',
+                                );
+                              }}
+                              renderInput={params => (
+                                <TextField
+                                  {...params}
+                                  variant="outlined"
+                                  name="service"
+                                  placeholder={
+                                    locale === 'en'
+                                      ? 'Select services'
+                                      : 'Үйлчилгээ сонгох'
+                                  }
+                                  helperText={
+                                    locale === 'en'
+                                      ? 'Services are subsets of specialities. You can choose services only for selected specialities.'
+                                      : 'Үйлчилгээ нь төрөлжсөн мэргэжлийн дэд зүйлүүд юм. Та зөвхөн сонгосон мэргэжлээрээ үйлчилгээгээ сонгох боломжтой.'
+                                  }
+                                  FormHelperTextProps={{
+                                    classes: {
+                                      root: classes.helperText,
+                                    },
+                                  }}
+                                />
+                              )}
+                              value={getSelectedValues(
+                                getServices(),
                                 'facility:services',
-                                emptyArray,
-                                'multi-select',
-                              );
-                            }}
-                            renderInput={params => (
-                              <TextField
-                                {...params}
-                                variant="outlined"
-                                name="service"
-                                placeholder={
-                                  locale === 'en'
-                                    ? 'Select services'
-                                    : 'Үйлчилгээ сонгох'
-                                }
-                                helperText={
-                                  locale === 'en'
-                                    ? 'Services are subsets of specialities. You can choose services only for selected specialities.'
-                                    : 'Үйлчилгээ нь төрөлжсөн мэргэжлийн дэд зүйлүүд юм. Та зөвхөн сонгосон мэргэжлээрээ үйлчилгээгээ сонгох боломжтой.'
-                                }
-                                FormHelperTextProps={{
-                                  classes: {
-                                    root: classes.helperText,
-                                  },
-                                }}
-                              />
-                            )}
-                            value={getSelectedValues(
-                              getServices(),
-                              'facility:services',
-                            )}
-                          />
+                              )}
+                            />
+                          </div>
                         )}
                       </Fragment>
                     )}

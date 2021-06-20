@@ -21,12 +21,23 @@ import messages from './messages';
 import { changeLocale } from '../LanguageProvider/actions';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
 
-export function NavBarContainer({ locale, onLocaleToggle, children }) {
+export function NavBarContainer({
+  locale,
+  onLocaleToggle,
+  isHowToUseShown,
+  hideIcon,
+  children,
+}) {
   useInjectReducer({ key: 'navBar}Container', reducer });
   useInjectSaga({ key: 'navBarContainer', saga });
 
   return (
-    <NavBar locale={locale} onLocaleToggle={onLocaleToggle}>
+    <NavBar
+      locale={locale}
+      onLocaleToggle={onLocaleToggle}
+      isHowToUseShown={isHowToUseShown}
+      hideIcon={hideIcon}
+    >
       {children}
     </NavBar>
   );

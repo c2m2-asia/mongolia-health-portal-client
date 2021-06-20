@@ -8,24 +8,26 @@
 import React from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
 import { FormattedMessage } from 'react-intl';
 import NavBar from 'containers/NavBarContainer';
 import kllLogo from 'images/kll_logo.png';
 import plmLogo from 'images/plm-logo.png';
-import stateDepLogo from 'images/state_dep_logo.png';
+import mapGive from 'images/map-give.png';
 import coloradoUniLogo from 'images/colorado_logo.png';
 import browseScreenshot from 'images/browseScreenshot.png';
 import Typography from '@material-ui/core/Typography';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
+import AndroidIcon from '@material-ui/icons/Android';
 import messages from './messages';
 import './styles.scss';
 
 export default function HomePage() {
   return (
-    <NavBar>
+    <NavBar hideIcon>
       <div className="about row m-0" style={{ padding: '24px' }}>
         <div className="col-lg-6 my-3" style={{ paddingLeft: '0' }}>
-          <Typography variant="h3">
+          <Typography variant="h3" style={{ fontWeight: '300' }}>
             <b>
               <FormattedMessage {...messages.title} />
             </b>
@@ -46,12 +48,13 @@ export default function HomePage() {
           </p>
 
           <p className="light-text ">
-            <PhoneIphoneIcon />
+            <FormattedMessage {...messages.mobileApp} />
+            :&nbsp;
             <a
               href="https://play.google.com/store/apps/details?id=kll.c2m2.c2m2_mongolia"
               target="_blank"
             >
-              <FormattedMessage {...messages.mobileApp} />
+              Mongolia Health Portal
             </a>
           </p>
           <br />
@@ -66,16 +69,18 @@ export default function HomePage() {
             </Button>
           </NavLink>
         </div>
-        <div className="col-lg-6 px-4 hidden-md-down">
-          <img
-            src={browseScreenshot}
-            width="70%"
-            alt="Screenshots of the web app"
-            className="img-fluid float-right"
-          />
-        </div>
+        <Hidden smDown>
+          <div className="col-lg-6 px-4 hidden-md-down">
+            <img
+              src={browseScreenshot}
+              width="70%"
+              alt="Screenshots of the web app"
+              className="img-fluid float-right"
+            />
+          </div>
+        </Hidden>
 
-        <div className="col-lg-3 col-md-6 col-sm-12 my-3">
+        <div className="col-lg-4 col-md-6 col-sm-12 my-3">
           <a
             href="http://kathmandulivinglabs.org"
             target="_blank"
@@ -106,7 +111,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="col-lg-3 col-md-6 col-sm-12 my-3">
+        <div className="col-lg-4 col-md-6 col-sm-12 my-3">
           <a
             href="http://kathmandulivinglabs.org"
             target="_blank"
@@ -137,64 +142,34 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="col-lg-3 col-md-6 col-sm-12 my-3">
+        <div className="col-lg-4 col-md-6 col-sm-12 my-3">
           <a
             href="https://www.state.gov/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img
-              src={stateDepLogo}
-              style={{ maxWidth: '120px' }}
+              src={mapGive}
+              style={{ maxHeight: '70px' }}
               alt="Screenshots of the web and mobile version"
               className="img-fluid pr-5 "
             />
           </a>
           <br />
-          <p className="light-text">
-            U.S. Department of State <br />
-            Harry S Truman Building 2201 C Street
-            <br />
-            Northwest, Washington, D.C., <br />
-            AskPublicAffairs@state.gov
-            <br />
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="http://kathmandulivinglabs.org"
-            >
-              state.gov
-            </a>
-            <br />
-          </p>
-        </div>
 
-        <div className="col-lg-3 col-md-6 col-sm-12 my-3">
-          <a
-            href="https://www.colostate.edu/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src={coloradoUniLogo}
-              style={{ maxWidth: '120px' }}
-              alt="Screenshots of the web and mobile version"
-              className="img-fluid pr-5 "
-            />
-          </a>
-          <br />
           <p className="light-text">
-            Colorado State University <br />
-            Fort Collins <br />
-            CO 80523, United States <br />
-            help@colostate.edu
+            MapGive <br />
+            U.S. Department of State initiative
+            <br />
+            Northwest, Washington, D.C. <br />
+            mapgive@state.gov
             <br />
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.colostate.edu/"
+              href="https://mapgive.state.gov/"
             >
-              colostate.edu
+              mapgive.state.gov
             </a>
             <br />
           </p>

@@ -55,7 +55,7 @@ export default defineMessages({
   },
   howToUse: {
     id: `${scope}.howToUse`,
-    defaultMessage: 'How to Use',
+    defaultMessage: 'How to use',
   },
   resources: {
     id: `${scope}.resources`,

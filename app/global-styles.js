@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: Roboto Condensed, Montserrat;
+    font-family: Roboto, Montserrat;
   }
 
   body.fontLoaded {
@@ -32,8 +32,8 @@ const GlobalStyle = createGlobalStyle`
 
   p,
   label {
-    font-family: Roboto Condensed;
-    // font-weight: 300;
+    font-family: Roboto;
+    font-weight: 300;
   }
 `;
 

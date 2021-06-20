@@ -204,7 +204,7 @@ function AmenityView({
   };
 
   return (
-    <NavBar>
+    <NavBar isHowToUseShown>
       <Fragment>
         {amenityDetail && locations && tags && (
           <Hidden smDown>
