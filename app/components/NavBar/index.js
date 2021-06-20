@@ -22,10 +22,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import CloseIcon from '@material-ui/icons/Close';
 import { Steps } from 'intro.js-react';
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import 'intro.js/introjs.css';
 import ukFlag from 'images/uk-flag.svg';
 import mnFlag from 'images/mn-flag.svg';
+import logo from 'images/logo.png';
+import messages from './messages';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -76,15 +77,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function countryToFlag(isoCode) {
-  return typeof String.fromCodePoint !== 'undefined'
-    ? isoCode
-        .toUpperCase()
-        .replace(/./g, char =>
-          String.fromCodePoint(char.charCodeAt(0) + 127397),
-        )
-    : isoCode;
-}
+// function countryToFlag(isoCode) {
+//   return typeof String.fromCodePoint !== 'undefined'
+//     ? isoCode
+//         .toUpperCase()
+//         .replace(/./g, char =>
+//           String.fromCodePoint(char.charCodeAt(0) + 127397),
+//         )
+//     : isoCode;
+// }
 
 function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
   const classes = useStyles();
@@ -179,7 +180,10 @@ function SwipeableTemporaryDrawer({ onLocaleToggle, locale, children }) {
       >
         <Toolbar disableGutters>
           <Typography variant="h6" className={classes.title}>
-            <FormattedMessage {...messages.projectTitle} />
+            {
+              // <FormattedMessage {...messages.projectTitle} />
+            }
+            <img src={logo} height="50" alt="Mongolia health portal logo" />
           </Typography>
           <Hidden mdUp>
             <IconButton
