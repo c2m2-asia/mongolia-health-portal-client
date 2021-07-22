@@ -144,7 +144,7 @@ export default function HomePage() {
 
         <div className="col-lg-4 col-md-6 col-sm-12 my-3">
           <a
-            href="https://www.state.gov/"
+            href="https://mapgive.state.gov/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -157,11 +157,10 @@ export default function HomePage() {
           </a>
           <br />
 
-          <p className="light-text">
+          <p className="light-text mt-1">
             MapGive <br />
             U.S. Department of State initiative
             <br />
-            Northwest, Washington, D.C. <br />
             mapgive@state.gov
             <br />
             <a
