@@ -8,10 +8,8 @@ import {
 import Api from './api';
 
 function* fetchResources(action) {
-  console.log("saga", action);
   try {
     const response = yield call(Api.fetchResources, action.payload);
-    console.log("response", response);
     if (response.status !== 200) {
       yield put({
         type: FETCH_RESOURCES_FAILURE,

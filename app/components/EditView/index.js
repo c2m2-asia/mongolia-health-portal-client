@@ -19,8 +19,6 @@ function EditView({ history, location, fetchTags, tags }) {
     return () => clearTimeout(timer);
   }, []);
 
-  console.log(">>", location.state);
-
   return (
     <NavBar>
       <Grid container>

@@ -76,7 +76,6 @@ function SearchView({
         }
         onChange={(event, values) => {
           // values && handleQueryChange(values.placeId, values.name)
-          console.log(values);
           onSearchResultSelect(values);
           setIsShowFilter(false);
           selectedServiceSet(values.geometries);

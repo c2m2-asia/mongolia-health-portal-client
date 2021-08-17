@@ -91,7 +91,6 @@ function EditDataForm({ data, type }) {
       .login()
       .then(
         response => {
-          console.log('osm', response);
           setUserDetails(response.osm.user['0'].$);
           setIsAuthenticated(true);
         },
@@ -123,11 +122,9 @@ function EditDataForm({ data, type }) {
       data: dataState,
       changesetComment: comment,
     };
-    console.log('final object before PUT', finalObj);
     auth
       .getFeature(finalObj.amenityType, finalObj.amenityId)
       .then(response => {
-        console.log(response);
         const cleanedResponse = auth.cleanseData(
           response,
           finalObj.amenityType,

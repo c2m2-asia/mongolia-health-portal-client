@@ -164,7 +164,6 @@ class EditForm extends Component {
   }
 
   onSubmit() {
-    // console.log(this.state);
     const stateClone = cloneDeep(this.state);
 
     delete stateClone.changesetComment;
@@ -181,7 +180,6 @@ class EditForm extends Component {
       data: stateClone,
       changesetComment: this.state.changesetComment,
     };
-    console.log(finalObj);
 
     // code to call the OSM API for editing.
     auth
@@ -220,7 +218,6 @@ class EditForm extends Component {
   }
 
   render() {
-    console.log('this.props.type', this.props.type);
     const notLoggedInLocale =
       this.props.locale === 'en'
         ? 'You are not logged in to OSM currently.'
@@ -423,6 +420,7 @@ EditForm.propTypes = {
   data: PropTypes.object,
   tags: PropTypes.object,
   type: PropTypes.string,
+  locale: PropTypes.string,
 };
 
 export default EditForm;

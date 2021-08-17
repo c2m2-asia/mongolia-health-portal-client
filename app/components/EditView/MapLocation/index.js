@@ -48,7 +48,6 @@ class EditMap extends Component {
 
     const addIcon = type => {
       //eslint-disable-line
-      // console.log('addIcon', type, mapProjectToIcon[type]);
       const icon = new L.LeafIcon({
         iconUrl: require(`images/${this.props.type}.png`),
       });
