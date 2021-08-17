@@ -62,7 +62,7 @@ const info = [
     osmTag: 'operator:type',
   },
   { label: { en: 'Opening hours', mn: 'ажлын цаг' }, osmTag: 'opening_hours' },
-  { label: { en: 'Phone', mn: 'утас' }, osmTag: 'phone' },
+  { label: { en: 'Phone', mn: 'утас' }, osmTag: 'contact:phone' },
   // { label: { en: 'Email', mn: 'имэйл' }, osmTag: 'email' },
   {
     label: { en: 'Wheelchair access', mn: 'тэргэнцэртэй нэвтрэх' },
