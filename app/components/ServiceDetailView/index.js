@@ -69,9 +69,7 @@ const info = [
     osmTag: 'wheelchair',
   },
   { label: { en: 'Address', mn: 'хаяг' }, osmTag: 'addr:city' },
-  // { label: { en: 'Address city', mn: 'хаяг хот' }, osmTag: 'addr:city' },
-  // { label: { en: 'Address street', mn: 'хаяг гудамж' }, osmTag: 'addr:street' },
-  // { label: { en: 'Postcode', mn: 'шуудангийн код' }, osmTag: 'addr:postcode' },
+  // Address concatenated in the getAddress() function
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -179,6 +177,19 @@ function ServiceDetailView({
         />
       ));
 
+  const getAddress = service => {
+    const addrArray = [
+      service.tags['addr:housenumber'],
+      service.tags['addr:street'],
+      service.tags['addr:city'],
+      service.tags['addr:subdistrict'],
+      service.tags['addr:district'],
+      service.tags['addr:province'],
+      service.tags['addr:postcode'],
+    ];
+    return addrArray.filter(Boolean).join(', ');
+  };
+
   const getTagValue = (label, tag) => {
     switch (label) {
       case 'Specialities':
@@ -189,12 +200,7 @@ function ServiceDetailView({
           serviceDetail.properties.tags[tag].replace(/_/g, ' ')
         );
       case 'Address':
-        return (
-          serviceDetail.properties.tags['addr:city'] &&
-          `${serviceDetail.properties.tags['addr:city']}, ${
-            serviceDetail.properties.tags['addr:street']
-          }, ${serviceDetail.properties.tags['addr:postcode']}`
-        );
+        return getAddress(serviceDetail.properties);
       default:
         return serviceDetail.properties.tags[tag];
     }
