@@ -166,6 +166,7 @@ function AddReviewDialog({
             >
               <div style={{ flexGrow: '2' }}>
                 <TextField
+                  autoFocus
                   disabled={isStayAnonymous}
                   required
                   fullWidth
@@ -213,7 +214,6 @@ function AddReviewDialog({
               />
             )}
             <TextField
-              autoFocus
               variant="filled"
               placeholder={placeholder}
               margin="dense"
