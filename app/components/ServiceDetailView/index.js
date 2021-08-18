@@ -35,42 +35,86 @@ import './styles.css';
 
 import messages from './messages';
 
-const info = [
-  {
-    label: {
-      en: 'Name',
-      mn: 'нэр',
+const info = {
+  healthServices: [
+    {
+      label: {
+        en: 'Name',
+        mn: 'нэр',
+      },
+      osmTag: 'name',
     },
-    osmTag: 'name',
-  },
-  {
-    label: { en: 'Name in Mongolian', mn: 'монгол хэл дээрх нэр' },
-    osmTag: 'name:mn',
-  },
-  {
-    label: { en: 'Specialities', mn: 'мэргэжил' },
-    osmTag: 'healthcare:speciality',
-  },
-  {
-    label: { en: 'Category', mn: 'ангилал' },
-    osmTag: 'healthcare_facility:type',
-  },
-  // { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
-  { label: { en: 'Level', mn: 'Түвшин' }, osmTag: 'hospital:level' },
-  {
-    label: { en: 'Operator type', mn: 'операторын төрөл' },
-    osmTag: 'operator:type',
-  },
-  { label: { en: 'Opening hours', mn: 'ажлын цаг' }, osmTag: 'opening_hours' },
-  { label: { en: 'Phone', mn: 'утас' }, osmTag: 'contact:phone' },
-  // { label: { en: 'Email', mn: 'имэйл' }, osmTag: 'email' },
-  {
-    label: { en: 'Wheelchair access', mn: 'тэргэнцэртэй нэвтрэх' },
-    osmTag: 'wheelchair',
-  },
-  { label: { en: 'Address', mn: 'хаяг' }, osmTag: 'addr:city' },
-  // Address concatenated in the getAddress() function
-];
+    {
+      label: { en: 'Name in Mongolian', mn: 'монгол хэл дээрх нэр' },
+      osmTag: 'name:mn',
+    },
+    {
+      label: { en: 'Specialities', mn: 'мэргэжил' },
+      osmTag: 'healthcare:speciality',
+    },
+    {
+      label: { en: 'Category', mn: 'ангилал' },
+      osmTag: 'healthcare_facility:type',
+    },
+    // { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
+    { label: { en: 'Level', mn: 'Түвшин' }, osmTag: 'hospital:level' },
+    {
+      label: { en: 'Operator type', mn: 'операторын төрөл' },
+      osmTag: 'operator:type',
+    },
+    {
+      label: { en: 'Opening hours', mn: 'ажлын цаг' },
+      osmTag: 'opening_hours',
+    },
+    { label: { en: 'Phone', mn: 'утас' }, osmTag: 'contact:phone' },
+    // { label: { en: 'Email', mn: 'имэйл' }, osmTag: 'email' },
+    {
+      label: { en: 'Wheelchair access', mn: 'тэргэнцэртэй нэвтрэх' },
+      osmTag: 'wheelchair',
+    },
+    { label: { en: 'Address', mn: 'хаяг' }, osmTag: 'addr:city' },
+    // Address concatenated in the getAddress() function
+  ],
+  pharmacies: [
+    {
+      label: {
+        en: 'Name',
+        mn: 'нэр',
+      },
+      osmTag: 'name:en',
+    },
+    {
+      label: { en: 'Name in Mongolian', mn: 'монгол хэл дээрх нэр' },
+      osmTag: 'name:mn',
+    },
+    // {
+    //   label: { en: 'Specialities', mn: 'мэргэжил' },
+    //   osmTag: 'healthcare:speciality',
+    // },
+    // {
+    //   label: { en: 'Category', mn: 'ангилал' },
+    //   osmTag: 'healthcare_facility:type',
+    // },
+    { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
+    // { label: { en: 'Level', mn: 'Түвшин' }, osmTag: 'hospital:level' },
+    // {
+    //   label: { en: 'Operator type', mn: 'операторын төрөл' },
+    //   osmTag: 'operator:type',
+    // },
+    {
+      label: { en: 'Opening hours', mn: 'ажлын цаг' },
+      osmTag: 'opening_hours',
+    },
+    { label: { en: 'Phone', mn: 'утас' }, osmTag: 'contact:phone' },
+    // { label: { en: 'Email', mn: 'имэйл' }, osmTag: 'email' },
+    {
+      label: { en: 'Wheelchair access', mn: 'тэргэнцэртэй нэвтрэх' },
+      osmTag: 'wheelchair',
+    },
+    { label: { en: 'Address', mn: 'хаяг' }, osmTag: 'addr:city' },
+    // Address concatenated in the getAddress() function
+  ],
+};
 
 const useStyles = makeStyles(theme => ({
   label: {
@@ -192,6 +236,12 @@ function ServiceDetailView({
 
   const getTagValue = (label, tag) => {
     switch (label) {
+      case 'Name':
+        return (
+          serviceDetail.properties.tags['name'] ||
+          serviceDetail.properties.tags['name:en'] ||
+          serviceDetail.properties.tags['name:mn']
+        );
       case 'Specialities':
         return getSpecialitiesChip(serviceDetail.properties.tags[tag]);
       case 'Category':
@@ -205,6 +255,8 @@ function ServiceDetailView({
         return serviceDetail.properties.tags[tag];
     }
   };
+
+  console.log('serviceDetail', serviceDetail);
 
   return (
     <React.Fragment>
@@ -355,7 +407,7 @@ function ServiceDetailView({
               <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                   <TableBody>
-                    {info.map(detail => (
+                    {info[amenityType].map(detail => (
                       <TableRow key={uid(detail)}>
                         <TableCell
                           align="left"
