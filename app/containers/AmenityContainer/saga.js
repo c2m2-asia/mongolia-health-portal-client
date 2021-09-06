@@ -100,8 +100,10 @@ function* addReview(action) {
 }
 
 function* downloadData(action) {
+  console.log('saga', action.payload);
   try {
     const response = yield call(Api.downloadData, action.payload);
+    console.log('link>>>', response);
     if (false) {
       yield put({
         type: DOWNLOAD_DATA_FAILURE,
@@ -112,7 +114,9 @@ function* downloadData(action) {
         type: DOWNLOAD_DATA_SUCCESS,
         payload: response,
       });
-      window.location.assign(`http://178.128.59.143:8080/${response.csvlink}`);
+      // window.location.assign(
+      //   `https://c2m2mongolia.klldev.org/api/v1${response.message.path}`,
+      // );
     }
   } catch (error) {
     yield put({ type: DOWNLOAD_DATA_FAILURE, errorMessage: error });

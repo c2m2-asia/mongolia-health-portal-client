@@ -117,6 +117,14 @@ const info = {
   ],
 };
 
+const osmLogoLink =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Openstreetmap_logo.svg/1200px-Openstreetmap_logo.svg.png';
+
+const facebookLogoLink =
+  'https://i.ya-webdesign.com/images/facebook-logo-png-transparent-background-5.png';
+
+const websiteGLobe = 'https://img.icons8.com/ios/452/domain.png';
+
 const useStyles = makeStyles(theme => ({
   label: {
     paddingBottom: 0,
@@ -158,13 +166,12 @@ function ServiceDetailView({
   // const [closeSnack, setCloseSnack] = React.useState(null);
   const [open, setOpen] = useState(false);
 
-  const handleShare = () => {
-    <CopyToClipboard text={window.location.href} onCopy={() => setOpen(true)}>
-      <span>Copy to clipboard with span</span>
-    </CopyToClipboard>;
-    // navigator.clipboard.writeText(window.location.href);
-    // setOpen(true);
-  };
+  // const handleShare = () => {
+  //   // eslint-disable-next-line no-unused-expressions
+  //   <CopyToClipboard text={window.location.href} onCopy={() => setOpen(true)}>
+  //     <span>Copy to clipboard with span</span>
+  //   </CopyToClipboard>;
+  // };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -273,7 +280,7 @@ function ServiceDetailView({
         <div
           style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="d-flex align-items-center justify-content-between">
             <div>
               <Typography
                 variant="h5"
@@ -321,6 +328,12 @@ function ServiceDetailView({
           <Typography variant="subtitle1" className="text-muted">
             <i>{serviceDetail.properties.tags.amenity}</i>
           </Typography>
+          <Typography variant="caption" className="text-muted">
+            <i>
+              {serviceDetail.properties.tags.description ||
+                serviceDetail.properties.tags['description:en']}
+            </i>
+          </Typography>
           <div style={{ display: 'flex', flexDirection: 'row', gap: '0.3rem' }}>
             <Rating
               readOnly
@@ -348,10 +361,7 @@ function ServiceDetailView({
                     )
                   }
                 >
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Openstreetmap_logo.svg/1200px-Openstreetmap_logo.svg.png"
-                    width="40"
-                  />
+                  <img src={osmLogoLink} width="40" alt="OSM logo" />
                 </IconButton>
               </Tooltip>
             </div>
@@ -371,31 +381,29 @@ function ServiceDetailView({
                     }
                   >
                     <img
-                      src="https://i.ya-webdesign.com/images/facebook-logo-png-transparent-background-5.png"
+                      src={facebookLogoLink}
                       width="40"
+                      alt="Facebook logo"
                     />
                   </IconButton>
                 </Tooltip>
               </div>
             )}
 
-            {serviceDetail.properties.tags['website'] && (
+            {serviceDetail.properties.tags.website && (
               <div className="pb-2 pt-1">
                 <Tooltip title="Visit website">
                   <IconButton
                     style={{ padding: '0' }}
                     onClick={() =>
-                      serviceDetail.properties.tags['website'] &&
+                      serviceDetail.properties.tags.website &&
                       window.open(
-                        serviceDetail.properties.tags['website'],
+                        serviceDetail.properties.tags.website,
                         '_blank',
                       )
                     }
                   >
-                    <img
-                      src="https://img.icons8.com/ios/452/domain.png"
-                      width="40"
-                    />
+                    <img src={websiteGLobe} width="40" alt="Website Globe" />
                   </IconButton>
                 </Tooltip>
               </div>

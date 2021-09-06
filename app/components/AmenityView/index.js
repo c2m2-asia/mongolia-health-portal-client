@@ -14,7 +14,6 @@ import ServiceDetailView from 'components/ServiceDetailView';
 import { PRIMARY_COLOR } from 'utils/constants';
 import { makeStyles } from '@material-ui/core/styles';
 import Slide from '@material-ui/core/Slide';
-
 import Loader from 'react-loader-spinner';
 import NavBar from 'containers/NavBarContainer';
 import Map from './Map';

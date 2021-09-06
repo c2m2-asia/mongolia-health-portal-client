@@ -61,7 +61,7 @@ const addReview = ({ reviewObject }) =>
   }).then(parseJSON);
 
 const downloadData = ({ amenity, filterState, location }) =>
-  fetch(`${BASE_URL}/extracts/download?type=healthServices&city=Ulaanbaatar`, {
+  fetch(`${BASE_URL}/extracts/download`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
