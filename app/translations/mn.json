@@ -69,7 +69,7 @@
   "app.components.ServiceDetailView.usingForm": "Эсвэл доорх товчийг дарж манай Google маягтыг ашиглан засвар оруулахыг санал болгож болно.",
   "app.components.ServiceDetailView.editUsingOSM": "OSM ашиглан засвар хийхийг санал болгох",
   "app.components.ServiceDetailView.editUsingForm": "Google маягтыг ашиглан засахыг санал болгох",
-  "app.components.SearchView.search": "Хайх",
+  "app.components.SearchView.search": "Хайх...",
   "app.components.SearchView.noMatchFound": "Тохирсон зүйл олдсонгүй",
   "app.components.SearchView.loading": "Ачаалж байна...",
   "app.components.ResourcesView.resources": "нөөц",

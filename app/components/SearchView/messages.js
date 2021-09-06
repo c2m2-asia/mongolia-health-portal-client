@@ -15,7 +15,7 @@ export default defineMessages({
   },
   search: {
     id: `${scope}.search`,
-    defaultMessage: 'Search',
+    defaultMessage: 'Search...',
   },
   noMatchFound: {
     id: `${scope}.noMatchFound`,
