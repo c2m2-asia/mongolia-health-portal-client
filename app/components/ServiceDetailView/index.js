@@ -8,6 +8,7 @@ import React, { useState, useEffect, memo } from 'react';
 import { uid } from 'react-uid';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
@@ -158,8 +159,11 @@ function ServiceDetailView({
   const [open, setOpen] = useState(false);
 
   const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setOpen(true);
+    <CopyToClipboard text={window.location.href} onCopy={() => setOpen(true)}>
+      <span>Copy to clipboard with span</span>
+    </CopyToClipboard>;
+    // navigator.clipboard.writeText(window.location.href);
+    // setOpen(true);
   };
 
   const handleClose = (event, reason) => {
@@ -256,8 +260,6 @@ function ServiceDetailView({
     }
   };
 
-  console.log('serviceDetail', serviceDetail);
-
   return (
     <React.Fragment>
       <div
@@ -285,9 +287,11 @@ function ServiceDetailView({
             </div>
             {
               <Tooltip title={<FormattedMessage {...messages.share} />}>
-                <IconButton color="primary" onClick={handleShare}>
-                  <ShareIcon />
-                </IconButton>
+                <CopyToClipboard text={window.location.href}>
+                  <IconButton color="primary" onClick={() => setOpen(true)}>
+                    <ShareIcon />
+                  </IconButton>
+                </CopyToClipboard>
               </Tooltip>
             }
           </div>
