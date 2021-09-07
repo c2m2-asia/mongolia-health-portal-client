@@ -22,4 +22,12 @@ export default defineMessages({
     defaultMessage:
       'Nothing to show currently. Keep checking for useful notices/resources on health services',
   },
+  facebookPosts: {
+    id: `${scope}.facebookPosts`,
+    defaultMessage: 'Facebook Posts',
+  },
+  otherResources: {
+    id: `${scope}.otherResources`,
+    defaultMessage: 'Other Resources',
+  },
 });
