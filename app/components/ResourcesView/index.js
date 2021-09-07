@@ -23,10 +23,13 @@ function ResourcesView({ fetchResources, resources }) {
 
   return (
     <NavBar>
-      <div className="container">
+      <div style={{ padding: '24px' }}>
         <Typography variant="h4" gutterBottom style={{ paddingTop: '6vh' }}>
           <FormattedMessage {...messages.resources} />
         </Typography>
+        <div className="text-muted">
+          <FormattedMessage {...messages.resourcesDesc} />
+        </div>
         {
           // resources &&
           // resources.map(resource => (
@@ -37,8 +40,41 @@ function ResourcesView({ fetchResources, resources }) {
           // ))
         }
 
-        <div className="text-muted">
-          <FormattedMessage {...messages.resourcesDesc} />
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '500px auto',
+            columnGap: '3rem',
+            marginTop: '4rem',
+          }}
+        >
+          <div style={{ width: '100%' }}>
+            <div
+              className="fb-page"
+              data-href="https://www.facebook.com/mongoliahealthportal/"
+              data-tabs="timeline"
+              data-width="500"
+              data-height="600"
+              data-small-header="false"
+              data-adapt-container-width="true"
+              data-hide-cover="false"
+              data-show-facepile="true"
+              lazy="true"
+              style={{ width: '100%', height: '100%' }}
+            >
+              <blockquote
+                cite="https://www.facebook.com/mongoliahealthportal/"
+                className="fb-xfbml-parse-ignore"
+              >
+                <a href="https://www.facebook.com/mongoliahealthportal/">
+                  Mongolia Health Portal
+                </a>
+              </blockquote>
+            </div>
+          </div>
+          <div style={{ width: '100%' }}>
+            <Typography variant="h5">Other Resources</Typography>
+          </div>
         </div>
       </div>
     </NavBar>
