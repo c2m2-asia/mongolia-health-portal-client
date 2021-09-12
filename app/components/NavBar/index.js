@@ -143,7 +143,7 @@ function NavBar({
       intro:
         locale === 'en'
           ? "Once you've selected the filters, click here to apply the filters you've selected"
-          : 'Шүүлтүүрийг сонгосны дараа энд дарж сонгосон шүүлтүүрээ ашиглана уу',
+          : 'Сонголтоо идэвхижүүлсэний дараа энд дарж хайлт хийнэ​',
     },
     {
       element: '.selector6',
@@ -273,7 +273,7 @@ function NavBar({
                 initialStep={0}
                 onExit={() => setIsTourEnabled(false)}
                 options={{
-                  nextLabel: locale === 'en' ? 'Next' : 'Дараачийн',
+                  nextLabel: locale === 'en' ? 'Next' : 'Дараах',
                   prevLabel: locale === 'en' ? 'Previous' : 'Өмнөх',
                   skipLabel: locale === 'en' ? 'Skip' : 'Алгасах',
                   doneLabel: locale === 'en' ? 'Done' : 'Дууссан',

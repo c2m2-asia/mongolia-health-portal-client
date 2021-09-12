@@ -50,7 +50,7 @@ function AddReviewDialog({
   //   checkOSMAuthentication();
   // }, []);
 
-  const placeholder = intl.formatMessage(messages.opinion) + ' ' + name;
+  const placeholder = name + ' ' + intl.formatMessage(messages.opinion);
 
   const handleClickOpen = () => {
     setOpen(true);

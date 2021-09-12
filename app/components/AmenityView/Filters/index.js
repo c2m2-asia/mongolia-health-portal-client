@@ -227,7 +227,7 @@ function Filters({
     }
     return locale === 'en'
       ? `Currently showing health services of all specialities`
-      : 'Одоо бүх мэргэжлийн эрүүл мэндийн үйлчилгээг үзүүлж байна';
+      : 'Одоогоор бүх нарийн мэргэжлийн төрлүүд харагдаж байна​';
   };
 
   const getServices = () => {
@@ -387,8 +387,12 @@ function Filters({
                                 },
                               }}
                               placeholder={`${
-                                locale === 'en' ? 'Select' : 'Сонгох'
-                              } ${filterTag.labelLocale[locale].toLowerCase()}`}
+                                locale === 'en' ? 'Select' : ''
+                              } ${filterTag.labelLocale[
+                                locale
+                              ].toLowerCase()} ${
+                                locale === 'mn' ? 'хайх' : ''
+                              }`}
                             />
                           )}
                           value={getSelectedValues(
@@ -446,7 +450,7 @@ function Filters({
                                   helperText={
                                     locale === 'en'
                                       ? 'Services are subsets of specialities. You can choose services only for selected specialities.'
-                                      : 'Үйлчилгээ нь төрөлжсөн мэргэжлийн дэд зүйлүүд юм. Та зөвхөн сонгосон мэргэжлээрээ үйлчилгээгээ сонгох боломжтой.'
+                                      : 'Нарийн мэргэжлийн үйлчилгээний төрлөөр хайх'
                                   }
                                   FormHelperTextProps={{
                                     classes: {

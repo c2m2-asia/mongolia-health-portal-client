@@ -67,8 +67,7 @@ export default function AlertDialog({ name, onEdit, serviceDetail, locale }) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          <FormattedMessage {...messages.suggestAnEdit} />{' '}
-          {locale === 'en' ? 'for' : 'нь'} {name}
+          {name} - <FormattedMessage {...messages.suggestAnEdit} />{' '}
         </DialogTitle>
         <DialogContent>
           <div>

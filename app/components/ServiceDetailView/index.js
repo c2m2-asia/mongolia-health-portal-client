@@ -70,7 +70,7 @@ const info = {
     { label: { en: 'Phone', mn: 'утас' }, osmTag: 'contact:phone' },
     // { label: { en: 'Email', mn: 'имэйл' }, osmTag: 'email' },
     {
-      label: { en: 'Wheelchair access', mn: 'тэргэнцэртэй нэвтрэх' },
+      label: { en: 'Wheelchair access', mn: 'Тэргэнцэртэй иргэнд хүртээмжтэй эсэх​' },
       osmTag: 'wheelchair',
     },
     { label: { en: 'Address', mn: 'хаяг' }, osmTag: 'addr:city' },

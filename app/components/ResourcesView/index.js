@@ -6,6 +6,7 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { uid } from 'react-uid';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NavBar from 'containers/NavBarContainer';
@@ -26,17 +27,20 @@ const opts = {
 
 const useStyles = makeStyles(theme => ({
   resources: {
-    display: 'grid',
-    placeContent: 'center',
-    gridTemplateColumns: '500px auto',
-    columnGap: '3rem',
+    display: 'flex',
+    gap: '6rem',
     marginTop: '4rem',
-    [theme.breakpoints.down('1200')]: {
-      gridTemplateColumns: 'none',
-    },
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   postsTitle: {
-    marginBottom: '3rem',
+    marginBottom: '2rem',
+  },
+  facebookCtr: {
+    width: 500,
+  },
+  otherResourcesCtr: {
+    width: 600,
   },
 }));
 
@@ -60,7 +64,7 @@ function ResourcesView({ fetchResources, resources }) {
         </div>
 
         <div className={classes.resources}>
-          <div style={{ width: '100%' }}>
+          <div className={classes.facebookCtr}>
             <Typography variant="h5" className={classes.postsTitle}>
               <FormattedMessage {...messages.facebookPosts} />
             </Typography>
@@ -69,13 +73,11 @@ function ResourcesView({ fetchResources, resources }) {
               data-href="https://www.facebook.com/mongoliahealthportal/"
               data-tabs="timeline"
               data-width="500"
-              data-height="600"
-              data-small-header="false"
+              data-height="650"
+              data-small-header="true"
               data-adapt-container-width="true"
-              data-hide-cover="false"
+              data-hide-cover="true"
               data-show-facepile="true"
-              lazy="true"
-              style={{ width: '100%', height: '100%' }}
             >
               <blockquote
                 cite="https://www.facebook.com/mongoliahealthportal/"
@@ -87,20 +89,24 @@ function ResourcesView({ fetchResources, resources }) {
               </blockquote>
             </div>
           </div>
-          <div style={{ width: '100%' }}>
+          <div className={classes.otherResourcesCtr}>
             <Typography variant="h5" className={classes.postsTitle}>
               <FormattedMessage {...messages.otherResources} />
             </Typography>
             {resources &&
               resources.map(resource => (
-                <div>
+                <div key={uid(resource)}>
                   <Typography variant="h6" gutterBottom>
                     {resource.title}
                   </Typography>
-                  <Typography variant="subtitle1" gutterBottom paragraph style={{color: '#696969'}}>
+                  <Typography
+                    variant="subtitle1"
+                    gutterBottom
+                    paragraph
+                    style={{ color: '#696969' }}
+                  >
                     {resource.description}
                   </Typography>
-
                   <YouTube videoId="yo6qUHmcVDU" />
                 </div>
               ))}
