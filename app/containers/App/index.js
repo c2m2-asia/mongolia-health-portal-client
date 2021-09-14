@@ -19,6 +19,7 @@ import AmenityContainer from 'containers/AmenityContainer';
 import EditContainer from 'containers/EditContainer';
 import EditContentContainer from 'containers/EditContentContainer';
 import ResourcesContainer from 'containers/ResourcesContainer/Loadable';
+import MobileResourcesContainer from 'containers/MobileResourcesContainer/Loadable';
 import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 import GlobalStyle from '../../global-styles';
@@ -29,6 +30,10 @@ export default function App() {
       <MessengerCustomerChat appId="723915871692886" pageId="103065175334366" />
       <Switch>
         <Route exact path="/" component={AmenityContainer} />
+        <Route
+          path="/resources/:language"
+          component={MobileResourcesContainer}
+        />
         <Route path="/:amenity/:id" component={AmenityContainer} />
         <Route exact path="/about" component={HomePage} />
         <Route exact path="/language" component={Languagetesting} />
