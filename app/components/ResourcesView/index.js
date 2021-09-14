@@ -4,33 +4,22 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { uid } from 'react-uid';
+import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import NavBar from 'containers/NavBarContainer';
-// import styled from 'styled-components';
 import YouTube from 'react-youtube';
-
-import { FormattedMessage } from 'react-intl';
+import NavBar from 'containers/NavBarContainer';
 import messages from './messages';
-
-const opts = {
-  height: '390',
-  width: '640',
-  playerVars: {
-    // https://developers.google.com/youtube/player_parameters
-    autoplay: 1,
-  },
-};
 
 const useStyles = makeStyles(theme => ({
   resources: {
     display: 'flex',
     gap: '6rem',
     marginTop: '4rem',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     flexWrap: 'wrap',
   },
   postsTitle: {
@@ -38,13 +27,19 @@ const useStyles = makeStyles(theme => ({
   },
   facebookCtr: {
     width: 500,
+    [theme.breakpoints.down(650)]: {
+      width: '100%',
+    },
   },
   otherResourcesCtr: {
-    width: 600,
+    width: 640,
+    [theme.breakpoints.down(650)]: {
+      width: '100%',
+    },
   },
 }));
 
-function ResourcesView({ fetchResources, resources }) {
+function ResourcesView({ fetchResources, resources, width }) {
   const classes = useStyles();
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,6 +47,19 @@ function ResourcesView({ fetchResources, resources }) {
     }, 500);
     return () => clearTimeout(timer);
   }, []);
+  const targetRef = useRef();
+  const facebookRef = useRef();
+
+  console.log(facebookRef.current && facebookRef.current.offsetWidth);
+
+  const opts = {
+    height: '390',
+    width: targetRef.current && targetRef.current.offsetWidth,
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+    },
+  };
 
   return (
     <NavBar>
@@ -64,7 +72,7 @@ function ResourcesView({ fetchResources, resources }) {
         </div>
 
         <div className={classes.resources}>
-          <div className={classes.facebookCtr}>
+          <div className={classes.facebookCtr} ref={facebookRef}>
             <Typography variant="h5" className={classes.postsTitle}>
               <FormattedMessage {...messages.facebookPosts} />
             </Typography>
@@ -72,7 +80,7 @@ function ResourcesView({ fetchResources, resources }) {
               className="fb-page"
               data-href="https://www.facebook.com/mongoliahealthportal/"
               data-tabs="timeline"
-              data-width="500"
+              data-width="360"
               data-height="650"
               data-small-header="true"
               data-adapt-container-width="true"
@@ -89,7 +97,7 @@ function ResourcesView({ fetchResources, resources }) {
               </blockquote>
             </div>
           </div>
-          <div className={classes.otherResourcesCtr}>
+          <div className={classes.otherResourcesCtr} ref={targetRef}>
             <Typography variant="h5" className={classes.postsTitle}>
               <FormattedMessage {...messages.otherResources} />
             </Typography>
@@ -107,7 +115,7 @@ function ResourcesView({ fetchResources, resources }) {
                   >
                     {resource.description}
                   </Typography>
-                  <YouTube videoId="yo6qUHmcVDU" />
+                  <YouTube videoId="yo6qUHmcVDU" opts={opts} />
                 </div>
               ))}
           </div>
