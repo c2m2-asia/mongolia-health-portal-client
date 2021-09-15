@@ -14,7 +14,7 @@ const osmAPIServer = {
     url: 'https://www.openstreetmap.org',
     secret: 'UiLu8PeGE5d7fccGkQZ92UJ8g840TvzRyH2diQXu',
     key: 'biw1m9v4qNgaKpBUD6zUOuJwBfWFwTY305MsRvaf',
-    landing: 'http://localhost:3000/osmauthredirect',
+    landing: 'https://c2m2mongolia-demo.surge.sh/osmauthredirect',
     auto: true,
   },
 };

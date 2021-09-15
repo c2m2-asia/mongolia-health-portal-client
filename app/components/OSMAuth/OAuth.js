@@ -6,21 +6,22 @@ const osmAPIServer = {
     secret: '5I5bax5rDd3dqGNj3jXG2dhJaRNzYu1dvlxmtx3Q',
     key: 'Ugb4VlL6v0RLVqKDsXatdILN2fZ1TppFSAQi1cq4',
     url: 'https://master.apis.dev.openstreetmap.org',
-    landing: 'http://localhost:3000/osmauthredirect',
+    landing: 'https://c2m2mongolia-demo.surge.sh/osmauthredirect',
     auto: true,
   },
-
   live: {
     url: 'https://www.openstreetmap.org',
     secret: 'UiLu8PeGE5d7fccGkQZ92UJ8g840TvzRyH2diQXu',
     key: 'biw1m9v4qNgaKpBUD6zUOuJwBfWFwTY305MsRvaf',
-    landing: 'http://localhost:3000/osmauthredirect',
-    // landing: 'http://c2m2mongolia-demo.surge.sh/osmauthredirect',
+    // landing: 'http://localhost:3000/osmauthredirect',
+    landing: 'https://c2m2mongolia-demo.surge.sh/osmauthredirect',
     auto: true,
   },
 };
 
 const currentEnvironment = osmAPIServer.live;
+
+console.log("currentEnvironment", currentEnvironment);
 
 const osmAuthConfig = {
   oauth_consumer_key: currentEnvironment.key,
