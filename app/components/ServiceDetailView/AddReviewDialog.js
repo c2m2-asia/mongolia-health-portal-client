@@ -94,6 +94,8 @@ function AddReviewDialog({
   //     });
   // };
 
+  console.log("amenityType", amenityType);
+
   return (
     <div>
       <Button
@@ -187,7 +189,7 @@ function AddReviewDialog({
               </div>
             </div>
 
-            {amenityType !== 'pharmacy' && (
+            {amenityType !== 'pharmacies' && (
               <Autocomplete
                 multiple
                 fullWidth
