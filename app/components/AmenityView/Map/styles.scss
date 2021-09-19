@@ -1,4 +1,4 @@
-$color: #696fff;
+$color: #0066B3;
 $font: 'Roboto';
 
 .leaflet-tooltip {
@@ -122,7 +122,7 @@ $font: 'Roboto';
 }
 
 .marker-cluster-small {
-  background-color: rgba(105, 111, 255, 0.3);
+  background-color: rgba(0, 102, 179, 0.3);
 }
 
 .marker-cluster > div > span {
@@ -130,21 +130,21 @@ $font: 'Roboto';
 }
 
 .marker-cluster-small div {
-  background-color: rgba(105, 111, 255, 0.6);
+  background-color: rgba(0, 102, 179, 0.6);
 }
 
 .marker-cluster-medium {
-  background-color: rgba(105, 111, 255, 0.3);
+  background-color: rgba(0, 102, 179, 0.3);
 }
 .marker-cluster-medium div {
-  background-color: rgba(105, 111, 255, 0.6);
+  background-color: rgba(0, 102, 179, 0.6);
 }
 
 .marker-cluster-large {
-  background-color: rgba(105, 111, 255, 0.3);
+  background-color: rgba(0, 102, 179, 0.3);
 }
 .marker-cluster-large div {
-  background-color: rgba(105, 111, 255, 0.6);
+  background-color: rgba(0, 102, 179, 0.6);
 }
 
 /* IE 6-8 fallback colors */
@@ -274,7 +274,7 @@ $font: 'Roboto';
 
 .Tab.Mui-selected {
   color: #fff;
-  background-color: #696fff;
+  background-color: #0066B3;
 }
 
 .makeStyles-outlinedPrimary {
