@@ -72,6 +72,28 @@ function ResourcesView({ fetchResources, resources, width }) {
         </div>
 
         <div className={classes.resources}>
+          <div className={classes.otherResourcesCtr} ref={targetRef}>
+            <Typography variant="h5" className={classes.postsTitle}>
+              <FormattedMessage {...messages.otherResources} />
+            </Typography>
+            {resources &&
+              resources.map(resource => (
+                <div key={uid(resource)}>
+                  <Typography variant="h6" gutterBottom>
+                    {resource.title}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    gutterBottom
+                    paragraph
+                    style={{ color: '#696969' }}
+                  >
+                    {resource.description}
+                  </Typography>
+                  <YouTube videoId="yo6qUHmcVDU" opts={opts} />
+                </div>
+              ))}
+          </div>
           <div className={classes.facebookCtr} ref={facebookRef}>
             <Typography variant="h5" className={classes.postsTitle}>
               <FormattedMessage {...messages.facebookPosts} />
@@ -96,28 +118,6 @@ function ResourcesView({ fetchResources, resources, width }) {
                 </a>
               </blockquote>
             </div>
-          </div>
-          <div className={classes.otherResourcesCtr} ref={targetRef}>
-            <Typography variant="h5" className={classes.postsTitle}>
-              <FormattedMessage {...messages.otherResources} />
-            </Typography>
-            {resources &&
-              resources.map(resource => (
-                <div key={uid(resource)}>
-                  <Typography variant="h6" gutterBottom>
-                    {resource.title}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    gutterBottom
-                    paragraph
-                    style={{ color: '#696969' }}
-                  >
-                    {resource.description}
-                  </Typography>
-                  <YouTube videoId="yo6qUHmcVDU" opts={opts} />
-                </div>
-              ))}
           </div>
         </div>
       </div>
