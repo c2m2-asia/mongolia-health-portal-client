@@ -215,14 +215,14 @@ class Map extends React.Component {
 
     const iconOptions = amenity => {
       return L.icon({
-        iconUrl: require(`images/${amenity}.png`), // eslint-disable-line
+        iconUrl: require(`images/${amenity}.svg`), // eslint-disable-line
         iconSize: [50, 50],
       });
     };
 
     const iconOptionsBlack = amenity => {
       return L.icon({
-        iconUrl: require(`images/${amenity}-black.png`), // eslint-disable-line
+        iconUrl: require(`images/${amenity}-black.svg`), // eslint-disable-line
         iconSize: [60, 60],
       });
     };

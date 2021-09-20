@@ -94,8 +94,6 @@ function AddReviewDialog({
   //     });
   // };
 
-  console.log("amenityType", amenityType);
-
   return (
     <div>
       <Button
