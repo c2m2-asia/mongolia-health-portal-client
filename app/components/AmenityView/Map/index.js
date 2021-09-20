@@ -215,14 +215,20 @@ class Map extends React.Component {
 
     const iconOptions = amenity => {
       return L.icon({
-        iconUrl: require(`images/${amenity}.svg`), // eslint-disable-line
+        iconUrl:
+          amenity === 'family_clinic'
+            ? require(`images/family_clinic.svg`)
+            : require(`images/${amenity}.svg`), // eslint-disable-line
         iconSize: [50, 50],
       });
     };
 
     const iconOptionsBlack = amenity => {
       return L.icon({
-        iconUrl: require(`images/${amenity}-black.svg`), // eslint-disable-line
+        iconUrl:
+          amenity === 'family_clinic'
+            ? require(`images/family_clinic-black.svg`)
+            : require(`images/${amenity}-black.svg`), // eslint-disable-line
         iconSize: [60, 60],
       });
     };
@@ -230,7 +236,12 @@ class Map extends React.Component {
     const dataLayer = L.geoJSON(null, {
       pointToLayer(feature, latlng) {
         return L.marker(latlng, {
-          icon: iconOptions(feature.properties.tags.amenity),
+          icon: iconOptions(
+            feature.properties.tags['healthcare_facility:type'] ===
+              'family_clinic'
+              ? 'family_clinic'
+              : feature.properties.tags.amenity,
+          ),
         });
       },
 
@@ -244,7 +255,14 @@ class Map extends React.Component {
           layer.feature.properties.id ===
           (selectedService && selectedService.properties.id)
         ) {
-          layer.setIcon(iconOptionsBlack(feature.properties.tags.amenity));
+          layer.setIcon(
+            iconOptionsBlack(
+              feature.properties.tags['healthcare_facility:type'] ===
+                'family_clinic'
+                ? 'family_clinic'
+                : feature.properties.tags.amenity,
+            ),
+          );
           oldLayer = layer;
           oldAmenity = feature.properties.tags.amenity;
         }
@@ -275,12 +293,23 @@ class Map extends React.Component {
           selectedServiceSet(feature);
           handleDialogOpen();
           layer.openPopup();
-          layer.setIcon(iconOptionsBlack(feature.properties.tags.amenity));
+          layer.setIcon(
+            iconOptionsBlack(
+              feature.properties.tags['healthcare_facility:type'] ===
+                'family_clinic'
+                ? 'family_clinic'
+                : feature.properties.tags.amenity,
+            ),
+          );
           if (oldLayer && oldLayer !== layer)
             oldLayer.setIcon(iconOptions(oldAmenity));
           // keep a reference to switch the icon back on the next click
           oldLayer = layer;
-          oldAmenity = feature.properties.tags.amenity;
+          oldAmenity =
+            feature.properties.tags['healthcare_facility:type'] ===
+            'family_clinic'
+              ? 'family_clinic'
+              : feature.properties.tags.amenity;
 
           const point = map.latLngToContainerPoint(layer._latlng);
           const newPoint = L.point([point.x - 10, point.y - 100]);
@@ -315,14 +344,20 @@ class Map extends React.Component {
     const { map, filtersShow, selectedServiceSet } = this;
     const iconOptions = amenity => {
       return L.icon({
-        iconUrl: require(`images/${amenity}.png`), // eslint-disable-line
+        iconUrl:
+          amenity === 'family_clinic'
+            ? require(`images/family_clinic.svg`)
+            : require(`images/${amenity}.svg`), // eslint-disable-line
         iconSize: [50, 50],
       });
     };
 
     const iconOptionsBlack = amenity => {
       return L.icon({
-        iconUrl: require(`images/${amenity}-black.png`), // eslint-disable-line
+        iconUrl:
+          amenity === 'family_clinic'
+            ? require(`images/family_clinic-black.svg`)
+            : require(`images/${amenity}-black.svg`), // eslint-disable-line
         iconSize: [60, 60],
       });
     };
@@ -335,7 +370,13 @@ class Map extends React.Component {
     ];
 
     const selectedResultMarker = L.marker(latLng, {
-      icon: iconOptions(selectedResult.geometries.properties.tags.amenity),
+      icon: iconOptions(
+        selectedResult.geometries.properties.tags[
+          'healthcare_facility:type'
+        ] === 'family_clinic'
+          ? 'family_clinic'
+          : selectedResult.geometries.properties.tags.amenity,
+      ),
     });
     selectedResultMarker.addTo(this.map);
 
@@ -344,7 +385,11 @@ class Map extends React.Component {
       selectedServiceSet(selectedResult.geometries);
       selectedResultMarker.openPopup();
       selectedResultMarker.setIcon(
-        selectedResult.geometries.properties.tags.amenity,
+        selectedResult.geometries.properties.tags[
+          'healthcare_facility:type'
+        ] === 'family_clinic'
+          ? 'family_clinic'
+          : selectedResult.geometries.properties.tags.amenity,
       );
 
       const point = map.latLngToContainerPoint(layer._latlng);
