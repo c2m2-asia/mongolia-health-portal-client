@@ -429,7 +429,6 @@ class Map extends React.Component {
   }
 
   render() {
-    console.log('amenityDetail', this.props.amenityDetail);
     return (
       <div
         className="selector6 map-container"

@@ -37,8 +37,8 @@ function LocationSelect({ setBoundary, location, locale }) {
   const [khoroo, setKhoroo] = React.useState('*');
 
   const handleProvinceChange = event => {
-    console.log('event', event.target.value);
     setProvince(event.target.value);
+    setDistrict('*');
     setBoundary({
       country: 'Mongolia',
       province: event.target.value,
@@ -46,8 +46,8 @@ function LocationSelect({ setBoundary, location, locale }) {
   };
 
   const handleDistrictChange = event => {
-    console.log('asdasd', event.target.value);
     setDistrict(event.target.value);
+    setKhoroo('*');
     event.target.value !== '*'
       ? setBoundary({
           country: 'Mongolia',
@@ -61,7 +61,6 @@ function LocationSelect({ setBoundary, location, locale }) {
   };
 
   const handleKhorooChange = event => {
-    console.log('asdasd', event);
     setKhoroo(event.target.value);
     event.target.value !== '*'
       ? setBoundary({
@@ -107,7 +106,7 @@ function LocationSelect({ setBoundary, location, locale }) {
         </Select>
       </FormControl>
 
-      {/* <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel>
           <FormattedMessage {...messages.district} />
         </InputLabel>
@@ -121,38 +120,40 @@ function LocationSelect({ setBoundary, location, locale }) {
             <FormattedMessage {...messages.all} />
           </MenuItem>
           {location[0].divisions[
-            location[0].divisions.findIndex(x => x.id === province)
+            location[0].divisions.findIndex(x => x.label.en === province)
           ].divisions.map(district => (
-            <MenuItem key={uid(district)} value={district.id}>
+            <MenuItem key={uid(district)} value={district.label.en}>
               {district.label[locale]}
             </MenuItem>
           ))}
         </Select>
-      </FormControl> */}
+      </FormControl>
 
-      {/* <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel>
-          <FormattedMessage {...messages.khoroo} />
-        </InputLabel>
-        <Select
-          disabled={district === '*'}
-          value={khoroo}
-          onChange={handleKhorooChange}
-          label={<FormattedMessage {...messages.khoroo} />}
-        >
-          <MenuItem value="*">
-            <FormattedMessage {...messages.all} />
-          </MenuItem>
-          {district !== '*' &&
-            location[0].divisions[
-              location[0].divisions.findIndex(x => x.id === province)
-            ].divisions[getIndex()].divisions.map(khoroo => (
-              <MenuItem key={uid(khoroo)} value={khoroo.id}>
-                {khoroo.label[locale] || khoroo.label}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl> */}
+      {province === 'Ulaanbaatar' && (
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel>
+            <FormattedMessage {...messages.khoroo} />
+          </InputLabel>
+          <Select
+            disabled={district === '*'}
+            value={khoroo}
+            onChange={handleKhorooChange}
+            label={<FormattedMessage {...messages.khoroo} />}
+          >
+            <MenuItem value="*">
+              <FormattedMessage {...messages.all} />
+            </MenuItem>
+            {district !== '*' &&
+              location[0].divisions[
+                location[0].divisions.findIndex(x => x.id === province)
+              ].divisions[getIndex()].divisions.map(khoroo => (
+                <MenuItem key={uid(khoroo)} value={khoroo.id}>
+                  {khoroo.label[locale] || khoroo.label}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+      )}
     </React.Fragment>
   );
 }
