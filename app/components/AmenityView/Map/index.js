@@ -119,13 +119,13 @@ class Map extends React.Component {
       //eslint-disable-line
       zoomSnap: 0.25,
       attributionControl: false,
-      maxBounds: L.geoJSON(data)
-        .getBounds()
-        .pad(0.4),
-      minZoom: 9,
+      // maxBounds: L.geoJSON(data)
+      //   .getBounds()
+      //   .pad(0.4),
+      minZoom: 5,
       // maxZoom: 14,
       // scrollWheelZoom: false,oo
-      zoomControl: false,
+      // zoomControl: false,
       layers: [layer2],
     });
     this.map = map;
@@ -152,7 +152,7 @@ class Map extends React.Component {
 
     // L.control.scale().addTo(map);
 
-    map.addControl(L.control.zoom({ position: 'topleft' }));
+    // map.addControl(L.control.zoom({ position: 'topleft' }));
 
     if (this.props.amenityDetail.geometries.features.length > 0) {
       L.easyButton(
@@ -176,11 +176,18 @@ class Map extends React.Component {
     //eslint-disable-line
     // this.clearHighlightLayers(this.map);
 
+    // White overlay over selected location
     const baseLayer = L.TileLayer.boundaryCanvas(osmURL, {
       boundary: data,
     });
 
     baseLayer.addTo(this.map);
+
+    // this.map.setMaxBounds(
+    //   L.geoJSON(data)
+    //     .getBounds()
+    //     .pad(0.4),
+    // );
 
     baseLayer.name = 'overlay';
     this.map.fitBounds(L.geoJson(data).getBounds());
@@ -422,6 +429,7 @@ class Map extends React.Component {
   }
 
   render() {
+    console.log('amenityDetail', this.props.amenityDetail);
     return (
       <div
         className="selector6 map-container"

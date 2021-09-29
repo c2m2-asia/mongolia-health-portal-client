@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /**
  *
  * LocationSelect
@@ -29,56 +30,59 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function LocationSelect({
-  amenityType,
-  filterState,
-  getAmenityDetail,
-  setBoundary,
-  location,
-  locale,
-}) {
+function LocationSelect({ setBoundary, location, locale }) {
   const classes = useStyles();
   const [province, setProvince] = React.useState('Ulaanbaatar');
   const [district, setDistrict] = React.useState('*');
   const [khoroo, setKhoroo] = React.useState('*');
 
   const handleProvinceChange = event => {
+    console.log('event', event.target.value);
     setProvince(event.target.value);
     setBoundary({
-      city: event.target.value,
+      country: 'Mongolia',
+      province: event.target.value,
     });
   };
 
   const handleDistrictChange = event => {
+    console.log('asdasd', event.target.value);
     setDistrict(event.target.value);
     event.target.value !== '*'
       ? setBoundary({
-          city: province,
+          country: 'Mongolia',
+          province: province,
           district: event.target.value,
         })
       : setBoundary({
-          city: province,
+          country: 'Mongolia',
+          province: province,
         });
   };
 
   const handleKhorooChange = event => {
+    console.log('asdasd', event);
     setKhoroo(event.target.value);
     event.target.value !== '*'
       ? setBoundary({
-          city: province,
+          country: 'Mongolia',
+          province: province,
           district,
           khoroo: event.target.value,
         })
       : setBoundary({
-          city: province,
+          country: 'Mongolia',
+          province: province,
           district,
         });
   };
 
   const getIndex = () =>
-    location[location.findIndex(x => x.id === province)].divisions.findIndex(
-      y => y.id === district,
-    );
+    location[0].divisions[
+      location[0].divisions.findIndex(x => x.label.en === province)
+    ].divisions.findIndex(y => y.id === district);
+
+  console.log('location', location);
 
   return (
     <React.Fragment>
@@ -86,7 +90,7 @@ function LocationSelect({
         variant="outlined"
         className={clsx(classes.formControl, 'selector3')}
       >
-        <InputLabel id="demo-simple-select-outlined-label">
+        <InputLabel>
           <FormattedMessage {...messages.province} />
         </InputLabel>
 
@@ -95,15 +99,16 @@ function LocationSelect({
           onChange={handleProvinceChange}
           label={<FormattedMessage {...messages.province} />}
         >
-          {location.map(province => (
-            <MenuItem key={uid(province)} value={province.id}>
+          {location[0].divisions.map(province => (
+            <MenuItem key={uid(province)} value={province.label.en}>
               {province.label[locale] || province.label}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">
+
+      {/* <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel>
           <FormattedMessage {...messages.district} />
         </InputLabel>
         <Select
@@ -115,17 +120,18 @@ function LocationSelect({
           <MenuItem value="*">
             <FormattedMessage {...messages.all} />
           </MenuItem>
-          {location[location.findIndex(x => x.id === province)].divisions.map(
-            district => (
-              <MenuItem key={uid(district)} value={district.id}>
-                {district.label[locale]}
-              </MenuItem>
-            ),
-          )}
+          {location[0].divisions[
+            location[0].divisions.findIndex(x => x.id === province)
+          ].divisions.map(district => (
+            <MenuItem key={uid(district)} value={district.id}>
+              {district.label[locale]}
+            </MenuItem>
+          ))}
         </Select>
-      </FormControl>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">
+      </FormControl> */}
+
+      {/* <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel>
           <FormattedMessage {...messages.khoroo} />
         </InputLabel>
         <Select
@@ -138,15 +144,15 @@ function LocationSelect({
             <FormattedMessage {...messages.all} />
           </MenuItem>
           {district !== '*' &&
-            location[location.findIndex(x => x.id === province)].divisions[
-              getIndex()
-            ].divisions.map(khoroo => (
+            location[0].divisions[
+              location[0].divisions.findIndex(x => x.id === province)
+            ].divisions[getIndex()].divisions.map(khoroo => (
               <MenuItem key={uid(khoroo)} value={khoroo.id}>
                 {khoroo.label[locale] || khoroo.label}
               </MenuItem>
             ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
     </React.Fragment>
   );
 }

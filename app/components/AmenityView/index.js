@@ -71,7 +71,10 @@ function AmenityView({
   const [isShowFilter, setIsShowFilter] = useState(true);
   const [selectedService, setSelectedService] = useState(null);
   const [filterState, setFilterState] = useState([]);
-  const [location, setLocation] = useState({ city: 'Ulaanbaatar' });
+  const [location, setLocation] = useState({
+    country: 'Mongolia',
+    province: 'Ulaanbaatar',
+  });
   const [amenityType, setAmenityType] = useState(
     pathLocation.pathname.split('/')[1] || 'healthServices',
   );

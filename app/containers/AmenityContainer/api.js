@@ -9,7 +9,7 @@ import { parseJSON } from 'utils/apiHelpers';
 
 const getAmenityDetail = ({ amenity, filterState, location }) => {
   if (filterState.length > 0) {
-    return fetch(`${BASE_URL}/features`, {
+    return fetch(`https://c2m2mongolia.klldev.org/api/v2/features`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const getAmenityDetail = ({ amenity, filterState, location }) => {
       }),
     }).then(parseJSON);
   }
-  return fetch(`${BASE_URL}/features`, {
+  return fetch(`https://c2m2mongolia.klldev.org/api/v2/features`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const downloadData = ({ amenity, filterState, location }) =>
   }).then(parseJSON);
 
 const fetchLocation = () =>
-  fetch(`${BASE_URL}/location`, {
+  fetch(`https://c2m2mongolia.klldev.org/api/v2/location`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
