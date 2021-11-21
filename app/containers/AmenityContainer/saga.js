@@ -104,7 +104,7 @@ function* downloadData(action) {
   try {
     const response = yield call(Api.downloadData, action.payload);
     console.log('link>>>', response);
-    if (false) {
+    if (response.status !== 200) {
       yield put({
         type: DOWNLOAD_DATA_FAILURE,
         errorMessage: response.message,
@@ -114,9 +114,9 @@ function* downloadData(action) {
         type: DOWNLOAD_DATA_SUCCESS,
         payload: response,
       });
-      // window.location.assign(
-      //   `https://c2m2mongolia.klldev.org/api/v1${response.message.path}`,
-      // );
+      window.location.assign(
+        `https://c2m2mongolia.klldev.org/api/v1/${response.csvlink}`,
+      );
     }
   } catch (error) {
     yield put({ type: DOWNLOAD_DATA_FAILURE, errorMessage: error });

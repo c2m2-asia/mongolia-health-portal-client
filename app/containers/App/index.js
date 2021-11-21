@@ -27,7 +27,7 @@ import GlobalStyle from '../../global-styles';
 export default function App() {
   return (
     <Fragment>
-      <MessengerCustomerChat appId="723915871692886" pageId="103065175334366" />
+      <MessengerCustomerChat appId="723915871692886" pageId="823414057691703" />
       <Switch>
         <Route exact path="/" component={AmenityContainer} />
         <Route

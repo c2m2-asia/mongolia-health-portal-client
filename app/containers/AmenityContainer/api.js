@@ -61,7 +61,7 @@ const addReview = ({ reviewObject }) =>
   }).then(parseJSON);
 
 const downloadData = ({ amenity, filterState, location }) =>
-  fetch(`${BASE_URL}/extracts/download`, {
+  fetch(`https://c2m2mongolia.klldev.org/api/v2/extracts/download`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
