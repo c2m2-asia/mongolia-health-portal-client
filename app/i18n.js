@@ -17,7 +17,7 @@ const mnTranslationMessages = require('./translations/mn.json');
 addLocaleData(enLocaleData);
 addLocaleData(mnLocaleData);
 
-const DEFAULT_LOCALE = 'en';
+const DEFAULT_LOCALE = 'mn';
 
 // prettier-ignore
 const appLocales = [
