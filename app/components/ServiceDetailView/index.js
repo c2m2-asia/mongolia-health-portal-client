@@ -40,8 +40,8 @@ const info = {
   healthServices: [
     {
       label: {
-        en: 'Name',
-        mn: 'нэр',
+        en: 'Name in English',
+        mn: 'Нэр англиар',
       },
       osmTag: 'name',
     },
@@ -79,10 +79,10 @@ const info = {
   pharmacies: [
     {
       label: {
-        en: 'Name',
-        mn: 'нэр',
+        en: 'Name in English',
+        mn: 'Нэр англиар',
       },
-      osmTag: 'name:en',
+      osmTag: 'name',
     },
     {
       label: { en: 'Name in Mongolian', mn: 'монгол хэл дээрх нэр' },
@@ -289,7 +289,7 @@ function ServiceDetailView({
                 {locale === 'en'
                   ? serviceDetail.properties.tags.name
                   : serviceDetail.properties.tags['name:mn'] ||
-                    serviceDetail.properties.tags.name}
+                  serviceDetail.properties.tags.name}
               </Typography>
             </div>
             {
@@ -354,8 +354,7 @@ function ServiceDetailView({
                   style={{ padding: '0' }}
                   onClick={() =>
                     window.open(
-                      `https://www.openstreetmap.org/${
-                        serviceDetail.properties.type
+                      `https://www.openstreetmap.org/${serviceDetail.properties.type
                       }/${serviceDetail.properties.id}`,
                       '_blank',
                     )
@@ -444,7 +443,7 @@ function ServiceDetailView({
                   locale === 'en'
                     ? serviceDetail.properties.tags.name
                     : serviceDetail.properties.tags['name:mn'] ||
-                      serviceDetail.properties.tags.name
+                    serviceDetail.properties.tags.name
                 }
                 onEdit={onEdit}
                 serviceDetail={serviceDetail}
