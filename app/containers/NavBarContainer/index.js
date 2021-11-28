@@ -27,6 +27,8 @@ export function NavBarContainer({
   isHowToUseShown,
   hideIcon,
   children,
+  setIsShowFilter,
+  isShowFilter,
 }) {
   useInjectReducer({ key: 'navBar}Container', reducer });
   useInjectSaga({ key: 'navBarContainer', saga });
@@ -37,6 +39,8 @@ export function NavBarContainer({
       onLocaleToggle={onLocaleToggle}
       isHowToUseShown={isHowToUseShown}
       hideIcon={hideIcon}
+      setIsShowFilter={setIsShowFilter}
+      isShowFilter={isShowFilter}
     >
       {children}
     </NavBar>

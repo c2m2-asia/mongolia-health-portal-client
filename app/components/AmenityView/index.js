@@ -206,7 +206,7 @@ function AmenityView({
   };
 
   return (
-    <NavBar isHowToUseShown>
+    <NavBar isHowToUseShown setIsShowFilter={setIsShowFilter} isShowFilter={isShowFilter}>
       <Fragment>
         {amenityDetail && locations && tags && (
           <Hidden smDown>

@@ -94,6 +94,8 @@ function NavBar({
   isHowToUseShown,
   hideIcon,
   children,
+  setIsShowFilter,
+  isShowFilter
 }) {
   const classes = useStyles();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -191,7 +193,7 @@ function NavBar({
               // <FormattedMessage {...messages.projectTitle} />
             }
             <Link to="/">
-              <img src={logo} height="50" alt="Mongolia health portal logo" />
+              <img src={logo} height="50" alt="Mongolia health portal logo" onClick={() => setIsShowFilter(true)} />
             </Link>
           </Typography>
 

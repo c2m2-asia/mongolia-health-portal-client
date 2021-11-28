@@ -386,13 +386,11 @@ function Filters({
                                   root: classes.helperText,
                                 },
                               }}
-                              placeholder={`${
-                                locale === 'en' ? 'Select' : ''
-                              } ${filterTag.labelLocale[
-                                locale
-                              ].toLowerCase()} ${
-                                locale === 'mn' ? 'хайх' : ''
-                              }`}
+                              placeholder={`${locale === 'en' ? 'Select' : ''
+                                } ${filterTag.labelLocale[
+                                  locale
+                                ].toLowerCase()} ${locale === 'mn' ? 'хайх' : ''
+                                }`}
                             />
                           )}
                           value={getSelectedValues(
@@ -515,7 +513,7 @@ function Filters({
                     )}
                     {filterTag.type === 'switch' && (
                       <React.Fragment>
-                        <FormControlLabel
+                        {/* <FormControlLabel
                           style={{
                             marginLeft: '0px',
                             padding: '3px 18px 3px 3px',
@@ -547,36 +545,32 @@ function Filters({
                             />
                           }
                           label={<FormattedMessage {...messages.any} />}
-                        />
+                        /> */}
                         <FormControlLabel
                           style={{
                             marginLeft: '0px',
                             padding: '3px 18px 3px 3px',
-                            border: `1px solid ${
-                              filterState.find(
-                                a => a.osmTag === filterTag.osm_tag,
-                              )
+                            border: `1px solid ${filterState.find(
+                              a => a.osmTag === filterTag.osm_tag,
+                            )
                                 ? PRIMARY_COLOR
                                 : '#dedede'
-                            }`,
+                              }`,
                             borderRadius: '6px',
                           }}
                           value="female"
                           control={
-                            <StyledRadio
+                            <Checkbox
+                              checked={filterState.find(
+                                a => a.osmTag === filterTag.osm_tag,
+                              ) || false}
+                              onChange={e => onFilterChange(
+                                e.target.name,
+                                filterTag.selectors[0].osm_value,
+                                filterTag.type,
+                              )}
                               name={filterTag.osm_tag}
-                              checked={
-                                filterState.find(
-                                  a => a.osmTag === filterTag.osm_tag,
-                                ) || false
-                              }
-                              onChange={e =>
-                                onFilterChange(
-                                  e.target.name,
-                                  filterTag.selectors[0].osm_value,
-                                  filterTag.type,
-                                )
-                              }
+                              color="primary"
                             />
                           }
                           label={filterTag.selectors[0].labelLocale[locale]}

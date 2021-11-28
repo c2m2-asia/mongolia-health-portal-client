@@ -53,12 +53,12 @@ const info = {
       label: { en: 'Specialities', mn: 'мэргэжил' },
       osmTag: 'healthcare:speciality',
     },
-    {
-      label: { en: 'Category', mn: 'ангилал' },
-      osmTag: 'healthcare_facility:type',
-    },
+    // {
+    //   label: { en: 'Category', mn: 'ангилал' },
+    //   osmTag: 'healthcare_facility:type',
+    // },
     // { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
-    { label: { en: 'Level', mn: 'Түвшин' }, osmTag: 'hospital:level' },
+    // { label: { en: 'Level', mn: 'шатлал' }, osmTag: 'hospital:level' },
     {
       label: { en: 'Operator type', mn: 'операторын төрөл' },
       osmTag: 'operator:type',
