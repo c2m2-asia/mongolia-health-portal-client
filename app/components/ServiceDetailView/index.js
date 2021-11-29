@@ -64,7 +64,7 @@ const info = {
       osmTag: 'operator:type',
     },
     {
-      label: { en: 'Opening hours', mn: 'ажлын цаг' },
+      label: { en: 'Opening hours', mn: 'Ажиллах цагийн хуваарь' },
       osmTag: 'opening_hours',
     },
     { label: { en: 'Phone', mn: 'утас' }, osmTag: 'contact:phone' },
@@ -103,7 +103,7 @@ const info = {
     //   osmTag: 'operator:type',
     // },
     {
-      label: { en: 'Opening hours', mn: 'ажлын цаг' },
+      label: { en: 'Opening hours', mn: 'Ажиллах цагийн хуваарь' },
       osmTag: 'opening_hours',
     },
     { label: { en: 'Phone', mn: 'утас' }, osmTag: 'contact:phone' },
@@ -254,7 +254,26 @@ function ServiceDetailView({
           serviceDetail.properties.tags['name:mn']
         );
       case 'Specialities':
-        return getSpecialitiesChip(serviceDetail.properties.tags[tag]);
+        // eslint-disable-next-line no-case-declarations
+        const accumulatedValueMn = [
+          serviceDetail.properties.tags['healthcare:speciality:mn'],
+          serviceDetail.properties.tags['healthcare:speciality1:mn'],
+          serviceDetail.properties.tags['healthcare:speciality2:mn'],
+          serviceDetail.properties.tags['healthcare:speciality3:mn'],
+          serviceDetail.properties.tags['healthcare:speciality4:mn'],
+        ]
+          .filter(Boolean)
+          .join(';');
+        const accumulatedValue = [
+          serviceDetail.properties.tags['healthcare:speciality'],
+          serviceDetail.properties.tags['healthcare:speciality1'],
+          serviceDetail.properties.tags['healthcare:speciality2'],
+          serviceDetail.properties.tags['healthcare:speciality3'],
+          serviceDetail.properties.tags['healthcare:speciality4'],
+        ]
+          .filter(Boolean)
+          .join(';');
+        return getSpecialitiesChip(locale === 'mn' ? accumulatedValueMn : accumulatedValue);
       case 'Category':
         return (
           serviceDetail.properties.tags[tag] &&
