@@ -50,7 +50,7 @@ const info = {
       osmTag: 'name:mn',
     },
     {
-      label: { en: 'Specialities', mn: 'мэргэжил' },
+      label: { en: 'Specialities', mn: 'мэргэшил' },
       osmTag: 'healthcare:speciality',
     },
     // {
@@ -60,7 +60,7 @@ const info = {
     // { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
     // { label: { en: 'Level', mn: 'шатлал' }, osmTag: 'hospital:level' },
     {
-      label: { en: 'Operator type', mn: 'операторын төрөл' },
+      label: { en: 'Operator type', mn: 'өмчийн хэлбэр' },
       osmTag: 'operator:type',
     },
     {
