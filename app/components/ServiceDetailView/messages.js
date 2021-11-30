@@ -59,7 +59,7 @@ export default defineMessages({
     defaultMessage: 'What service did you get?',
   },
   cancel: {
-    id: `${scope}.whatService`,
+    id: `${scope}.cancel`,
     defaultMessage: 'Cancel',
   },
   submit: {

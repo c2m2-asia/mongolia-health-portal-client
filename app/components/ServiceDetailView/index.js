@@ -60,10 +60,6 @@ const info = {
     // { label: { en: 'Operator', mn: 'оператор' }, osmTag: 'operator' },
     // { label: { en: 'Level', mn: 'шатлал' }, osmTag: 'hospital:level' },
     {
-      label: { en: 'Operator type', mn: 'өмчийн хэлбэр' },
-      osmTag: 'operator:type',
-    },
-    {
       label: { en: 'Opening hours', mn: 'Ажиллах цагийн хуваарь' },
       osmTag: 'opening_hours',
     },
